@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class welcomePageController {
+public class WelcomePageController {
     private Stage stage;
     private Scene scene;
     private Parent root;

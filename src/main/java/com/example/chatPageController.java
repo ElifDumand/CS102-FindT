@@ -4,6 +4,16 @@ import java.util.Stack;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
 import org.w3c.dom.events.MouseEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Ellipse;
+import javafx.stage.Stage;
 
 public class chatPageController{
     @FXML

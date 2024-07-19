@@ -1,4 +1,6 @@
+package com.example;
 import java.sql.*;
+
 
 public abstract class User {
 

@@ -1,4 +1,7 @@
 package com.example;
+import java.io.IOException;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -48,6 +51,45 @@ public class StudentMenuController {
 
     @FXML
     private Text usernameText;
+
+    @FXML
+    public void initialize()
+    {
+        chatStudent.setOnAction(event -> {
+            try {
+                handleChatStudentButton(event);
+            } catch (IOException e) {
+                e.printStackTrace(); // Handle or log the exception as needed
+            }
+        });
+
+        settingsStudent.setOnAction(event -> {
+            try {
+                handleSettingsStudentButton(event);
+            } catch (IOException e) {
+                e.printStackTrace(); // Handle or log the exception as needed
+            }
+        });
+
+    }
+
+    @FXML
+    private void handleChatStudentButton(ActionEvent event) throws IOException
+    {
+        App.setRoot("listOfChats");
+
+    }
+
+    @FXML
+    private void handleSettingsStudentButton(ActionEvent event) throws IOException
+    {
+        App.setRoot("settings");
+
+    }
+
+
+
+
 
 }
 

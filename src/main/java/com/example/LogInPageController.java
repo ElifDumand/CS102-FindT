@@ -1,43 +1,31 @@
 package com.example;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 public class LogInPageController {
-    @FXML
-    private Circle LogInCircle2S;
 
     @FXML
-    private Circle logInCircle1S;
+    private Button LogInButtonStudent;
 
     @FXML
-    private Circle logInCircle1T;
-
-    @FXML
-    private Circle logInCircle2T;
-
-    @FXML
-    private Rectangle studentLogIn;
+    private Button LogInButtonTutor;
 
     @FXML
     private TextField studentPassword;
 
     @FXML
-    private Text studentSıgnIn;
+    private Text studentSignInText;
 
     @FXML
     private TextField studentUsername;
 
     @FXML
-    private Rectangle tutorLogIn;
-
-    @FXML
     private TextField tutorPassword;
 
     @FXML
-    private Text tutorSıgnIn;
+    private Text tutorSignInText;
 
     @FXML
     private TextField tutorUsername;

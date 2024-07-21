@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.ResourceBundle;
 public class Student extends User {
 
@@ -15,6 +16,10 @@ public class Student extends User {
     @Override
     public String getAccountType() {
         return "Student";
+    }
+
+    public List<Timeslot> getTimeslots() throws SQLException {
+        return Timeslot.getTimeslotsByStudent(this.getId());
     }
 
     public static Student getById(int studentid) throws SQLException {

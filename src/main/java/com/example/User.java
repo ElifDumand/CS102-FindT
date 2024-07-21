@@ -1,5 +1,6 @@
 package com.example;
 import java.sql.*;
+import java.util.List;
 
 
 public abstract class User {
@@ -9,6 +10,7 @@ public abstract class User {
     protected String email;
     protected String password;
     protected String biography;
+    protected String userType;
 
     private static User currentUser;
     public static User profileUser;
@@ -24,6 +26,14 @@ public abstract class User {
     // Getters and setters
     public static User getCurrentUser() {
         return currentUser;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public static void setCurrentUser(User currentUser) {
@@ -117,5 +127,38 @@ public abstract class User {
 
     public static boolean isPasswordConfirmed(String enterPassword, String confirmPassword) {
         return enterPassword.equals(confirmPassword);
+    }
+
+     public void createTimeslot(String timeslotTime) throws SQLException {
+        if ("tutor".equals(userType)) {
+            Timeslot.createTimeslot(this.id, timeslotTime);
+        } else {
+            throw new SQLException("Only tutors can create timeslots");
+        }
+    }
+
+    public void assignStudentToTimeslot(int timeslotId, int studentId) throws SQLException {
+        if ("tutor".equals(userType)) {
+            Timeslot.assignStudentToTimeslot(timeslotId, studentId);
+        } else {
+            throw new SQLException("Only tutors can assign students to timeslots");
+        }
+    }
+
+    public List<Timeslot> getSchedule() throws SQLException {
+        if ("tutor".equals(userType)) {
+            return Timeslot.getTimeslotsByTutor(this.id);
+        } else {
+            throw new SQLException("Only tutors can view their schedule");
+        }
+    }
+
+    // Methods for viewing timeslots as a student
+    public List<Timeslot> getTimeslots() throws SQLException {
+        if ("student".equals(userType)) {
+            return Timeslot.getTimeslotsByStudent(this.id);
+        } else {
+            throw new SQLException("Only students can view their timeslots");
+        }
     }
 }

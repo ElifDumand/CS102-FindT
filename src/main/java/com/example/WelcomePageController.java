@@ -46,7 +46,7 @@ public class WelcomePageController {
         if (/* condition to check if the user is a student */) {
             user = Student.signUp(username, password, email, biography);
         } else {
-            user = Teacher.signUp(username, password, email, biography);
+            user = Tutor.signUp(username, password, email, biography);
         }
         if (user != null) {
             User.setCurrentUser(user);

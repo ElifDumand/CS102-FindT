@@ -5,19 +5,47 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Teacher extends User {
+public class Tutor extends User {
+    private List<Timeslot> schedule;
 
-    public Teacher(int id, String username, String password, String email, String biography) {
+    public Tutor(int id, String username, String password, String email, String biography) {
         super(id, username, password, email, biography);
+        this.schedule = new ArrayList<>();
     }
 
     @Override
     public String getAccountType() {
-        return "Teacher";
+        return "tutor";
     }
 
-    public static Teacher getById(int tutorid) throws SQLException {
+
+    public List<Timeslot> getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(List<Timeslot> schedule) {
+        this.schedule = schedule;
+    }
+
+    // Method to create a timeslot
+    public void createTimeslot(String timeslotTime) throws SQLException {
+        Timeslot.createTimeslot(this.getId(), timeslotTime);
+    }
+
+    // Method to assign a student to a timeslot
+    public void assignStudentToTimeslot(int timeslotId, int studentId) throws SQLException {
+        Timeslot.assignStudentToTimeslot(timeslotId, studentId);
+    }
+
+    // Method to load schedule from database
+    public void loadSchedule() throws SQLException {
+        this.schedule = Timeslot.getTimeslotsByTutor(this.getId());
+    }
+
+    public static Tutor getById(int tutorid) throws SQLException {
         Connection connection = Main.connect();
         String query = "SELECT * FROM tutor WHERE tutorid = ?";
         PreparedStatement stat = connection.prepareStatement(query);
@@ -30,14 +58,14 @@ public class Teacher extends User {
             String biography = r.getString("biography");
             stat.close();
             connection.close();
-            return new Teacher(tutorid, username, password, email, biography);
+            return new Tutor(tutorid, username, password, email, biography);
         }
         stat.close();
         connection.close();
         return null;
     }
 
-    public static Teacher signUp(String username, String password, String email, String biography) throws SQLException {
+    public static Tutor signUp(String username, String password, String email, String biography) throws SQLException {
         Connection connection = DriverManager.getConnection(Main.getMySqlUrl(), Main.getMySqlUsername(), Main.getMySqlPassword());
         Statement idStatement = connection.createStatement();
         ResultSet r = idStatement.executeQuery("SELECT tutorid FROM tutor ORDER BY tutorid DESC");
@@ -78,9 +106,9 @@ public class Teacher extends User {
         return true;
     }
 
-    public static Teacher addTeacher(int tutorid, String username, String password, String email, String biography) throws SQLException {
+    public static Tutor addTeacher(int tutorid, String username, String password, String email, String biography) throws SQLException {
         Connection connection = DriverManager.getConnection(Main.getMySqlUrl(), Main.getMySqlUsername(), Main.getMySqlPassword());
-        Teacher teacher = new Teacher(tutorid, username, password, email, biography);
+        Tutor teacher = new Tutor(tutorid, username, password, email, biography);
         String query = "INSERT INTO tutor VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setInt(1, teacher.getId());

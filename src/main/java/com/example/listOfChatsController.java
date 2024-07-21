@@ -3,9 +3,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.events.MouseEvent;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class listOfChatsController {
     @FXML
@@ -17,18 +21,18 @@ public class listOfChatsController {
     @FXML
     private VBox chatVBox;
 
-    // I didn't really unesrfstand the logic of this back button cause how do know whether we're on tutor or student team, 
-        // probably an if statemet will do the job instead of trying to control two seperate methods 
-    public void goStudentMenuPage(MouseEvent event) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("studentMenu.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
+    private Stage stage;
+    private Scene scene;
 
-    public void goTutorMenuPage(MouseEvent event) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("TutorMenu.fxml"));
+    public void goToMenuPage(MouseEvent event) throws Exception{
+        User currentUser = User.getCurrentUser();
+        Parent root;
+        if(currentUser.getAccountType().equals("Teacher")){
+            root = FXMLLoader.load(getClass().getResource("TutorMenu.fxml"));
+        }
+        else{
+            root = FXMLLoader.load(getClass().getResource("studentMenu.java"));
+        }
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

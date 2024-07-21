@@ -7,7 +7,7 @@ public class Main {
 	
 	private static String mySqlUrl = "jdbc:mysql://localhost:3306/findTdatabase";
 	private static String mySqlUsername = "root";
-	private static String mySqlPassword = "root1root";
+	private static String mySqlPassword = "Ankara2005*";
 	
 	private static User currentUser;
 	

@@ -161,4 +161,8 @@ public abstract class User {
             throw new SQLException("Only students can view their timeslots");
         }
     }
+
+    public void logOut(){
+        setCurrentUser(null);
+    }
 }

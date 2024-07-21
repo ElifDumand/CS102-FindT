@@ -44,7 +44,7 @@ public class chatPageController{
     private Scene scene;
 
 
-    public void goStudentMenuPage(MouseEvent event) throws Exception{
+    public void goToListOfPage(MouseEvent event) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("listOfChats.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);

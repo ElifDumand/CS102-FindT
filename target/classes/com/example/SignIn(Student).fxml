@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.SignInStudentController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebdbff" height="406.0" layoutX="-6.0" layoutY="-1.0" stroke="#ebdbff" strokeType="INSIDE" width="609.0" />
       <Button fx:id="BackToLogInStudent" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Back" />
@@ -55,11 +55,8 @@
             <Font name="Times New Roman" size="10.0" />
          </font>
       </Text>
-      <Rectangle fx:id="StudentCreateProfileRect" arcHeight="5.0" arcWidth="5.0" fill="#493175" height="26.0" layoutX="452.0" layoutY="347.0" stroke="#493175" strokeType="INSIDE" width="115.0" />
-      <Circle fx:id="StudentCreateProfileCL" fill="#493175" layoutX="452.0" layoutY="360.0" radius="13.0" stroke="#493175" strokeType="INSIDE" />
-      <Circle fx:id="StudentCreateProfileCR" fill="#493175" layoutX="567.0" layoutY="360.0" radius="13.0" stroke="#493175" strokeType="INSIDE" />
-      <Text fx:id="StudentCreateProfile" fill="WHITE" layoutX="469.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Profile" />
       <Ellipse fill="#ebdbff" layoutX="300.0" layoutY="174.0" radiusX="49.0" radiusY="27.0" stroke="#ebdbff" strokeType="INSIDE" />
       <Circle fill="#ebdbff" layoutX="300.0" layoutY="129.0" radius="18.5" stroke="#ebdbff" strokeType="INSIDE" />
+      <Button fx:id="createProfileButton" layoutX="439.0" layoutY="354.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="134.0" style="-fx-background-radius: 20; -fx-background-color: #493175;" text="Create profile" textFill="#ebdbff" />
    </children>
 </AnchorPane>

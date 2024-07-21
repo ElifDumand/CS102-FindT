@@ -1,4 +1,7 @@
 package com.example;
+import java.io.IOException;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.shape.Circle;
@@ -192,5 +195,55 @@ public class TutorMenuController {
 
     @FXML
     private Rectangle wed9;
+
+    public TutorMenuController()
+    {
+
+    }
+
+    @FXML
+    public void initialize()
+    {
+        chatButtonTutor.setOnAction(event -> {
+            try {
+                handleChatButtonTutor(event);
+            } catch (IOException e) {
+                e.printStackTrace(); 
+            }
+        });
+
+        SettingsButtonTutor.setOnAction(event -> {
+            try {
+                handleSettingsButtonTutor(event);
+            } catch (IOException e) {
+                e.printStackTrace(); 
+            }
+        });
+
+        addButton.setOnAction(event -> {
+            try {
+                handleAddButton(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+    }
+
+    public void handleChatButtonTutor(ActionEvent event) throws IOException
+    {
+        App.setRoot("listOfChats");
+    }
+
+    public void handleSettingsButtonTutor(ActionEvent event) throws IOException
+    {
+        App.setRoot("settings");
+    }
+
+    public void handleAddButton(ActionEvent event) throws IOException
+    {
+        //App.setRoot(""); // WILL DO THIS WHEN THE PAGE IS READY
+    }
+
 
 }

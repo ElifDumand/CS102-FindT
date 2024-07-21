@@ -26,6 +26,7 @@ public class welcomePage extends Application {
         launch(args);
 
     }
+    
     public static void showInvalidLoginError() {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Error");

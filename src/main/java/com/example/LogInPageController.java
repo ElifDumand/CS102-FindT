@@ -79,7 +79,7 @@ public class LogInPageController {
     @FXML
     private void handleLogInButtonStudent(ActionEvent event) throws IOException
     {
-        App.setRoot("studentMenu");
+        App.setRoot("studentTemp");
     }
 
     @FXML

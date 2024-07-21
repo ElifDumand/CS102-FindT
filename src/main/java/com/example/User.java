@@ -83,6 +83,10 @@ public abstract class User {
     // Method to get the account type
     public abstract String getAccountType();
 
+    public static void logOut(){
+        setCurrentUser(null);
+    }
+
     public static boolean isValidEmail(String email) {
         if (email.lastIndexOf('@') == -1 || email.lastIndexOf('.') == -1) {
             return false;
@@ -162,7 +166,4 @@ public abstract class User {
         }
     }
 
-    public void logOut(){
-        setCurrentUser(null);
-    }
 }

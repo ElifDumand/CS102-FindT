@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
@@ -18,10 +18,10 @@ public class SignInStudentController {
     private Button BackToLogInStudent;
 
     @FXML
-    private ComboBox<?> ParentsAge;
+    private ChoiceBox<Integer> ParentsAgeChoiceBox;
 
     @FXML
-    private ComboBox<?> StudentBirthyear;
+    private ChoiceBox<Integer> StudentBirthyearChoiceBox;
 
     @FXML
     private Text StudentCreateProfile;
@@ -54,4 +54,26 @@ public class SignInStudentController {
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    public void initialize()
+    {
+        //This is for the parents age, I think 79 is a good upper limit
+        Integer[] parentAge = new Integer[60];
+        for(int i = 0; i < parentAge.length; i++)
+        {
+            parentAge[i] = i + 20;
+        }
+        ParentsAgeChoiceBox.getItems().addAll(parentAge);
+
+        Integer[] studentBirthYear = new Integer[40];
+        for(int i = 0; i < studentBirthYear.length; i++)
+        {
+            studentBirthYear[i] = i + 1980;
+        }
+        StudentBirthyearChoiceBox.getItems().addAll(studentBirthYear);
+
+    }
+
+
 }

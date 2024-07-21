@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
@@ -43,14 +43,12 @@
       <TextField fx:id="StudentUsernameSıgnIn" layoutX="118.0" layoutY="200.0" />
       <TextField fx:id="StudentPasswordSıgnIn" layoutX="118.0" layoutY="274.0" />
       <TextField fx:id="StudentMail" layoutX="118.0" layoutY="237.0" />
-      <ComboBox fx:id="StudentBirthyear" layoutX="148.0" layoutY="310.0" prefHeight="30.0" prefWidth="86.0" />
       <Text layoutX="297.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Parent's Age">
          <font>
             <Font name="Times New Roman" size="13.0" />
          </font>
       </Text>
-      <ComboBox fx:id="ParentsAge" layoutX="382.0" layoutY="200.0" prefHeight="30.0" prefWidth="113.0" />
-      <Text layoutX="317.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If you are using parents mode, you have to answer this">
+      <Text layoutX="299.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If you are using parents mode, you have to answer this">
          <font>
             <Font name="Times New Roman" size="10.0" />
          </font>
@@ -58,5 +56,7 @@
       <Ellipse fill="#ebdbff" layoutX="300.0" layoutY="174.0" radiusX="49.0" radiusY="27.0" stroke="#ebdbff" strokeType="INSIDE" />
       <Circle fill="#ebdbff" layoutX="300.0" layoutY="129.0" radius="18.5" stroke="#ebdbff" strokeType="INSIDE" />
       <Button fx:id="createProfileButton" layoutX="439.0" layoutY="354.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="134.0" style="-fx-background-radius: 20; -fx-background-color: #493175;" text="Create profile" textFill="#ebdbff" />
+      <ChoiceBox fx:id="ParentsAgeChoiceBox" layoutX="378.0" layoutY="203.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="StudentBirthyearChoiceBox" layoutX="118.0" layoutY="312.0" prefHeight="26.0" prefWidth="160.0" />
    </children>
 </AnchorPane>

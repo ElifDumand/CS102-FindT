@@ -10,26 +10,27 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #d4b9e1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #d4b9e1;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="backButton" layoutX="7.0" layoutY="17.0" mnemonicParsing="false" text="Back">
          <font>
             <Font name="Times New Roman" size="11.0" />
          </font>
       </Button>
-      <TextField fx:id="searchSubjectBar" layoutX="52.0" layoutY="16.0" prefHeight="21.0" prefWidth="330.0" promptText="Search by subject...">
+      <TextField fx:id="searchSubjectBar" layoutX="52.0" layoutY="16.0" prefHeight="22.0" prefWidth="259.0" promptText="Search by subject...">
          <font>
             <Font name="Times New Roman" size="12.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="priceComboBox" layoutX="394.0" layoutY="12.0" prefHeight="30.0" prefWidth="93.0" promptText=" price " />
-      <ComboBox fx:id="lessonComboBox" layoutX="493.0" layoutY="12.0" prefHeight="30.0" prefWidth="93.0" promptText="lesson" />
-      <Line endX="-103.33331298828125" endY="36.999996185302734" layoutX="467.0" layoutY="-9.0" startX="-94.66668701171875" startY="43.666664123535156" />
-      <Circle fill="#d4b9e1" layoutX="364.0" layoutY="27.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+      <ComboBox fx:id="priceComboBox" layoutX="414.0" layoutY="12.0" prefHeight="30.0" prefWidth="78.0" promptText=" price " />
+      <ComboBox fx:id="lessonComboBox" layoutX="500.0" layoutY="12.0" prefHeight="30.0" prefWidth="86.0" promptText="lesson" />
+      <Line endX="-105.5" endY="36.0" layoutX="399.0" layoutY="-10.0" startX="-97.77740478515625" startY="42.023193359375" />
+      <Circle fill="#d4b9e1" layoutX="290.0" layoutY="24.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
       <ScrollPane fx:id="subjectsListedScrollPane" layoutX="13.0" layoutY="56.0" prefHeight="325.0" prefWidth="572.0">
          <content>
             <VBox fx:id="subjectsListedVBox" prefHeight="323.0" prefWidth="570.0" />
          </content>
       </ScrollPane>
+      <ComboBox fx:id="priceComboBox1" layoutX="322.0" layoutY="12.0" prefHeight="30.0" prefWidth="86.0" promptText="school" />
    </children>
 </AnchorPane>

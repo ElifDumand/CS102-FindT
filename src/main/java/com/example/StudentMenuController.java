@@ -5,8 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+
 
 public class StudentMenuController {
 
@@ -53,13 +55,16 @@ public class StudentMenuController {
     private Text usernameText;
 
     @FXML
+    private Button myScheduleButton;
+
+    @FXML
     public void initialize()
     {
         chatStudent.setOnAction(event -> {
             try {
                 handleChatStudentButton(event);
             } catch (IOException e) {
-                e.printStackTrace(); // Handle or log the exception as needed
+                e.printStackTrace(); 
             }
         });
 
@@ -67,10 +72,25 @@ public class StudentMenuController {
             try {
                 handleSettingsStudentButton(event);
             } catch (IOException e) {
-                e.printStackTrace(); // Handle or log the exception as needed
+                e.printStackTrace(); 
             }
         });
 
+        searchBar.setOnMouseClicked(event -> {
+            try {
+                handleSearchBar(event);
+            } catch (IOException e) {
+                e.printStackTrace(); 
+            }
+        });
+
+        myScheduleButton.setOnAction(event -> {
+            try {
+                handleMyScheduleButton(event);
+            } catch (IOException e) {
+                e.printStackTrace(); 
+            }
+        });
     }
 
     @FXML
@@ -81,6 +101,12 @@ public class StudentMenuController {
     }
 
     @FXML
+    private void handleMyScheduleButton(ActionEvent event) throws IOException
+    {
+        App.setRoot("settings");
+    }
+
+    @FXML
     private void handleSettingsStudentButton(ActionEvent event) throws IOException
     {
         App.setRoot("settings");
@@ -88,6 +114,12 @@ public class StudentMenuController {
     }
 
 
+
+    @FXML
+    private void handleSearchBar(MouseEvent event) throws IOException
+    {
+        App.setRoot("searchPage");
+    }
 
 
 

@@ -46,7 +46,7 @@ public class LogInPageController {
             try {
                 handleLogInButtonStudent(event);
             } catch (IOException e) {
-                e.printStackTrace(); // Handle or log the exception as needed
+                e.printStackTrace(); 
             }
         });
 
@@ -54,7 +54,7 @@ public class LogInPageController {
             try {
                 handleLogInButtonTutor(event);
             } catch (IOException e) {
-                e.printStackTrace(); // Handle or log the exception as needed
+                e.printStackTrace(); 
             }
         });
 
@@ -62,7 +62,7 @@ public class LogInPageController {
             try {
                 handleStudentSignInText(event);
             } catch (IOException e) {
-                e.printStackTrace(); // Handle or log the exception as needed
+                e.printStackTrace(); 
             }
         });
 
@@ -70,7 +70,7 @@ public class LogInPageController {
             try {
                 handleTutorSignInText(event);
             } catch (IOException e) {
-                e.printStackTrace(); // Handle or log the exception as needed
+                e.printStackTrace(); 
             }
         });
 

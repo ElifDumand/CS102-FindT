@@ -242,7 +242,7 @@ public class TutorMenuController {
 
     public void handleAddButton(ActionEvent event) throws IOException
     {
-        //App.setRoot(""); // WILL DO THIS WHEN THE PAGE IS READY
+        App.setRoot("AddACoursePage");
     }
 
 

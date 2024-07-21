@@ -43,7 +43,7 @@
             <Font size="12.0" />
          </font>
       </Button>
-      <ScrollPane layoutX="202.0" layoutY="95.0" prefHeight="300.0" prefWidth="385.0">
+      <ScrollPane layoutX="202.0" layoutY="95.0" prefHeight="300.0" prefWidth="388.0">
          <content>
             <AnchorPane prefHeight="811.0" prefWidth="369.0">
                <children>

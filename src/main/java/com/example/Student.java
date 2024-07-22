@@ -67,6 +67,7 @@ public class Student extends User {
             welcomePage.showInvalidEmailError();
             return null;
         }
+        if(isValidUsername(username) && isValidPassword(password) && isUsernameUnique(username, "student", "studentid") && isValidEmail(email)){}
 
         return addStudent(id, username, password, email, biography);
     }

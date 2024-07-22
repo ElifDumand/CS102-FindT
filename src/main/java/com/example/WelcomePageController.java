@@ -37,7 +37,7 @@ public class WelcomePageController {
         }
     }
 
-    public void singUp(MouseEvent event) throws Exception {
+    public void signUp(MouseEvent event) throws Exception {
         String username = singUpUsername.getText();
         String password = singUpPassword.getText();
         String email = singUpEMail.getText();
@@ -50,7 +50,12 @@ public class WelcomePageController {
         }
         if (user != null) {
             User.setCurrentUser(user);
-            goToMenuPage(event);
+            if (User.getCurrentUser().equals("Student")) {
+                App.setRoot("TutorMenu");
+            }
+            else{
+                App.setRoot("studentMenu");
+            }
         }
     }
 

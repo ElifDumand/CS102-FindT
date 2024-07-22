@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #D6C0E8;;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #D6C0E8;;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.AddACoursePageController">
    <children>
       <Button fx:id="backButton" layoutX="36.0" layoutY="16.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" text="Back" />
       <Label layoutX="36.0" layoutY="40.0" prefHeight="58.0" prefWidth="120.0" text="Add A Lesson">

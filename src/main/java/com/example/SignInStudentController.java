@@ -1,4 +1,7 @@
 package com.example;
+import java.io.IOException;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -73,6 +76,17 @@ public class SignInStudentController {
         }
         StudentBirthyearChoiceBox.getItems().addAll(studentBirthYear);
 
+        BackToLogInStudent.setOnAction(event -> {try {
+            handleBackButton(event);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }});
+
+    }
+
+    private void handleBackButton(ActionEvent event) throws IOException
+    {
+        App.setRoot("LogInPage");
     }
 
 

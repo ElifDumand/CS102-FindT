@@ -1,4 +1,6 @@
 package com.example;
+import java.io.IOException;
+
 import org.w3c.dom.Node;
 import org.w3c.dom.events.MouseEvent;
 
@@ -44,28 +46,22 @@ public class settingsController {
     private Stage stage;
     private Scene scene;
 
-    public void goToMenuPage(MouseEvent event) throws Exception{
+    @FXML
+    private void handleSettingsBack(MouseEvent event) throws IOException
+    {
         User currentUser = User.getCurrentUser();
-        Parent root;
         if(currentUser.getAccountType().equals("Teacher")){
-            root = FXMLLoader.load(getClass().getResource("TutorMenu.fxml"));
-        }
+            App.setRoot("TutorMenu");
+            }
         else{
-            root = FXMLLoader.load(getClass().getResource("studentMenu.java"));
+            App.setRoot("studentMenu");
         }
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
-    public void logOut(MouseEvent event){
-        User currentUser = User.getCurrentUser();
-        Parent root = FXMLLoader.load(getClass().getResource("LogInPage.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        User.logOut();
+
+    @FXML
+    private void logOut(MouseEvent event) throws IOException
+    {
+        App.setRoot("LogInPage");
     }
 }
 

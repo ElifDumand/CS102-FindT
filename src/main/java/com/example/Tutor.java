@@ -21,7 +21,37 @@ public class Tutor extends User {
         return "tutor";
     }
 
+    public static User logIn(String username, String password) throws SQLException {
 
+		ResultSet r = getByUsername(username);
+		if (r.next() && r.getString("password").equals(password)) {
+
+			int id = r.getInt("id");
+			String pictureUrl = r.getString("pictureurl");
+			String email = r.getString("email");
+            Tutor newTutor = new Tutor(id, username, pictureUrl, password, email);
+            User.setCurrentUser(newTutor);
+			return newTutor;
+
+		}
+
+		r.close();
+		welcomePage.showInvalidLoginError();
+		return null;
+
+	}
+
+    public static ResultSet getByUsername(String username) throws SQLException {
+
+		Connection connection = Main.connect();
+		String query = "select * from users where username = ?";
+		PreparedStatement stat = connection.prepareStatement(query);
+		stat.setString(1, username);
+		ResultSet r = stat.executeQuery();
+
+		return r;
+
+	}
     public List<Timeslot> getSchedule() {
         return schedule;
     }

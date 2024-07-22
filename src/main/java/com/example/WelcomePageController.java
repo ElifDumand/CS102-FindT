@@ -43,7 +43,7 @@ public class WelcomePageController {
         String email = singUpEMail.getText();
         String biography = "Profile/profile_default";
         User user;
-        if (/* condition to check if the user is a student */) {
+        if (User.getCurrentUser().equals("Student")) {
             user = Student.signUp(username, password, email, biography);
         } else {
             user = Tutor.signUp(username, password, email, biography);

@@ -58,7 +58,7 @@ public class settingsController {
         stage.setScene(scene);
         stage.show();
     }
-    public void logOut(){
+    public void logOut(MouseEvent event){
         User currentUser = User.getCurrentUser();
         Parent root = FXMLLoader.load(getClass().getResource("LogInPage.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();

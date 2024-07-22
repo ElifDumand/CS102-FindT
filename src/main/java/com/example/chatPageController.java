@@ -1,4 +1,5 @@
 package com.example;
+import java.io.IOException;
 import java.util.Stack;
 
 import org.w3c.dom.Node;
@@ -43,13 +44,10 @@ public class chatPageController{
     private Stage stage;
     private Scene scene;
 
-
-    public void goToListOfPage(MouseEvent event) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("listOfChats.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    @FXML
+    private void handleSearchPageBack(MouseEvent event) throws IOException
+    {
+            App.setRoot("listOfChats");
     }
 
 }

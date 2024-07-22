@@ -166,4 +166,20 @@ public abstract class User {
         }
     }
 
+
+    public void assignCourse(int courseId) throws SQLException {
+        if ("tutor".equals(userType)) {
+            Course.assignCourseToTutor(this.id, courseId);
+        } else {
+            throw new SQLException("Only tutors can assign courses");
+        }
+    }
+
+    public List<Course> getCourses() throws SQLException {
+        if ("tutor".equals(userType)) {
+            return Course.getCoursesByTutor(this.id);
+        } else {
+            throw new SQLException("Only tutors can view their courses");
+        }
+    }
 }

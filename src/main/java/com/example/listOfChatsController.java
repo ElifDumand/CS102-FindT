@@ -1,4 +1,6 @@
 package com.example;
+import java.io.IOException;
+
 import org.w3c.dom.Node;
 import org.w3c.dom.events.MouseEvent;
 
@@ -24,18 +26,15 @@ public class listOfChatsController {
     private Stage stage;
     private Scene scene;
 
-    public void goToMenuPage(MouseEvent event) throws Exception{
+    @FXML
+    private void handleListOfChatBack(MouseEvent event) throws IOException
+    {
         User currentUser = User.getCurrentUser();
-        Parent root;
         if(currentUser.getAccountType().equals("Teacher")){
-            root = FXMLLoader.load(getClass().getResource("TutorMenu.fxml"));
-        }
+            App.setRoot("TutorMenu");
+            }
         else{
-            root = FXMLLoader.load(getClass().getResource("studentMenu.java"));
+            App.setRoot("studentMenu");
         }
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 }

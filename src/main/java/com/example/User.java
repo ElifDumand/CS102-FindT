@@ -87,6 +87,10 @@ public abstract class User {
         setCurrentUser(null);
     }
 
+    public static User logIn(String username, String password) throws SQLException {
+		return null;
+
+	}
     public static boolean isValidEmail(String email) {
         if (email.lastIndexOf('@') == -1 || email.lastIndexOf('.') == -1) {
             return false;

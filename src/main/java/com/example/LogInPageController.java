@@ -1,5 +1,6 @@
 package com.example;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,7 +46,7 @@ public class LogInPageController {
         LogInButtonStudent.setOnAction(event -> {
             try {
                 handleLogInButtonStudent(event);
-            } catch (IOException e) {
+            } catch (IOException | SQLException e) {
                 e.printStackTrace(); 
             }
         });
@@ -53,7 +54,7 @@ public class LogInPageController {
         LogInButtonTutor.setOnAction(event -> {
             try {
                 handleLogInButtonTutor(event);
-            } catch (IOException e) {
+            } catch (IOException | SQLException e) {
                 e.printStackTrace(); 
             }
         });
@@ -77,15 +78,19 @@ public class LogInPageController {
     }
 
     @FXML
-    private void handleLogInButtonStudent(ActionEvent event) throws IOException
+    private void handleLogInButtonStudent(ActionEvent event) throws IOException, SQLException
     {
-        App.setRoot("studentMenu");
+        if(Student.logIn(studentUsername.getText(),studentPassword.getText()) != null){
+            App.setRoot("studentMenu");
+        }
     }
 
     @FXML
-    private void handleLogInButtonTutor(ActionEvent event) throws IOException
+    private void handleLogInButtonTutor(ActionEvent event) throws IOException, SQLException
     {
-        App.setRoot("Tutormenu");
+        if(Tutor.logIn(studentUsername.getText(),studentPassword.getText()) != null){
+            App.setRoot("TutorMenu");
+        }
     }
 
     @FXML

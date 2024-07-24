@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -31,10 +32,16 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <Button fx:id="addCourseButton" layoutX="416.0" layoutY="267.0" mnemonicParsing="false" text=" Add the course" />
+            <Button fx:id="addCourseButton" layoutX="405.0" layoutY="254.0" mnemonicParsing="false" text=" Add the course" />
             <ChoiceBox fx:id="priceChoiceBox" layoutX="33.0" layoutY="146.0" prefWidth="150.0" />
             <ChoiceBox fx:id="lessonTypeChoiceBox" layoutX="33.0" layoutY="254.0" prefWidth="150.0" />
             <ChoiceBox fx:id="branchNameChoiceBox" layoutX="37.0" layoutY="55.0" prefWidth="150.0" />
+            <TextArea layoutX="307.0" layoutY="98.0" prefHeight="112.0" prefWidth="196.0" />
+            <Label layoutX="307.0" layoutY="72.0" text="Explanation(Syllabus)">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -18,7 +19,7 @@ public class LogInPageController {
     private Button LogInButtonTutor;
 
     @FXML
-    private TextField studentPassword;
+    private PasswordField studentPassword;
 
     @FXML
     private Text studentSignInText;
@@ -27,7 +28,7 @@ public class LogInPageController {
     private TextField studentUsername;
 
     @FXML
-    private TextField tutorPassword;
+    private PasswordField tutorPassword;
 
     @FXML
     private Text tutorSignInText;

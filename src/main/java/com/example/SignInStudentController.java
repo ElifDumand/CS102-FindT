@@ -1,5 +1,6 @@
 package com.example;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,12 +51,12 @@ public class SignInStudentController {
     private Stage stage;
     private Scene scene;
 
-    public void goStudentMenuPage(MouseEvent event) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("studentMenu.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    @FXML
+    private void handleCreateStudentProfile(ActionEvent event) throws IOException, SQLException
+    {
+        Student newStudent = Student.signUp(StudentUsernameSıgnIn.getText(),StudentPasswordSıgnIn.getText(), StudentMail.getText(), "");
+        App.setRoot("LogInPage");
+        User.setCurrentUser(newStudent);
     }
 
     @FXML
@@ -83,7 +84,7 @@ public class SignInStudentController {
         }});
 
     }
-
+    @FXML
     private void handleBackButton(ActionEvent event) throws IOException
     {
         App.setRoot("LogInPage");

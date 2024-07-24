@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.SignInStudentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.SignInStudentController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebdbff" height="406.0" layoutX="-6.0" layoutY="-1.0" stroke="#ebdbff" strokeType="INSIDE" width="609.0" />
       <Button fx:id="BackToLogInStudent" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Back" />
@@ -55,7 +55,7 @@
       </Text>
       <Ellipse fill="#ebdbff" layoutX="300.0" layoutY="174.0" radiusX="49.0" radiusY="27.0" stroke="#ebdbff" strokeType="INSIDE" />
       <Circle fill="#ebdbff" layoutX="300.0" layoutY="129.0" radius="18.5" stroke="#ebdbff" strokeType="INSIDE" />
-      <Button fx:id="createProfileButton" layoutX="439.0" layoutY="354.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="134.0" style="-fx-background-radius: 20; -fx-background-color: #493175;" text="Create profile" textFill="#ebdbff" />
+      <Button fx:id="createProfileButton" layoutX="439.0" layoutY="354.0" mnemonicParsing="false" onMouseClicked="#handleCreateStudentProfile" prefHeight="26.0" prefWidth="134.0" style="-fx-background-radius: 20; -fx-background-color: #493175;" text="Create profile" textFill="#ebdbff" />
       <ChoiceBox fx:id="ParentsAgeChoiceBox" layoutX="378.0" layoutY="203.0" prefWidth="150.0" />
       <ChoiceBox fx:id="StudentBirthyearChoiceBox" layoutX="118.0" layoutY="312.0" prefHeight="26.0" prefWidth="160.0" />
    </children>

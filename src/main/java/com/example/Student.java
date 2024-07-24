@@ -67,9 +67,42 @@ public class Student extends User {
             welcomePage.showInvalidEmailError();
             return null;
         }
+        if(isValidUsername(username) && isValidPassword(password) && isUsernameUnique(username, "student", "studentid") && isValidEmail(email)){}
 
         return addStudent(id, username, password, email, biography);
     }
+
+    public static User logIn(String username, String password) throws SQLException {
+
+		ResultSet r = getByUsername(username);
+		if (r.next() && r.getString("password").equals(password)) {
+
+			int id = r.getInt("id");
+			String pictureUrl = r.getString("pictureurl");
+			String email = r.getString("email");
+            Student newStudent = new Student(id, username, pictureUrl, password, email);
+            User.setCurrentUser(newStudent);
+			return newStudent;
+
+		}
+
+		r.close();
+		welcomePage.showInvalidLoginError();
+		return null;
+
+	}
+
+    public static ResultSet getByUsername(String username) throws SQLException {
+
+		Connection connection = Main.connect();
+		String query = "select * from users where username = ?";
+		PreparedStatement stat = connection.prepareStatement(query);
+		stat.setString(1, username);
+		ResultSet r = stat.executeQuery();
+
+		return r;
+
+	}
 
     public static boolean isUsernameUnique(String username, String table, String column) throws SQLException {
         Connection connection = Main.connect();

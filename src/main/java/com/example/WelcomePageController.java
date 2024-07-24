@@ -37,20 +37,25 @@ public class WelcomePageController {
         }
     }
 
-    public void singUp(MouseEvent event) throws Exception {
+    public void signUp(MouseEvent event) throws Exception {
         String username = singUpUsername.getText();
         String password = singUpPassword.getText();
         String email = singUpEMail.getText();
         String biography = "Profile/profile_default";
         User user;
-        if (/* condition to check if the user is a student */) {
+        if (User.getCurrentUser().equals("Student")) {
             user = Student.signUp(username, password, email, biography);
         } else {
             user = Tutor.signUp(username, password, email, biography);
         }
         if (user != null) {
             User.setCurrentUser(user);
-            goToMenuPage(event);
+            if (User.getCurrentUser().equals("Student")) {
+                App.setRoot("TutorMenu");
+            }
+            else{
+                App.setRoot("studentMenu");
+            }
         }
     }
 

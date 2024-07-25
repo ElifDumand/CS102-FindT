@@ -1,6 +1,5 @@
 package com.example;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,7 +44,7 @@ public class Student extends User {
     public static Student signUp(String username, String password, String email) throws SQLException {
 
         Scanner scanner = new Scanner(System.in);
-        Connection connection = DriverManager.getConnection(Main.getMySqlUrl(), Main.getMySqlUsername(), Main.getMySqlPassword());
+        Connection connection = Main.connect();
         Statement idStatement = connection.createStatement();
         ResultSet r = idStatement.executeQuery("SELECT studentid FROM student ORDER BY studentid DESC");
         r.next();
@@ -120,18 +119,45 @@ public class Student extends User {
     }
 
     public static Student addStudent(int studentid, String name, String password, String email) throws SQLException {
-        Connection connection = DriverManager.getConnection(Main.getMySqlUrl(), Main.getMySqlUsername(), Main.getMySqlPassword());
-        Student student = new Student(studentid, name, password, email);
-        String query = "INSERT INTO student (studentid, name, password, email) VALUES (?, ?, ?, ?)";
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1, studentid);
-        statement.setString(2, name);
-        statement.setString(3, password);
-        statement.setString(4, email);
+        Connection connection = null;
+        PreparedStatement statement = null;
         
-        statement.executeUpdate();
-        statement.close();
-        connection.close();
-        return new Student(studentid, name, password, email);
+        try {
+            connection = Main.connect();
+            
+            String query = "INSERT INTO student (studentid, name, password, email) VALUES (?, ?, ?, ?)";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, studentid);
+            statement.setString(2, name);
+            statement.setString(3, password);
+            statement.setString(4, email);
+            
+            statement.executeUpdate();
+            
+            // Assuming Student class constructor matches the parameters
+            return new Student(studentid, name, password, email);
+            
+        } catch (SQLException e) {
+            // Handle or log the exception
+            e.printStackTrace();
+            throw e; // Re-throw to propagate the exception to the caller
+            
+        } finally {
+            // Close resources in finally block to ensure they are always closed
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
-}
+}    

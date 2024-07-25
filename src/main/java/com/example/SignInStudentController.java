@@ -43,17 +43,14 @@ public class SignInStudentController {
 
     @FXML
     private TextField StudentUsernameSignIn;
+
+    @FXML
+    private Button createProfileButton;
     
     private Stage stage;
     private Scene scene;
 
-    @FXML
-    private void handleCreateStudentProfile(ActionEvent event) throws IOException, SQLException
-    {
-        Student newStudent = Student.signUp(StudentUsernameSignIn.getText(),StudentPasswordSignIn.getText(), StudentMail.getText(), "");
-        App.setRoot("LogInPage");
-        User.setCurrentUser(newStudent);
-    }
+
 
     @FXML
     public void initialize()
@@ -79,6 +76,18 @@ public class SignInStudentController {
             e.printStackTrace();
         }});
 
+        createProfileButton.setOnAction(event -> {try {
+            handleCreateStudentProfile(event);
+        } 
+        catch (IOException e ) {
+            e.printStackTrace();
+        }
+        catch (SQLException e ) {
+            e.printStackTrace();
+        }});
+
+
+
     }
     @FXML
     private void handleBackButton(ActionEvent event) throws IOException
@@ -86,5 +95,26 @@ public class SignInStudentController {
         App.setRoot("LogInPage");
     }
 
+    @FXML
+    private void handleCreateStudentProfile(ActionEvent event) throws IOException, SQLException
+    {
+        String username = StudentUsernameSignIn.getText();
+        String password = StudentPasswordSignIn.getText();
+        String email = StudentMail.getText();
+
+        if (username != null && password != null && email != null) {
+            try 
+            {
+                Student newStudent = Student.signUp(username, password, email);
+                User.setCurrentUser(newStudent);
+                App.setRoot("LogInPage");
+            } 
+            catch (SQLException e) 
+            {
+                e.printStackTrace();
+                // Handle SQLException (e.g., show error message to user)
+            }
+    } 
+    }
 
 }

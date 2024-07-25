@@ -40,8 +40,8 @@
             <Font name="Times New Roman" size="13.0" />
          </font>
       </Text>
-      <TextField fx:id="StudentUsernameSıgnIn" layoutX="118.0" layoutY="200.0" />
-      <TextField fx:id="StudentPasswordSıgnIn" layoutX="118.0" layoutY="274.0" />
+      <TextField fx:id="StudentUsernameSignIn" layoutX="118.0" layoutY="200.0" />
+      <TextField fx:id="StudentPasswordSignIn" layoutX="118.0" layoutY="274.0" />
       <TextField fx:id="StudentMail" layoutX="118.0" layoutY="237.0" />
       <Text layoutX="297.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Parent's Age">
          <font>
@@ -55,7 +55,7 @@
       </Text>
       <Ellipse fill="#ebdbff" layoutX="300.0" layoutY="174.0" radiusX="49.0" radiusY="27.0" stroke="#ebdbff" strokeType="INSIDE" />
       <Circle fill="#ebdbff" layoutX="300.0" layoutY="129.0" radius="18.5" stroke="#ebdbff" strokeType="INSIDE" />
-      <Button fx:id="createProfileButton" layoutX="439.0" layoutY="354.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="134.0" style="-fx-background-radius: 20; -fx-background-color: #493175;" text="Create profile" textFill="#ebdbff" />
+      <Button fx:id="createProfileButton" layoutX="439.0" layoutY="354.0" mnemonicParsing="false" onMouseClicked="#handleCreateStudentProfile" prefHeight="26.0" prefWidth="134.0" style="-fx-background-radius: 20; -fx-background-color: #493175;" text="Create profile" textFill="#ebdbff" />
       <ChoiceBox fx:id="ParentsAgeChoiceBox" layoutX="378.0" layoutY="203.0" prefWidth="150.0" />
       <ChoiceBox fx:id="StudentBirthyearChoiceBox" layoutX="118.0" layoutY="312.0" prefHeight="26.0" prefWidth="160.0" />
    </children>

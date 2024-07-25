@@ -4,14 +4,10 @@ import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -43,10 +39,10 @@ public class SignInStudentController {
     private TextField StudentMail;
 
     @FXML
-    private TextField StudentPasswordSıgnIn;
+    private TextField StudentPasswordSignIn;
 
     @FXML
-    private TextField StudentUsernameSıgnIn;
+    private TextField StudentUsernameSignIn;
     
     private Stage stage;
     private Scene scene;
@@ -54,7 +50,7 @@ public class SignInStudentController {
     @FXML
     private void handleCreateStudentProfile(ActionEvent event) throws IOException, SQLException
     {
-        Student newStudent = Student.signUp(StudentUsernameSıgnIn.getText(),StudentPasswordSıgnIn.getText(), StudentMail.getText(), "");
+        Student newStudent = Student.signUp(StudentUsernameSignIn.getText(),StudentPasswordSignIn.getText(), StudentMail.getText(), "");
         App.setRoot("LogInPage");
         User.setCurrentUser(newStudent);
     }

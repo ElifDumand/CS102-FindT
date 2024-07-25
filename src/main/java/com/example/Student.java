@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
-import java.util.ResourceBundle;
 public class Student extends User {
 
     public Student(int id, String username, String password, String email, String biography) {
@@ -67,9 +66,12 @@ public class Student extends User {
             welcomePage.showInvalidEmailError();
             return null;
         }
-        if(isValidUsername(username) && isValidPassword(password) && isUsernameUnique(username, "student", "studentid") && isValidEmail(email)){}
+        if(isValidUsername(username) && isValidPassword(password) && isUsernameUnique(username, "student", "studentid") && isValidEmail(email)){
+           return addStudent(id, username, password, email, biography); 
+        }
+        return null;
 
-        return addStudent(id, username, password, email, biography);
+        
     }
 
     public static User logIn(String username, String password) throws SQLException {

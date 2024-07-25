@@ -1,8 +1,11 @@
 package com.example;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -10,7 +13,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 
-public class StudentMenuController {
+public class StudentMenuController implements Initializable{
 
     @FXML
     private Button chatStudent;
@@ -119,6 +122,13 @@ public class StudentMenuController {
     private void handleSearchBar(MouseEvent event) throws IOException
     {
         App.setRoot("searchPage");
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        User currentUser = User.getCurrentUser();
+        mailText.setText(currentUser.getEmail());
+        usernameText.setText(currentUser.getUsername());
     }
 
 

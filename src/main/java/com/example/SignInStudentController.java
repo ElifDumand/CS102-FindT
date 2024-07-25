@@ -1,9 +1,12 @@
 package com.example;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -13,7 +16,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class SignInStudentController {
+public class SignInStudentController implements Initializable{
     @FXML
     private Button BackToLogInStudent;
 
@@ -112,9 +115,14 @@ public class SignInStudentController {
             catch (SQLException e) 
             {
                 e.printStackTrace();
-                // Handle SQLException (e.g., show error message to user)
             }
     } 
+    }
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'initialize'");
     }
 
 }

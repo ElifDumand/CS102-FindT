@@ -10,24 +10,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #493175;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #493175;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Circle fill="WHITE" layoutX="92.0" layoutY="110.0" radius="59.0" stroke="BLACK" strokeType="INSIDE" />
-      <Text fx:id="usernameText" fill="WHITE" layoutX="171.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+      <Text fx:id="usernameText" fill="WHITE" layoutX="163.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
          <font>
             <Font name="Times New Roman" size="20.0" />
          </font>
       </Text>
-      <TextField fx:id="biographyTexTfield" layoutX="171.0" layoutY="78.0" prefHeight="74.0" prefWidth="177.0" promptText="     Enter biography (optional)">
-         <font>
-            <Font name="Times New Roman" size="12.0" />
-         </font>
-      </TextField>
-      <TextField layoutX="25.0" layoutY="188.0" prefHeight="30.0" prefWidth="154.0" text="       Reserved Classes">
-         <font>
-            <Font name="Times New Roman" size="12.0" />
-         </font>
-      </TextField>
       <Text fill="WHITE" layoutX="253.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change Username">
          <font>
             <Font name="Times New Roman" size="16.0" />
@@ -79,5 +69,15 @@
       <Ellipse fill="#493175" layoutX="92.0" layoutY="142.0" radiusX="51.0" radiusY="37.0" stroke="#493175" strokeType="INSIDE" />
       <Circle fill="#493175" layoutX="92.0" layoutY="86.0" radius="25.0" stroke="#493175" strokeType="INSIDE" />
       <ScrollPane fx:id="reservedClassScrollPane" layoutX="14.0" layoutY="226.0" prefHeight="167.0" prefWidth="177.0" />
+      <Button layoutX="15.0" layoutY="185.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="173.0" text="Reserved classes">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="20.0" layoutY="16.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="58.0" text="Back">
+         <font>
+            <Font name="Times New Roman" size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

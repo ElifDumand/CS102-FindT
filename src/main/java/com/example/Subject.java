@@ -11,8 +11,8 @@ public class Subject {
     private int subjectid;
     private String subjectname;
 
-    public Subject(int subjectId, String subjectname) {
-        this.subjectid = subjectId;
+    public Subject(int subjectid, String subjectname) {
+        this.subjectid = subjectid;
         this.subjectname = subjectname;
     }
 

@@ -1,5 +1,5 @@
 package com.example;
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -9,18 +9,18 @@ public abstract class User {
     protected String username;
     protected String email;
     protected String password;
-    protected String biography;
+   
     protected String userType;
 
     private static User currentUser;
     public static User profileUser;
 
-    public User(int id, String username, String password, String email, String biography) {
+    public User(int id, String username, String password, String email) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.biography = biography;
+        
     }
 
     // Getters and setters
@@ -72,13 +72,6 @@ public abstract class User {
         this.password = password;
     }
 
-    public String getBiography() {
-        return biography;
-    }
-
-    public void setBiography(String biography) {
-        this.biography = biography;
-    }
 
     // Method to get the account type
     public abstract String getAccountType();

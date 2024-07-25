@@ -6,10 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Scanner;
 public class Student extends User {
 
-    public Student(int id, String username, String password, String email, String biography) {
-        super(id, username, password, email, biography);
+    public Student(int id, String username, String password, String email) {
+        super(id, username, password, email);
     }
 
     @Override
@@ -34,7 +35,7 @@ public class Student extends User {
             String biography = r.getString("biography");
             stat.close();
             connection.close();
-            return new Student(studentid, username, password, email, biography);
+            return new Student(studentid, username, password, email);
         }
         stat.close();
         connection.close();
@@ -42,6 +43,8 @@ public class Student extends User {
     }
 
     public static Student signUp(String username, String password, String email, String biography) throws SQLException {
+
+        Scanner scanner = new Scanner(System.in);
         Connection connection = DriverManager.getConnection(Main.getMySqlUrl(), Main.getMySqlUsername(), Main.getMySqlPassword());
         Statement idStatement = connection.createStatement();
         ResultSet r = idStatement.executeQuery("SELECT studentid FROM student ORDER BY studentid DESC");
@@ -49,6 +52,7 @@ public class Student extends User {
         int id = r.getInt(1) + 1;
         idStatement.close();
         connection.close();
+        scanner.close();
 
         if (!isValidUsername(username)) {
             welcomePage.showInvalidUsernameError();
@@ -66,12 +70,9 @@ public class Student extends User {
             welcomePage.showInvalidEmailError();
             return null;
         }
-        if(isValidUsername(username) && isValidPassword(password) && isUsernameUnique(username, "student", "studentid") && isValidEmail(email)){
-           return addStudent(id, username, password, email, biography); 
-        }
-        return null;
 
-        
+        return addStudent(id, username, password, email); 
+
     }
 
     public static User logIn(String username, String password) throws SQLException {
@@ -79,10 +80,10 @@ public class Student extends User {
 		ResultSet r = getByUsername(username);
 		if (r.next() && r.getString("password").equals(password)) {
 
-			int id = r.getInt("id");
-			String pictureUrl = r.getString("pictureurl");
+			int id = r.getInt("studentid");
+			String bio = r.getString("biography");
 			String email = r.getString("email");
-            Student newStudent = new Student(id, username, pictureUrl, password, email);
+            Student newStudent = new Student(id, username, password, email);
             User.setCurrentUser(newStudent);
 			return newStudent;
 
@@ -97,7 +98,7 @@ public class Student extends User {
     public static ResultSet getByUsername(String username) throws SQLException {
 
 		Connection connection = Main.connect();
-		String query = "select * from users where username = ?";
+		String query = "select * from student where name = ?";
 		PreparedStatement stat = connection.prepareStatement(query);
 		stat.setString(1, username);
 		ResultSet r = stat.executeQuery();
@@ -106,10 +107,10 @@ public class Student extends User {
 
 	}
 
-    public static boolean isUsernameUnique(String username, String table, String column) throws SQLException {
+    public static boolean isUsernameUnique(String name, String table, String column) throws SQLException {
         Connection connection = Main.connect();
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM " + table + " WHERE name='" + username + "';");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM " + table + " WHERE name='" + name + "';");
         if (resultSet.next()) {
             return false;
         }
@@ -118,16 +119,16 @@ public class Student extends User {
         return true;
     }
 
-    public static Student addStudent(int studentid, String username, String password, String email, String biography) throws SQLException {
+    public static Student addStudent(int studentid, String name, String password, String email) throws SQLException {
         Connection connection = DriverManager.getConnection(Main.getMySqlUrl(), Main.getMySqlUsername(), Main.getMySqlPassword());
-        Student student = new Student(studentid, username, password, email, biography);
+        Student student = new Student(studentid, name, password, email);
         String query = "INSERT INTO student VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setInt(1, student.getId());
         statement.setString(2, student.getUsername());
         statement.setString(3, student.getPassword());
         statement.setString(4, student.getEmail());
-        statement.setString(5, student.getBiography());
+        
         statement.executeUpdate();
         statement.close();
         connection.close();

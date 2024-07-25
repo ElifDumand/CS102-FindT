@@ -12,7 +12,7 @@ public class Tutor extends User {
     private List<Timeslot> schedule;
 
     public Tutor(int id, String username, String password, String email, String biography) {
-        super(id, username, password, email, biography);
+        super(id, username, password, email);
         this.schedule = new ArrayList<>();
     }
 
@@ -26,10 +26,10 @@ public class Tutor extends User {
 		ResultSet r = getByUsername(username);
 		if (r.next() && r.getString("password").equals(password)) {
 
-			int id = r.getInt("id");
-			String pictureUrl = r.getString("pictureurl");
+			int id = r.getInt("tutorid");
+			String bio = r.getString("biography");
 			String email = r.getString("email");
-            Tutor newTutor = new Tutor(id, username, pictureUrl, password, email);
+            Tutor newTutor = new Tutor(id, username, email, password,bio );
             User.setCurrentUser(newTutor);
 			return newTutor;
 
@@ -44,7 +44,7 @@ public class Tutor extends User {
     public static ResultSet getByUsername(String username) throws SQLException {
 
 		Connection connection = Main.connect();
-		String query = "select * from users where username = ?";
+		String query = "select * from tutor where name = ?";
 		PreparedStatement stat = connection.prepareStatement(query);
 		stat.setString(1, username);
 		ResultSet r = stat.executeQuery();
@@ -145,7 +145,7 @@ public class Tutor extends User {
         statement.setString(2, teacher.getUsername());
         statement.setString(3, teacher.getPassword());
         statement.setString(4, teacher.getEmail());
-        statement.setString(5, teacher.getBiography());
+
         statement.executeUpdate();
         statement.close();
         connection.close();

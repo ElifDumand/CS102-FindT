@@ -21,18 +21,17 @@ public class Tutor extends User {
         return "tutor";
     }
 
-    public static User logIn(String username, String password) throws SQLException {
+    public static Tutor logIn(String name, String password) throws SQLException {
 
-		ResultSet r = getByUsername(username);
+		ResultSet r = getByUsername(name);
 		if (r.next() && r.getString("password").equals(password)) {
 
-			int id = r.getInt("tutorid");
+			int tutorid = r.getInt("tutorid");
 
 			String email = r.getString("email");
-            Tutor newTutor = new Tutor(id, username, email, password);
+            Tutor newTutor = new Tutor(tutorid, name, password, email );
             User.setCurrentUser(newTutor);
 			return newTutor;
-
 		}
 
 		r.close();
@@ -40,6 +39,7 @@ public class Tutor extends User {
 		return null;
 
 	}
+
 
     public static ResultSet getByUsername(String username) throws SQLException {
 

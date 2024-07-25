@@ -1,12 +1,9 @@
 package com.example;
 import java.io.IOException;
+import java.sql.SQLException;
 
-import org.w3c.dom.Node;
-import org.w3c.dom.events.MouseEvent;
-
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -27,7 +24,24 @@ public class listOfChatsController {
     private Scene scene;
 
     @FXML
-    private void handleListOfChatBack(MouseEvent event) throws IOException
+    public void initialize()
+    {
+        backButton.setOnAction(event -> {
+            try 
+            {
+                handleListOfChatBack(event);
+            } catch (IOException e) {
+                e.printStackTrace(); 
+            }
+            catch(SQLException e)
+            {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @FXML
+    private void handleListOfChatBack(ActionEvent event) throws IOException, SQLException
     {
         User currentUser = User.getCurrentUser();
         if(currentUser.getAccountType().equals("Teacher")){

@@ -19,49 +19,104 @@ public class StudentMenuController implements Initializable{
     private Button chatStudent;
 
     @FXML
+    private Text courseName1;
+
+    @FXML
+    private Text courseName2;
+
+    @FXML
+    private Text lessonType1;
+
+    @FXML
+    private Text lessonType2;
+
+    @FXML
     private Text mailText;
-
-    @FXML
-    private Text onlineText;
-
-    @FXML
-    private Text priceText;
-
-    @FXML
-    private Circle profileStudent;
-
-    @FXML
-    private TextField searchBar;
-
-    @FXML
-    private Button sendMessageButton;
-
-    @FXML
-    private Button sendMessageButton2;
-
-    @FXML
-    private Button settingsStudent;
-
-    @FXML
-    private Text tutorFieldText;
-
-    @FXML
-    private Circle tutorProfile;
-
-    @FXML
-    private Circle tutorProfile2;
-
-    @FXML
-    private Text tutornameText;
-
-    @FXML
-    private Text usernameText;
 
     @FXML
     private Button myScheduleButton;
 
     @FXML
-    public void initialize()
+    private Text price1;
+
+    @FXML
+    private Text price2;
+
+    @FXML
+    private Circle profileStudent;
+
+    @FXML
+    private Circle profileStudent1;
+
+    @FXML
+    private Circle profileStudent2;
+
+    @FXML
+    private Circle profileStudent3;
+
+    @FXML
+    private Circle profileStudent4;
+
+    @FXML
+    private Circle profileStudent5;
+
+    @FXML
+    private Circle profileStudent6;
+
+    @FXML
+    private TextField searchBar;
+
+    @FXML
+    private Text sendMessage1;
+
+    @FXML
+    private Text sendMessage2;
+
+    @FXML
+    private Text sendMessage3;
+
+    @FXML
+    private Text sendMessage4;
+
+    @FXML
+    private Text sendMessage5;
+
+    @FXML
+    private Text sendMessage6;
+
+    @FXML
+    private Button settingsStudent;
+
+    @FXML
+    private Text syllabus1;
+
+    @FXML
+    private Text syllabus2;
+
+    @FXML
+    private Text syllabus3;
+
+    @FXML
+    private Text syllabus4;
+
+    @FXML
+    private Text syllabus5;
+
+    @FXML
+    private Text syllabus6;
+
+    @FXML
+    private Text tutorName1;
+
+    @FXML
+    private Text tutorName2;
+
+    @FXML
+    private Text usernameText;
+
+    @FXML
+    @Override
+    public void initialize(URL location, ResourceBundle resources)
     {
         chatStudent.setOnAction(event -> {
             try {
@@ -94,13 +149,16 @@ public class StudentMenuController implements Initializable{
                 e.printStackTrace(); 
             }
         });
+
+        User currentUser = User.getCurrentUser();
+        mailText.setText(currentUser.getEmail());
+        usernameText.setText(currentUser.getUsername());
     }
 
     @FXML
     private void handleChatStudentButton(ActionEvent event) throws IOException
     {
         App.setRoot("listOfChats");
-
     }
 
     @FXML
@@ -113,9 +171,7 @@ public class StudentMenuController implements Initializable{
     private void handleSettingsStudentButton(ActionEvent event) throws IOException
     {
         App.setRoot("settings");
-
     }
-
 
 
     @FXML
@@ -124,12 +180,6 @@ public class StudentMenuController implements Initializable{
         App.setRoot("searchPage");
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        User currentUser = User.getCurrentUser();
-        mailText.setText(currentUser.getEmail());
-        usernameText.setText(currentUser.getUsername());
-    }
 
 
 

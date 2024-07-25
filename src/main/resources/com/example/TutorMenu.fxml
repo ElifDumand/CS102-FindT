@@ -15,7 +15,7 @@
             <Font size="12.0" />
          </font>
       </Button>
-      <Button fx:id="chatButtonTutor" layoutX="16.0" layoutY="304.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="Chat">
+      <Button fx:id="chatButtonTutor" layoutX="16.0" layoutY="304.0" mnemonicParsing="false" onAction="#handleChatButtonTutor" onMouseClicked="#handleChatButtonTutor" prefHeight="26.0" prefWidth="139.0" text="Chat">
          <font>
             <Font size="12.0" />
          </font>

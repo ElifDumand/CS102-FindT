@@ -89,8 +89,6 @@ public class SignInStudentController implements Initializable{
             e.printStackTrace();
         }});
 
-
-
     }
     @FXML
     private void handleBackButton(ActionEvent event) throws IOException

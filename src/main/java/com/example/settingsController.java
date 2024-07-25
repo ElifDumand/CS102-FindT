@@ -1,12 +1,11 @@
 package com.example;
 import java.io.IOException;
+import java.sql.SQLException;
 
-import org.w3c.dom.Node;
 import org.w3c.dom.events.MouseEvent;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -22,6 +21,9 @@ public class settingsController {
 
     @FXML
     private Button logOutButton;
+
+    @FXML
+    private Button settingsBackButton;
 
     @FXML
     private PasswordField newPasswordTextField;
@@ -46,8 +48,38 @@ public class settingsController {
     private Stage stage;
     private Scene scene;
 
+    public void initialize()
+    {
+            settingsBackButton.setOnAction(event -> {
+            try 
+            {
+                handleSettingsBack(event);
+            } 
+            catch (IOException e ) {
+                e.printStackTrace(); 
+            }
+            catch(SQLException e){
+                e.printStackTrace();
+            }
+        });
+
+        logOutButton.setOnAction(event -> {
+            try 
+            {
+                handleLogOut(event);
+            } 
+            catch (IOException e ) {
+                e.printStackTrace(); 
+            }
+            catch(SQLException e){
+                e.printStackTrace();
+            }
+        });
+
+    }
+
     @FXML
-    private void handleSettingsBack(MouseEvent event) throws IOException
+    private void handleSettingsBack(ActionEvent event) throws IOException, SQLException
     {
         User currentUser = User.getCurrentUser();
         if(currentUser.getAccountType().equals("Teacher")){
@@ -57,6 +89,15 @@ public class settingsController {
             App.setRoot("studentMenu");
         }
     }
+
+    @FXML
+    private void handleLogOut(ActionEvent event) throws IOException, SQLException
+    {
+        User currentUser = null;
+        App.setRoot("LogInPage");
+    }
+
+
 
     @FXML
     private void logOut(MouseEvent event) throws IOException

@@ -74,7 +74,7 @@ public class Student extends User {
 
     }
 
-    public static User logIn(String username, String password) throws SQLException {
+    public static Student logIn(String username, String password) throws SQLException {
 
 		ResultSet r = getByUsername(username);
 		if (r.next() && r.getString("password").equals(password)) {
@@ -86,7 +86,7 @@ public class Student extends User {
             User.setCurrentUser(newStudent);
 			return newStudent;
 
-		}
+		}   
 
 		r.close();
 		welcomePage.showInvalidLoginError();

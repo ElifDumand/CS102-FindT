@@ -45,7 +45,8 @@ public class LogInPageController {
     public void initialize()
     {
         LogInButtonStudent.setOnAction(event -> {
-            try {
+            try 
+            {
                 handleLogInButtonStudent(event);
             } catch (IOException | SQLException e) {
                 e.printStackTrace(); 
@@ -53,7 +54,8 @@ public class LogInPageController {
         });
 
         LogInButtonTutor.setOnAction(event -> {
-            try {
+            try 
+            {
                 handleLogInButtonTutor(event);
             } catch (IOException | SQLException e) {
                 e.printStackTrace(); 
@@ -61,7 +63,8 @@ public class LogInPageController {
         });
 
         studentSignInText.setOnMouseClicked(event -> {
-            try {
+            try 
+            {
                 handleStudentSignInText(event);
             } catch (IOException e) {
                 e.printStackTrace(); 
@@ -69,7 +72,8 @@ public class LogInPageController {
         });
 
         tutorSignInText.setOnMouseClicked(event -> {
-            try {
+            try 
+            {
                 handleTutorSignInText(event);
             } catch (IOException e) {
                 e.printStackTrace(); 
@@ -89,7 +93,7 @@ public class LogInPageController {
     @FXML
     private void handleLogInButtonTutor(ActionEvent event) throws IOException, SQLException
     {
-        if(Tutor.logIn(studentUsername.getText(),studentPassword.getText()) != null){
+        if(Tutor.logIn(tutorUsername.getText(),tutorPassword.getText()) != null){
             App.setRoot("TutorMenu");
         }
     }

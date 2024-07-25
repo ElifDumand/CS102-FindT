@@ -32,7 +32,7 @@ public class Student extends User {
             String username = r.getString("username");
             String password = r.getString("password");
             String email = r.getString("email");
-            String biography = r.getString("biography");
+
             stat.close();
             connection.close();
             return new Student(studentid, username, password, email);
@@ -42,7 +42,7 @@ public class Student extends User {
         return null;
     }
 
-    public static Student signUp(String username, String password, String email, String biography) throws SQLException {
+    public static Student signUp(String username, String password, String email) throws SQLException {
 
         Scanner scanner = new Scanner(System.in);
         Connection connection = DriverManager.getConnection(Main.getMySqlUrl(), Main.getMySqlUsername(), Main.getMySqlPassword());
@@ -81,7 +81,7 @@ public class Student extends User {
 		if (r.next() && r.getString("password").equals(password)) {
 
 			int id = r.getInt("studentid");
-			String bio = r.getString("biography");
+
 			String email = r.getString("email");
             Student newStudent = new Student(id, username, password, email);
             User.setCurrentUser(newStudent);
@@ -122,16 +122,16 @@ public class Student extends User {
     public static Student addStudent(int studentid, String name, String password, String email) throws SQLException {
         Connection connection = DriverManager.getConnection(Main.getMySqlUrl(), Main.getMySqlUsername(), Main.getMySqlPassword());
         Student student = new Student(studentid, name, password, email);
-        String query = "INSERT INTO student VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO student (studentid, name, password, email) VALUES (?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1, student.getId());
-        statement.setString(2, student.getUsername());
-        statement.setString(3, student.getPassword());
-        statement.setString(4, student.getEmail());
+        statement.setInt(1, studentid);
+        statement.setString(2, name);
+        statement.setString(3, password);
+        statement.setString(4, email);
         
         statement.executeUpdate();
         statement.close();
         connection.close();
-        return student;
+        return new Student(studentid, name, password, email);
     }
 }

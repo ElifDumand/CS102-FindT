@@ -11,7 +11,7 @@ import java.util.List;
 public class Tutor extends User {
     private List<Timeslot> schedule;
 
-    public Tutor(int id, String username, String password, String email, String biography) {
+    public Tutor(int id, String username, String password, String email) {
         super(id, username, password, email);
         this.schedule = new ArrayList<>();
     }
@@ -27,9 +27,9 @@ public class Tutor extends User {
 		if (r.next() && r.getString("password").equals(password)) {
 
 			int id = r.getInt("tutorid");
-			String bio = r.getString("biography");
+
 			String email = r.getString("email");
-            Tutor newTutor = new Tutor(id, username, email, password,bio );
+            Tutor newTutor = new Tutor(id, username, email, password);
             User.setCurrentUser(newTutor);
 			return newTutor;
 
@@ -85,17 +85,17 @@ public class Tutor extends User {
             String username = r.getString("name");
             String password = r.getString("password");
             String email = r.getString("email");
-            String biography = r.getString("biography");
+
             stat.close();
             connection.close();
-            return new Tutor(tutorid, username, password, email, biography);
+            return new Tutor(tutorid, username, password, email);
         }
         stat.close();
         connection.close();
         return null;
     }
 
-    public static Tutor signUp(String username, String password, String email, String biography) throws SQLException {
+    public static Tutor signUp(String username, String password, String email) throws SQLException {
         Connection connection = DriverManager.getConnection(Main.getMySqlUrl(), Main.getMySqlUsername(), Main.getMySqlPassword());
         Statement idStatement = connection.createStatement();
         ResultSet r = idStatement.executeQuery("SELECT tutorid FROM tutor ORDER BY tutorid DESC");
@@ -121,7 +121,7 @@ public class Tutor extends User {
             return null;
         }
 
-        return addTeacher(id, username, password, email, biography);
+        return addTeacher(id, username, password, email);
     }
 
     public static boolean isUsernameUnique(String username, String table, String column) throws SQLException {
@@ -136,19 +136,19 @@ public class Tutor extends User {
         return true;
     }
 
-    public static Tutor addTeacher(int tutorid, String username, String password, String email, String biography) throws SQLException {
+    public static Tutor addTeacher(int tutorid, String name, String password, String email) throws SQLException {
         Connection connection = DriverManager.getConnection(Main.getMySqlUrl(), Main.getMySqlUsername(), Main.getMySqlPassword());
-        Tutor teacher = new Tutor(tutorid, username, password, email, biography);
-        String query = "INSERT INTO tutor VALUES (?, ?, ?, ?, ?)";
+        Tutor teacher = new Tutor(tutorid, name, password, email);
+        String query = "INSERT INTO tutor (tutorid, name, password, email) VALUES (?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1, teacher.getId());
-        statement.setString(2, teacher.getUsername());
-        statement.setString(3, teacher.getPassword());
-        statement.setString(4, teacher.getEmail());
+        statement.setInt(1, tutorid);
+        statement.setString(2, name);
+        statement.setString(3, password);
+        statement.setString(4, email);
 
         statement.executeUpdate();
         statement.close();
         connection.close();
-        return teacher;
+        return new Tutor(tutorid, name, password, email);
     }
 }

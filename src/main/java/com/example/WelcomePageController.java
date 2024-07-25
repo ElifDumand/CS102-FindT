@@ -1,15 +1,13 @@
 package com.example;
 import javafx.fxml.FXML;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import java.io.IOException;
-import java.sql.SQLException;
 
 public class WelcomePageController {
     private Stage stage;
@@ -44,9 +42,9 @@ public class WelcomePageController {
         String biography = "Profile/profile_default";
         User user;
         if (User.getCurrentUser().equals("Student")) {
-            user = Student.signUp(username, password, email, biography);
+            user = Student.signUp(username, password, email);
         } else {
-            user = Tutor.signUp(username, password, email, biography);
+            user = Tutor.signUp(username, password, email);
         }
         if (user != null) {
             User.setCurrentUser(user);

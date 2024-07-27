@@ -164,7 +164,7 @@ public class StudentMenuController implements Initializable{
     @FXML
     private void handleMyScheduleButton(ActionEvent event) throws IOException
     {
-        App.setRoot("settings");
+        App.setRoot("StudentSchedulePage");
     }
 
     @FXML

@@ -182,6 +182,8 @@ public class StudentScheduleController {
 
     @FXML
     private Rectangle wed9;
+
+    
     @FXML
     public void initialize()
     {

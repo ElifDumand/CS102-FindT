@@ -1,7 +1,10 @@
 package com.example;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -23,6 +26,9 @@ public class searchPageController {
     private ComboBox<Integer> priceComboBox;
 
     @FXML
+    private ComboBox<String> schoolComboBox;
+
+    @FXML
     private TextField searchSubjectBar;
 
     @FXML
@@ -37,6 +43,37 @@ public class searchPageController {
     @FXML
     public void initialize()
     {
+
+        ArrayList<String> schools = new ArrayList<String>();
+        schools.add("Bilkent University");
+        schools.add("ODTÜ");
+        schools.add("Uludağ University");
+        schools.add("Boğaziçi University");
+        schools.add("Gazi University");
+        schools.add("Atatürk University");
+
+        ObservableList<String> observableSchools = FXCollections.observableArrayList(schools);
+        schoolComboBox.setItems(observableSchools);
+
+        lessonComboBox.getItems().addAll(
+            "Face-to-face",
+            "online"
+        );
+
+        priceComboBox.getItems().addAll(
+            300,
+            350,
+            400,
+            450,
+            500,
+            550,
+            600,
+            650,
+            700,
+            750
+        );
+
+
         backButton.setOnAction(event -> {
             try 
             {

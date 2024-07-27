@@ -10,10 +10,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.SignInTutorController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.SignInTutorController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebdbff" height="406.0" layoutX="-6.0" layoutY="-1.0" stroke="#ebdbff" strokeType="INSIDE" width="609.0" />
-      <Button fx:id="BackToLogInTutor" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Back" />
+      <Button fx:id="BackToLogInTutor" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#handleTutorSignInBack" text="Back" />
       <Text layoutX="252.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Tutor">
          <font>
             <Font name="Times New Roman Bold" size="20.0" />
@@ -57,6 +57,6 @@
       <ComboBox fx:id="TutorExperience" layoutX="447.0" layoutY="241.0" prefHeight="30.0" prefWidth="113.0" />
       <Ellipse fill="#ebdbff" layoutX="298.0" layoutY="179.0" radiusX="46.0" radiusY="29.0" stroke="#ebdbff" strokeType="INSIDE" />
       <Circle fill="#ebdbff" layoutX="298.0" layoutY="132.0" radius="18.5" stroke="#ebdbff" strokeType="INSIDE" />
-      <Button fx:id="createProfileButton" layoutX="455.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#handleTutorSignIn" prefHeight="26.0" prefWidth="124.0" style="-fx-background-color: #493175; -fx-background-radius: 20;" text="Create Profile" textFill="#ebdbff" />
+      <Button fx:id="createProfileButton" layoutX="455.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#handleCreateTutorProfile" prefHeight="26.0" prefWidth="124.0" style="-fx-background-color: #493175; -fx-background-radius: 20;" text="Create Profile" textFill="#ebdbff" />
    </children>
 </AnchorPane>

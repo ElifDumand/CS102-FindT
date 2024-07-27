@@ -179,4 +179,11 @@ public abstract class User {
             throw new SQLException("Only tutors can view their courses");
         }
     }
+
+    public static User getById(int senderId){
+        return null;
+    }
+
+
+
 }

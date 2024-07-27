@@ -9,13 +9,12 @@ import java.util.ArrayList;
 public class Message {
 
 	private int senderId;
-	private int communityId;
+	private int receiverId;
 	private String body;
 
-	public Message(int senderId, int communityId, String body) {
-
+	public Message(int senderId, int receiverId, String body) {
 		this.senderId = senderId;
-		this.communityId = communityId;
+		this.receiverId = receiverId;
 		this.body = body;
 	}
 
@@ -27,12 +26,8 @@ public class Message {
 		this.senderId = senderId;
 	}
 
-	public int getCommunityId() {
-		return communityId;
-	}
-
-	public void setCommunityId(int communityId) {
-		this.communityId = communityId;
+	public int getReceiverId() {
+		return receiverId;
 	}
 
 	public String getBody() {
@@ -43,15 +38,15 @@ public class Message {
 		this.body = body;
 	}
 
-	public static Message createMessage(int senderId, int communityId, String body) throws SQLException {
+	public static Message createMessage(int senderId, int receiverId, String body) throws SQLException {
 
 		Connection connection = Main.connect();
 
-		Message message = new Message(senderId, communityId, body);
+		Message message = new Message(senderId, receiverId, body);
 		String query = "insert into messages values (?, ?, ?)";
 		PreparedStatement statement = connection.prepareStatement(query);
 		statement.setInt(1, senderId);
-		statement.setInt(2, communityId);
+		statement.setInt(2, receiverId);
 		statement.setString(3, body);
 		int count = statement.executeUpdate();
 
@@ -69,22 +64,22 @@ public class Message {
 		return false;
 	}
 
-	public static ArrayList<Message> getMessages(int communityId) throws SQLException {
+	public static ArrayList<Message> getMessages(int receiverId) throws SQLException {
 
 		ArrayList<Message> messages = new ArrayList<>();
 
 		Connection connection = Main.connect();
 		Statement statement = connection.createStatement();
-		ResultSet rs = statement.executeQuery("select count(*) from messages where communityid = '" + communityId + "'");
+		ResultSet rs = statement.executeQuery("select count(*) from messages where receiverid = '" + receiverId + "'");
 		long count;
 		if (rs.next()) {
 			count = rs.getLong(1);
-			ResultSet rs2 = statement.executeQuery("select * from messages where communityid = '" + communityId + "'");
+			ResultSet rs2 = statement.executeQuery("select * from messages where receiverid = '" + receiverId + "'");
 			rs2.next();
 			for (long i = count - 1; i >= 0; i--) {
 				int senderId = rs2.getInt("senderid");
 				String body = rs2.getString("body");
-				messages.add(new Message(senderId, communityId, body));
+				messages.add(new Message(senderId, receiverId, body));
 				rs2.next();
 			}
 			rs2.close();

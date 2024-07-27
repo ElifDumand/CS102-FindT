@@ -1,8 +1,7 @@
 package com.example;
+import java.io.IOException;
+
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -47,11 +46,9 @@ public class SignInTutorController {
     private Stage stage;
     private Scene scene;
 
-    public void goTutorMenuPage(MouseEvent event) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("TutorMenu.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    @FXML
+    private void handleTutorSignIn(MouseEvent event) throws IOException
+    {
+        App.setRoot("SignIn(Tutor)");
     }
 }

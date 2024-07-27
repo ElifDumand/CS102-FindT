@@ -44,11 +44,12 @@ public class listOfChatsController {
     private void handleListOfChatBack(ActionEvent event) throws IOException, SQLException
     {
         User currentUser = User.getCurrentUser();
-        if(currentUser.getAccountType().equals("Teacher")){
+        if(currentUser.getAccountType().equalsIgnoreCase("tutor")){
             App.setRoot("TutorMenu");
             }
         else{
             App.setRoot("studentMenu");
         }
     }
+    
 }

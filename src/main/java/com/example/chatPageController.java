@@ -1,19 +1,26 @@
 package com.example;
 import java.io.IOException;
-import java.util.Stack;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
-import org.w3c.dom.Node;
-import org.w3c.dom.Text;
 import org.w3c.dom.events.MouseEvent;
+
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class chatPageController{
@@ -28,6 +35,9 @@ public class chatPageController{
 
     @FXML
     private TextField messageTextField;
+
+    @FXML
+    private FlowPane chatFlowPane;
 
     @FXML
     private Ellipse profielBigCircle;
@@ -49,5 +59,92 @@ public class chatPageController{
     {
             App.setRoot("listOfChats");
     }
+     public void renderMessage(Message message) throws SQLException {
+        String name = "default";
+        User user = User.getCurrentUser();
+        if(user.getAccountType().equalsIgnoreCase("student")){
+            name = Student.getById(message.getSenderId()).getUsername();
+        }
+        else{
+            name = Tutor.getById(message.getSenderId()).getUsername();
+        }
 
+        if (message.isSentByCurrentUser()) {
+            Pane messagePane = createMessagePane(name, message.getBody(), "right");
+            chatFlowPane.getChildren().add(messagePane);
+        } else {
+            Pane messagePane = createMessagePane(name, message.getBody(), "left");
+            chatFlowPane.getChildren().add(messagePane);
+        }
+    }
+
+    private Pane createMessagePane(String userName, String text, String alignment) throws SQLException {
+        // Create an HBox to hold the text
+        HBox messageBox = new HBox();
+        HBox nameBox = new HBox();
+        nameBox.setSpacing(5);
+        messageBox.setSpacing(5);
+        messageBox.setAlignment(Pos.CENTER);
+
+        // Create the text node
+        Text messageText = new Text(text);
+        messageText.setFont(Font.font("Times New Roman", 14));
+        if (messageText.getText().length() > 100) {
+            messageText.setWrappingWidth(200);
+        }
+        
+
+        Text name = new Text("@" + userName);
+        name.setFont(Font.font("Times New Roman", 12));
+        // nameBox.getChildren().add(name);
+        messageBox.getChildren().add(messageText);
+        FlowPane messagePane = new FlowPane();
+        FlowPane messageP = new FlowPane();
+        messagePane.setPrefWidth(400);
+        messageP.setPrefHeight(0);
+        messagePane.setPrefHeight(0);
+        name.setTextAlignment(TextAlignment.JUSTIFY);
+
+        if ("right".equals(alignment)) {
+            messageText.setFill(Color.WHITE);
+            name.setFill(Color.BLACK);
+            messageBox.setStyle("-fx-background-color: #053c75; -fx-padding: 5px; -fx-background-radius: 5px;");
+            messageP.getChildren().add(messageBox);
+            messageP.getChildren().add(name);
+            messageP.setOrientation(Orientation.VERTICAL);
+            messagePane.getChildren().add(messageBox);
+            // messagePane.getChildren().add(nameBox);
+            messagePane.getChildren().add(messageP);
+            messageP.setAlignment(Pos.CENTER_RIGHT);
+            messagePane.setAlignment(Pos.CENTER_RIGHT);
+        } else {
+            messageText.setFill(Color.BLACK);
+            name.setFill(Color.BLACK);
+            messageBox.setStyle("-fx-background-color: #b4bfc9; -fx-padding: 5px; -fx-background-radius: 5px;");
+            messageP.getChildren().add(messageBox);
+            messageP.getChildren().add(name);
+            messageP.setOrientation(Orientation.VERTICAL);
+            messagePane.getChildren().add(messageBox);
+            // messagePane.getChildren().add(nameBox);
+            messagePane.getChildren().add(messageP);
+            messagePane.setAlignment(Pos.CENTER_LEFT);
+            messageP.setAlignment(Pos.CENTER_LEFT);
+        }
+
+        return messagePane;
+    }
+
+    public void postMessage(int receiverId) throws SQLException {
+        String text = messageTextField.getText();
+        Message message = Message.createMessage(User.getCurrentUser().getId(), receiverId, text);
+        renderMessage(message);
+        messageTextField.setText("");
+    }
+
+    public void renderMessages() throws SQLException {
+        ArrayList<Message> messages = Message.getMessages(User.getCurrentUser().getId());
+        for (Message message : messages) {
+            renderMessage(message);
+        }
+    }
 }

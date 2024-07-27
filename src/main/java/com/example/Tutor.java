@@ -75,23 +75,32 @@ public class Tutor extends User {
         this.schedule = Timeslot.getTimeslotsByTutor(this.getId());
     }
 
-    public static Tutor getById(int tutorid) throws SQLException {
-        Connection connection = Main.connect();
-        String query = "SELECT * FROM tutor WHERE tutorid = ?";
-        PreparedStatement stat = connection.prepareStatement(query);
-        stat.setInt(1, tutorid);
-        ResultSet r = stat.executeQuery();
-        if (r.next()) {
-            String username = r.getString("name");
-            String password = r.getString("password");
-            String email = r.getString("email");
+    public static User getById(int tutorid){
+        try (Connection connection = Main.connect()) {
+            String query = "SELECT * FROM tutor WHERE tutorid = ?";
+            PreparedStatement stat = connection.prepareStatement(query);
+            try {
+                stat.setInt(1, tutorid);
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            ResultSet r = stat.executeQuery();
+            if (r.next()) {
+                String username = r.getString("name");
+                String password = r.getString("password");
+                String email = r.getString("email");
 
+                stat.close();
+                connection.close();
+                return new Tutor(tutorid, username, password, email);
+            }
             stat.close();
             connection.close();
-            return new Tutor(tutorid, username, password, email);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        stat.close();
-        connection.close();
         return null;
     }
 

@@ -20,24 +20,37 @@ public class Student extends User {
     public List<Timeslot> getTimeslots() throws SQLException {
         return Timeslot.getTimeslotsByStudent(this.getId());
     }
+    
+    public static Student getById(int studentid){
+        try (Connection connection = Main.connect()) {
+            String query = "SELECT * FROM student WHERE studentid = ?";
+            try (PreparedStatement stat = connection.prepareStatement(query)) {
+                stat.setInt(1, studentid);
+                ResultSet r = stat.executeQuery();
+                if (r.next()) {
+                    String username = r.getString("username");
+                    String password = r.getString("password");
+                    String email = r.getString("email");
 
-    public static Student getById(int studentid) throws SQLException {
-        Connection connection = Main.connect();
-        String query = "SELECT * FROM student WHERE studentid = ?";
-        PreparedStatement stat = connection.prepareStatement(query);
-        stat.setInt(1, studentid);
-        ResultSet r = stat.executeQuery();
-        if (r.next()) {
-            String username = r.getString("username");
-            String password = r.getString("password");
-            String email = r.getString("email");
-
-            stat.close();
-            connection.close();
-            return new Student(studentid, username, password, email);
+                    stat.close();
+                    connection.close();
+                    return new Student(studentid, username, password, email);
+                }
+                stat.close();
+            } 
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                connection.close();
+            } 
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } 
+        catch (SQLException e) {
+            e.printStackTrace();
         }
-        stat.close();
-        connection.close();
         return null;
     }
 
@@ -160,4 +173,6 @@ public class Student extends User {
             }
         }
     }
+
+
 }    

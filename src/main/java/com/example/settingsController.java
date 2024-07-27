@@ -82,7 +82,7 @@ public class settingsController {
     private void handleSettingsBack(ActionEvent event) throws IOException, SQLException
     {
         User currentUser = User.getCurrentUser();
-        if(currentUser.getAccountType().equals("Teacher")){
+        if(currentUser.getAccountType().equalsIgnoreCase("tutor")){
             App.setRoot("TutorMenu");
             }
         else{

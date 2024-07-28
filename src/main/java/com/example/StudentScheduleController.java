@@ -2,10 +2,12 @@ package com.example;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 
@@ -196,6 +198,21 @@ public class StudentScheduleController {
             }
         });
 
+            List<Rectangle> rectangles = List.of(
+            fri10, fri11, fri12, fri13, fri14, fri15, fri16, fri9,
+            mon10, mon11, mon12, mon13, mon14, mon15, mon16, mon9,
+            sat10, sat11, sat12, sat13, sat14, sat15, sat16, sat9,
+            sun10, sun11, sun12, sun13, sun14, sun15, sun16, sun9,
+            thu10, thu11, thu12, thu13, thu14, thu15, thu16, thu9,
+            tue10, tue11, tue12, tue13, tue14, tue15, tue16, tue9,
+            wed10, wed11, wed12, wed13, wed14, wed15, wed16, wed9
+        );
+
+        // Attach a click event to each rectangle
+        for (Rectangle rectangle : rectangles) {
+            rectangle.setOnMouseClicked(event -> colorRectangle(rectangle));
+        }
+
 
     }
 
@@ -203,6 +220,17 @@ public class StudentScheduleController {
     private void handleBackButton(ActionEvent event) throws IOException
     {
         App.setRoot("studentMenu");
+    }
+
+        public void colorRectangle(Rectangle rectangle)
+    {
+        if(rectangle.getFill().equals(Color.WHITE)){
+        rectangle.setFill(Color.GRAY);
+        }
+        else 
+        {
+            rectangle.setFill(Color.WHITE);
+        }
     }
 
 }

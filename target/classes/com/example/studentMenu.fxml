@@ -38,7 +38,7 @@
          <font>
             <Font name="Times New Roman" size="13.0" />
          </font></Text>
-      <Button fx:id="myScheduleButton" layoutX="16.0" layoutY="262.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="My Schedule">
+      <Button fx:id="myScheduleButton" layoutX="16.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleMyScheduleButton" prefHeight="26.0" prefWidth="139.0" text="My Schedule">
          <font>
             <Font size="12.0" />
          </font>

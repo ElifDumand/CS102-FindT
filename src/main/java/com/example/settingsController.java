@@ -17,9 +17,6 @@ import javafx.stage.Stage;
 public class settingsController {
 
     @FXML
-    private TextField biographyTexTfield;
-
-    @FXML
     private Button logOutButton;
 
     @FXML

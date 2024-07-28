@@ -86,7 +86,6 @@ public class searchPageController {
                 e.printStackTrace();
             }
         });
-
     }
 
 

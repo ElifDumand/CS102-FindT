@@ -79,7 +79,6 @@ public class LogInPageController {
                 e.printStackTrace(); 
             }
         });
-
     }
 
     @FXML
@@ -109,7 +108,5 @@ public class LogInPageController {
     {
         App.setRoot("SignIn(Tutor)");
     }
-
-
 
 }

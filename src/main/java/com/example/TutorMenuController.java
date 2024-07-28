@@ -20,6 +20,12 @@ public class TutorMenuController {
     private Button chatButtonTutor;
 
     @FXML
+    private Text mailText;
+
+    @FXML
+    private Text usernameText;
+
+    @FXML
     private Rectangle fri10;
 
     @FXML

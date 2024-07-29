@@ -1,4 +1,5 @@
 package com.example;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-public class chatPageController{
+public class chatPageController {
     @FXML
     private Button backButton;
 
@@ -50,26 +51,26 @@ public class chatPageController{
 
     @FXML
     private Text tutorNameText;
-    
+
     private Stage stage;
     private Scene scene;
 
     @FXML
-    private void handleSearchPageBack(MouseEvent event) throws IOException
-    {
-            App.setRoot("listOfChats");
+    private void handleSearchPageBack(MouseEvent event) throws IOException {
+        App.setRoot("listOfChats");
     }
-     public void renderMessage(Message message) throws SQLException {
+
+    public void renderMessage(Message message) throws SQLException {
         String name = "default";
         User user = User.getCurrentUser();
-        if(user.getAccountType().equalsIgnoreCase("student")){
+        if (message.getSenderType().equalsIgnoreCase("student")) {
             name = Student.getById(message.getSenderId()).getUsername();
-        }
-        else{
+        } else {
             name = Tutor.getById(message.getSenderId()).getUsername();
         }
 
-        if (message.isSentByCurrentUser()) {
+        int currentUserId = user.getId();
+        if (message.isSentByCurrentUser(currentUserId)) {
             Pane messagePane = createMessagePane(name, message.getBody(), "right");
             chatFlowPane.getChildren().add(messagePane);
         } else {
@@ -79,24 +80,20 @@ public class chatPageController{
     }
 
     private Pane createMessagePane(String userName, String text, String alignment) throws SQLException {
-        // Create an HBox to hold the text
         HBox messageBox = new HBox();
         HBox nameBox = new HBox();
         nameBox.setSpacing(5);
         messageBox.setSpacing(5);
         messageBox.setAlignment(Pos.CENTER);
 
-        // Create the text node
         Text messageText = new Text(text);
         messageText.setFont(Font.font("Times New Roman", 14));
         if (messageText.getText().length() > 100) {
             messageText.setWrappingWidth(200);
         }
-        
 
         Text name = new Text("@" + userName);
         name.setFont(Font.font("Times New Roman", 12));
-        // nameBox.getChildren().add(name);
         messageBox.getChildren().add(messageText);
         FlowPane messagePane = new FlowPane();
         FlowPane messageP = new FlowPane();
@@ -113,7 +110,6 @@ public class chatPageController{
             messageP.getChildren().add(name);
             messageP.setOrientation(Orientation.VERTICAL);
             messagePane.getChildren().add(messageBox);
-            // messagePane.getChildren().add(nameBox);
             messagePane.getChildren().add(messageP);
             messageP.setAlignment(Pos.CENTER_RIGHT);
             messagePane.setAlignment(Pos.CENTER_RIGHT);
@@ -125,7 +121,6 @@ public class chatPageController{
             messageP.getChildren().add(name);
             messageP.setOrientation(Orientation.VERTICAL);
             messagePane.getChildren().add(messageBox);
-            // messagePane.getChildren().add(nameBox);
             messagePane.getChildren().add(messageP);
             messagePane.setAlignment(Pos.CENTER_LEFT);
             messageP.setAlignment(Pos.CENTER_LEFT);
@@ -134,15 +129,19 @@ public class chatPageController{
         return messagePane;
     }
 
-    public void postMessage(int receiverId) throws SQLException {
+    public void postMessage(String receiverType, int receiverId) throws SQLException {
         String text = messageTextField.getText();
-        Message message = Message.createMessage(User.getCurrentUser().getId(), receiverId, text);
+        User currentUser = User.getCurrentUser();
+        String senderType = currentUser.getAccountType();
+        int senderId = currentUser.getId();
+
+        Message message = Message.createMessage(senderType, senderId, receiverType, receiverId, text);
         renderMessage(message);
         messageTextField.setText("");
     }
 
-    public void renderMessages() throws SQLException {
-        ArrayList<Message> messages = Message.getMessages(User.getCurrentUser().getId());
+    public void renderMessages(String receiverType, int receiverId) throws SQLException {
+        ArrayList<Message> messages = Message.getMessages(receiverType, receiverId);
         for (Message message : messages) {
             renderMessage(message);
         }

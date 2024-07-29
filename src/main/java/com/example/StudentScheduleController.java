@@ -222,7 +222,7 @@ public class StudentScheduleController {
         App.setRoot("studentMenu");
     }
 
-        public void colorRectangle(Rectangle rectangle)
+    public void colorRectangle(Rectangle rectangle)
     {
         if(rectangle.getFill().equals(Color.WHITE)){
         rectangle.setFill(Color.GRAY);
@@ -231,6 +231,20 @@ public class StudentScheduleController {
         {
             rectangle.setFill(Color.WHITE);
         }
+    }
+
+    private String getVariableName(Object object) {
+        try {
+            for (java.lang.reflect.Field field : this.getClass().getDeclaredFields()) {
+                field.setAccessible(true); 
+                if (field.get(this) == object) {
+                    return field.getName();
+                }
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null; 
     }
 
 }

@@ -62,7 +62,7 @@ public class Tutor extends User {
 
     // Method to create a timeslot
     public void createTimeslot(String timeslotTime) throws SQLException {
-        Timeslot.createTimeslot(this.getId(), timeslotTime);
+        Timeslot.createTimeslot(this.getId(), -1, timeslotTime);
     }
 
     // Method to assign a student to a timeslot

@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Timeslot {
 
+    private static int timeSlotid;
     private int timeslotid;
     private int tutorid;
     private int studentid;
@@ -57,16 +59,26 @@ public class Timeslot {
     // Database interaction methods
 
     // Method to create a timeslot
-    public static void createTimeslot(int tutorId, String timeSlotTime) throws SQLException {
-        Connection connection = Main.connect();
-        String query = "INSERT INTO timeslots (tutorId, timeSlotTime) VALUES (?, ?)";
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1, tutorId);
-        statement.setString(2, timeSlotTime);
-        statement.executeUpdate();
-        statement.close();
-        connection.close();
+    public static void createTimeslot(int tutorId, int studentId, String timeSlotTime) {
+        String query = "INSERT INTO timeslot (tutorid, studentid, timeSlotTime) VALUES (?, ?, ?)";
+        
+        try (Connection connection = Main.connect();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+             
+            // Set the parameters
+            statement.setInt(1, tutorId);
+            statement.setInt(2, studentId);
+            statement.setString(3, timeSlotTime);
+            
+            // Execute the update
+            statement.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println("aaa");
+        }
+
     }
+    
 
     // Method to assign a student to a timeslot
     public static void assignStudentToTimeslot(int timeslotid, int studentid) throws SQLException {
@@ -121,5 +133,48 @@ public class Timeslot {
         connection.close();
         return timeslots;
     }
+
+    public String getTimeSlot(){
+        return this.timeSlotTime;
+    }
+    
+
+    public static ArrayList<Timeslot> searchReservedTimeslots(int targetId) throws SQLException {
+		ArrayList<Timeslot> reservedHours = new ArrayList<Timeslot>();
+		Connection connection = Main.connect();
+		PreparedStatement stat = null;
+		ResultSet rs = null;
+
+		try {
+			String query = "select * from timeslot where tutorid like ?";
+			stat = connection.prepareStatement(query);
+			stat.setString(1, "%" + targetId + "%");
+			stat.setString(2, "%" + targetId + "%");
+
+			rs = stat.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("timeslotid");
+				int tutorid = rs.getInt("tutorid");
+				int studentid = rs.getInt("studentid");
+				String timeSlot = rs.getString("timeSlotTime");
+				Timeslot newTimeslot = new Timeslot(id, tutorid, studentid, timeSlot);
+				reservedHours.add(newTimeslot);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (rs != null) {
+					stat.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return reservedHours;
+	}
 }
 

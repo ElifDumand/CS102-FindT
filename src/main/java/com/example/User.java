@@ -132,7 +132,7 @@ public abstract class User {
 
      public void createTimeslot(String timeslotTime) throws SQLException {
         if ("tutor".equals(userType)) {
-            Timeslot.createTimeslot(this.id, timeslotTime);
+            Timeslot.createTimeslot(this.id, this.id, timeslotTime);
         } else {
             throw new SQLException("Only tutors can create timeslots");
         }

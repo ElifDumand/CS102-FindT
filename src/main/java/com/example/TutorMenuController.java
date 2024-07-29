@@ -1,5 +1,7 @@
 package com.example;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.event.ActionEvent;
@@ -11,6 +13,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 public class TutorMenuController {
+
+
+    private List<String> selectedVariableNames; 
 
     @FXML
     private Button SettingsButtonTutor;
@@ -209,6 +214,9 @@ public class TutorMenuController {
 
     }
 
+
+    List<Rectangle> rectangles = null;
+
     @FXML
     public void initialize()
     {
@@ -236,7 +244,7 @@ public class TutorMenuController {
             }
         });
 
-            List<Rectangle> rectangles = List.of(
+        List<Rectangle> rectangles = List.of(
             fri10, fri11, fri12, fri13, fri14, fri15, fri16, fri9,
             mon10, mon11, mon12, mon13, mon14, mon15, mon16, mon9,
             sat10, sat11, sat12, sat13, sat14, sat15, sat16, sat9,
@@ -249,6 +257,19 @@ public class TutorMenuController {
         // Attach a click event to each rectangle
         for (Rectangle rectangle : rectangles) {
             rectangle.setOnMouseClicked(event -> colorRectangle(rectangle));
+        }
+        ArrayList<Timeslot> reservedTimeslots = new ArrayList<>();
+        try {
+            reservedTimeslots = Timeslot.searchReservedTimeslots(User.getCurrentUser().getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for(Timeslot timeslot: reservedTimeslots){
+            for(Rectangle rectangle: rectangles){
+                if(timeslot.getTimeSlot().equalsIgnoreCase(getVariableName(rectangle))){
+                    rectangle.setFill(Color.GRAY);
+                }
+            }
         }
 
     }
@@ -268,15 +289,32 @@ public class TutorMenuController {
         App.setRoot("AddACoursePage");
     }
 
-    public void colorRectangle(Rectangle rectangle)
+    public Timeslot colorRectangle(Rectangle rectangle)
     {
+        Timeslot newTimeslot = null;
         if(rectangle.getFill().equals(Color.WHITE)){
-        rectangle.setFill(Color.GRAY);
+            rectangle.setFill(Color.GRAY); 
+            Timeslot.createTimeslot(User.getCurrentUser().getId(), -1, getVariableName(rectangle));
         }
         else 
         {
             rectangle.setFill(Color.WHITE);
         }
+        return newTimeslot;
+    }
+
+    private String getVariableName(Object object) {
+        try {
+            for (java.lang.reflect.Field field : this.getClass().getDeclaredFields()) {
+                field.setAccessible(true); 
+                if (field.get(this) == object) {
+                    return field.getName();
+                }
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null; 
     }
 
 

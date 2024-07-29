@@ -11,6 +11,8 @@ import java.util.List;
 public class Tutor extends User {
     private List<Timeslot> schedule;
 
+    static Tutor currentReceiver = null;
+
     public Tutor(int id, String username, String password, String email) {
         super(id, username, password, email);
         this.schedule = new ArrayList<>();
@@ -55,6 +57,7 @@ public class Tutor extends User {
     public List<Timeslot> getSchedule() {
         return schedule;
     }
+    
 
     public void setSchedule(List<Timeslot> schedule) {
         this.schedule = schedule;

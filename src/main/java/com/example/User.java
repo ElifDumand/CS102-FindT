@@ -14,6 +14,7 @@ public abstract class User {
 
     private static User currentUser;
     public static User profileUser;
+    static User currentReceiver = null;
 
     public User(int id, String username, String password, String email) {
         this.id = id;
@@ -72,6 +73,12 @@ public abstract class User {
         this.password = password;
     }
 
+    public static void setCurrentReceiver(User temp){
+        currentReceiver = temp;
+    }
+    public static User getCurrentReceiver(){
+        return currentReceiver;
+    }
 
     // Method to get the account type
     public abstract String getAccountType();

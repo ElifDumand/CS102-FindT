@@ -58,5 +58,11 @@
       <Ellipse fill="#ebdbff" layoutX="298.0" layoutY="179.0" radiusX="46.0" radiusY="29.0" stroke="#ebdbff" strokeType="INSIDE" />
       <Circle fill="#ebdbff" layoutX="298.0" layoutY="132.0" radius="18.5" stroke="#ebdbff" strokeType="INSIDE" />
       <Button fx:id="createProfileButton" layoutX="455.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#handleTutorSignIn" prefHeight="26.0" prefWidth="124.0" style="-fx-background-color: #493175; -fx-background-radius: 20;" text="Create Profile" textFill="#ebdbff" />
+      <Text fx:id="priceText" layoutX="327.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
+         <font>
+            <Font name="Times New Roman" size="13.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="price" layoutX="447.0" layoutY="287.0" prefHeight="30.0" prefWidth="113.0" />
    </children>
 </AnchorPane>

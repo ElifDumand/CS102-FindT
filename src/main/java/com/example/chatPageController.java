@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 import org.w3c.dom.events.MouseEvent;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -22,11 +22,14 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 
 public class chatPageController {
+    
     @FXML
     private Button backButton;
+
+    @FXML
+    private FlowPane chatFlowPane;
 
     @FXML
     private ScrollPane chatScrollPane;
@@ -36,9 +39,6 @@ public class chatPageController {
 
     @FXML
     private TextField messageTextField;
-
-    @FXML
-    private FlowPane chatFlowPane;
 
     @FXML
     private Ellipse profielBigCircle;
@@ -52,9 +52,18 @@ public class chatPageController {
     @FXML
     private Text tutorNameText;
 
-    private Stage stage;
-    private Scene scene;
-
+    public void initialize()
+    {
+        backButton.setOnAction(event -> {
+            try 
+            {
+                handleBackButton(event);
+            } catch (IOException e) {
+                e.printStackTrace(); 
+            }
+        });
+    }
+    
     @FXML
     private void handleSearchPageBack(MouseEvent event) throws IOException {
         App.setRoot("listOfChats");
@@ -146,4 +155,16 @@ public class chatPageController {
             renderMessage(message);
         }
     }
-}
+
+    private void handleBackButton(ActionEvent event) throws IOException
+    {
+        try
+        {
+            App.setRoot("listOfChats");
+        } catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+    }
+
+    }

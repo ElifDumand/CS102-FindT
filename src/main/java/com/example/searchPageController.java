@@ -9,21 +9,27 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class searchPageController {
     @FXML
     private Button backButton;
-
-    @FXML
-    private ComboBox<String> lessonComboBox;
 
     @FXML
     private ComboBox<Integer> priceComboBox;
@@ -48,20 +54,18 @@ public class searchPageController {
     {
 
         ArrayList<String> schools = new ArrayList<String>();
-        schools.add("Bilkent University");
-        schools.add("ODTÜ");
-        schools.add("Uludağ University");
-        schools.add("Boğaziçi University");
-        schools.add("Gazi University");
-        schools.add("Atatürk University");
+        schools.add("Bilkent Üniversitesi");
+        schools.add("Orta Doğu Teknik Üniversitesi");
+        schools.add("Uludağ Üniversitesi");
+        schools.add("Boğaziçi Üniversitesi");
+        schools.add("Gazi Üniversitesi");
+        schools.add("Atatürk Üniversitesi");
 
         ObservableList<String> observableSchools = FXCollections.observableArrayList(schools);
         schoolComboBox.setItems(observableSchools);
 
-        lessonComboBox.getItems().addAll(
-            "Face-to-face",
-            "online"
-        );
+
+        
 
         priceComboBox.getItems().addAll(
             300,
@@ -89,6 +93,9 @@ public class searchPageController {
                 e.printStackTrace();
             }
         });
+
+        priceComboBox.setValue(500);
+        schoolComboBox.setValue("Orta Doğu Teknik Üniversitesi");
     }
 
 
@@ -104,22 +111,7 @@ public class searchPageController {
         }
     }
 
-    //public void goToMenuPage(MouseEvent event){
-    //    User currentUser = User.getCurrentUser();
-    ///    Parent root;
-    //    if(currentUser.getAccountType().equals("Teacher")){
-    //        root = FXMLLoader.load(getClass().getResource("TutorMenu.fxml"));
-    //    }
-    //  else{
-    //        root = FXMLLoader.load(getClass().getResource("studentMenu.java"));
-    //    }
-    //    stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-    //    scene = new Scene(root);
-    //    stage.setScene(scene);
-    //    stage.show();
-    //}
-    
-    public ArrayList<Tutor> seearchTutorByName(String searchTerm) throws SQLException {
+    public ArrayList<Tutor> searchTutorByName(String searchTerm) throws SQLException {
 		ArrayList<Tutor> resultTutors = new ArrayList<Tutor>();
 		Connection connection = Main.connect();
 		PreparedStatement stat = null;
@@ -196,7 +188,7 @@ public class searchPageController {
         return resultTutors;
     }
 
-    public ArrayList<Tutor> seearchTutorByUniversity(String searchTerm) throws SQLException {
+    public ArrayList<Tutor> searchTutorByUniversity(String searchTerm) throws SQLException {
 		ArrayList<Tutor> resultTutors = new ArrayList<Tutor>();
 		Connection connection = Main.connect();
 		PreparedStatement stat = null;
@@ -233,14 +225,14 @@ public class searchPageController {
 		return resultTutors;
 	}
 
-    public ArrayList<Tutor> seearchTutorByPrice(String searchTerm) throws SQLException {
+    public ArrayList<Tutor> searchTutorByPrice(String searchTerm) throws SQLException {
 		ArrayList<Tutor> resultTutors = new ArrayList<Tutor>();
 		Connection connection = Main.connect();
 		PreparedStatement stat = null;
 		ResultSet rs = null;
 
 		try {
-			String query = "select * from tutor where price like ?";
+			String query = "select * from tutor where price <= ?";
 			stat = connection.prepareStatement(query);
 			stat.setString(1, "%" + searchTerm + "%");
 
@@ -270,6 +262,71 @@ public class searchPageController {
 		return resultTutors;
 	}
 
+    public void displayResults(MouseEvent event) throws SQLException {
+		subjectsListedVBox.getChildren().clear();
+		ArrayList<Tutor> targetPrice = searchTutorByPrice(priceComboBox.getValue() + "");
+		ArrayList<Tutor> targetUniversity = searchTutorByUniversity(schoolComboBox.getValue());
 
-    
-}
+				for (Tutor tutor : targetPrice) {
+					BorderPane chatBox = new BorderPane();
+					chatBox.setStyle("-fx-background-color: #493175; -fx-padding: 5px; -fx-background-radius: 5px;");
+					chatBox.setPrefWidth(400);
+					Text tutorInfo = new Text(tutor.getUsername());
+					tutorInfo.setFont(new Font("Times New Roman", 16));
+					tutorInfo.setFill(Color.WHITE);
+					tutorInfo.setTextAlignment(TextAlignment.CENTER);
+
+					Button chatButton = new Button("Send message");
+					chatButton.setFont(Font.font("Times New Roman", 12));
+
+					chatButton.setOnAction(new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent event) {
+                            try {
+                                App.setRoot("chatPage");
+                            } catch (IOException ex) {
+                            }
+						}
+					});
+
+					chatBox.setLeft(tutorInfo);
+					chatBox.setRight(chatButton);
+					subjectsListedVBox.getChildren().add(chatBox);
+					subjectsListedVBox.setPrefHeight(subjectsListedVBox.getPrefHeight() + chatBox.getHeight());
+					subjectsListedVBox.setVisible(true);
+				}
+
+                for (Tutor tutor : targetUniversity) {
+					BorderPane chatBox = new BorderPane();
+					chatBox.setStyle("-fx-background-color: #493175; -fx-padding: 5px; -fx-background-radius: 5px;");
+					chatBox.setPrefWidth(400);
+					Text tutorInfo = new Text(tutor.getUsername());
+					tutorInfo.setFont(new Font("Times New Roman", 16));
+					tutorInfo.setFill(Color.WHITE);
+					tutorInfo.setTextAlignment(TextAlignment.CENTER);
+
+					Button chatButton = new Button("Send message");
+					chatButton.setFont(Font.font("Times New Roman", 12));
+
+					chatButton.setOnAction(new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent event) {
+                            try {
+                                App.setRoot("chatPage");
+                            } catch (IOException ex) {
+                            }
+						}
+					});
+
+					chatBox.setLeft(tutorInfo);
+					chatBox.setRight(chatButton);
+					subjectsListedVBox.getChildren().add(chatBox);
+					subjectsListedVBox.setPrefHeight(subjectsListedVBox.getPrefHeight() + chatBox.getHeight());
+					subjectsListedVBox.setVisible(true);
+				}
+			
+                
+			} 
+		}
+
+

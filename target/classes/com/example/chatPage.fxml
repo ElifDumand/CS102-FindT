@@ -10,9 +10,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #d4b9e1;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chatPageController{">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #d4b9e1;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.chatPageController">
    <children>
-      <Button fx:id="backButton" layoutX="11.0" layoutY="14.0" mnemonicParsing="false" text="Back">
+      <Button fx:id="backButton" layoutX="11.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#handleSearchPageBack" text="Back">
          <font>
             <Font name="Times New Roman" size="11.0" />
          </font>
@@ -28,7 +28,8 @@
       <ScrollPane fx:id="chatScrollPane" layoutX="12.0" layoutY="49.0" prefHeight="311.0" prefWidth="579.0">
          <content>
             <FlowPane fx:id="chatFlowPane" prefHeight="306.0" prefWidth="574.0" />
-         </content></ScrollPane>
+         </content>
+      </ScrollPane>
       <Ellipse fx:id="profielBigCircle" fill="#d4b9e1" layoutX="74.0" layoutY="35.0" radiusX="13.0" radiusY="11.0" stroke="#d4b9e1" strokeType="INSIDE" />
       <Circle fx:id="profileLittleCircle" fill="#d4b9e1" layoutX="74.0" layoutY="18.0" radius="8.0" stroke="#d4b9e1" strokeType="INSIDE" />
    </children>

@@ -160,4 +160,23 @@ public class Tutor extends User {
         connection.close();
         return new Tutor(tutorid, name, password, email);
     }
+
+    public static List<Tutor> getAllTutors() throws SQLException {
+        List<Tutor> tutors = new ArrayList<>();
+        Connection connection = Main.connect();
+        String query = "SELECT * FROM tutor";
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            int id = resultSet.getInt("tutorid");
+            String username = resultSet.getString("name");
+            String password = resultSet.getString("password");
+            String email = resultSet.getString("email");
+            tutors.add(new Tutor(id, username, password, email));
+        }
+        resultSet.close();
+        statement.close();
+        connection.close();
+        return tutors;
+    }
 }

@@ -1,5 +1,8 @@
 package com.example;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -115,5 +118,158 @@ public class searchPageController {
     //    stage.setScene(scene);
     //    stage.show();
     //}
+    
+    public ArrayList<Tutor> seearchTutorByName(String searchTerm) throws SQLException {
+		ArrayList<Tutor> resultTutors = new ArrayList<Tutor>();
+		Connection connection = Main.connect();
+		PreparedStatement stat = null;
+		ResultSet rs = null;
+
+		try {
+			String query = "select * from tutor where name like ?";
+			stat = connection.prepareStatement(query);
+			stat.setString(1, "%" + searchTerm + "%");
+
+			rs = stat.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("tutorid");
+				String name = rs.getString("name");
+				String password = rs.getString("password");
+				String email = rs.getString("email");
+				Tutor tutor = new Tutor(id, name, password, email);
+				resultTutors.add(tutor);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (rs != null) {
+					stat.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return resultTutors;
+	}
+
+    public ArrayList<Tutor> searchTutorBySubject(String searchTerm) throws SQLException {
+        ArrayList<Tutor> resultTutors = new ArrayList<Tutor>();
+        Connection connection = Main.connect();
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+    
+        try {
+            String query = "SELECT t.tutorid, t.name, t.password, t.email " +
+                           "FROM tutor t " +
+                           "JOIN subject s ON t.subjectid = s.subjectid " +
+                           "WHERE s.subjectname LIKE ?";
+            stat = connection.prepareStatement(query);
+            stat.setString(1, "%" + searchTerm + "%");
+    
+            rs = stat.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("tutorid");
+                String name = rs.getString("name");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                Tutor tutor = new Tutor(id, name, password, email);
+                resultTutors.add(tutor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return resultTutors;
+    }
+
+    public ArrayList<Tutor> seearchTutorByUniversity(String searchTerm) throws SQLException {
+		ArrayList<Tutor> resultTutors = new ArrayList<Tutor>();
+		Connection connection = Main.connect();
+		PreparedStatement stat = null;
+		ResultSet rs = null;
+
+		try {
+			String query = "select * from tutor where university like ?";
+			stat = connection.prepareStatement(query);
+			stat.setString(1, "%" + searchTerm + "%");
+
+			rs = stat.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("tutorid");
+				String name = rs.getString("name");
+				String password = rs.getString("password");
+				String email = rs.getString("email");
+				Tutor tutor = new Tutor(id, name, password, email);
+				resultTutors.add(tutor);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (rs != null) {
+					stat.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return resultTutors;
+	}
+
+    public ArrayList<Tutor> seearchTutorByPrice(String searchTerm) throws SQLException {
+		ArrayList<Tutor> resultTutors = new ArrayList<Tutor>();
+		Connection connection = Main.connect();
+		PreparedStatement stat = null;
+		ResultSet rs = null;
+
+		try {
+			String query = "select * from tutor where price like ?";
+			stat = connection.prepareStatement(query);
+			stat.setString(1, "%" + searchTerm + "%");
+
+			rs = stat.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("tutorid");
+				String name = rs.getString("name");
+				String password = rs.getString("password");
+				String email = rs.getString("email");
+				Tutor tutor = new Tutor(id, name, password, email);
+				resultTutors.add(tutor);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (rs != null) {
+					stat.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return resultTutors;
+	}
+
+
     
 }

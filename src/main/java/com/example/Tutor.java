@@ -182,4 +182,59 @@ public class Tutor extends User {
         connection.close();
         return tutors;
     }
+
+    public boolean changeTutorPassword(String oldPassword, String newPassword) throws SQLException {
+        if (!this.password.equals(oldPassword)) {
+            welcomePage.showInvalidOldPasswordError();
+            return false;
+        }
+        if (!isValidPassword(newPassword)) {
+            welcomePage.showInvalidNewPasswordError();
+            return false;
+        }
+        Connection connection = Main.connect();
+        String query = "UPDATE tutor SET password = ? WHERE tutorid = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, newPassword);
+        statement.setInt(2, this.id);
+        int rowsUpdated = statement.executeUpdate();
+        statement.close();
+        connection.close();
+
+        if (rowsUpdated > 0) {
+            this.password = newPassword; // Update the current password in the object
+            return true;
+        } 
+        else {
+            return false;
+        }
+    }
+
+    public boolean changeTutorUsername(String newUsername) throws SQLException {
+        if (!isValidUsername(newUsername)) {
+            welcomePage.showInvalidUsernameError();
+            return false;
+        }
+        if (!isUsernameUnique(newUsername, "tutor", "name")) {
+            welcomePage.showNotUniqueUsernameError();
+            return false;
+        }
+    
+        Connection connection = Main.connect();
+        String query = "UPDATE tutor SET name = ? WHERE tutorid = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, newUsername);
+        statement.setInt(2, this.id);
+    
+        int rowsUpdated = statement.executeUpdate();
+        statement.close();
+        connection.close();
+    
+        if (rowsUpdated > 0) {
+            this.username = newUsername; // Update the current username in the object
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

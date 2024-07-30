@@ -58,4 +58,16 @@ public class welcomePage extends Application {
         alert.setContentText("Invalid email. Please enter a correct email.");
         alert.showAndWait();
     }
+    public static void showInvalidOldPasswordError() {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setContentText("Old password does not match your current password.");
+        alert.showAndWait();
+    }
+    public static void showInvalidNewPasswordError() {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setContentText("New password is invalid.");
+        alert.showAndWait();
+    }
 }

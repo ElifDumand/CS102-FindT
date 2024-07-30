@@ -131,6 +131,61 @@ public class Student extends User {
         return true;
     }
 
+    public boolean changeStudentPassword(String oldPassword, String newPassword) throws SQLException {
+        if (!this.password.equals(oldPassword)) {
+            welcomePage.showInvalidOldPasswordError();
+            return false;
+        }
+        if (!isValidPassword(newPassword)) {
+            welcomePage.showInvalidNewPasswordError();
+            return false;
+        }
+        Connection connection = Main.connect();
+        String query = "UPDATE student SET password = ? WHERE studentid = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, newPassword);
+        statement.setInt(2, this.id);
+        int rowsUpdated = statement.executeUpdate();
+        statement.close();
+        connection.close();
+
+        if (rowsUpdated > 0) {
+            this.password = newPassword; // Update the current password in the object
+            return true;
+        } 
+        else {
+            return false;
+        }
+    }
+
+    public boolean changeStudentUsername(String newUsername) throws SQLException {
+        if (!isValidUsername(newUsername)) {
+            welcomePage.showInvalidUsernameError();
+            return false;
+        }
+        if (!isUsernameUnique(newUsername, "student", "name")) {
+            welcomePage.showNotUniqueUsernameError();
+            return false;
+        }
+    
+        Connection connection = Main.connect();
+        String query = "UPDATE student SET name = ? WHERE studentid = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, newUsername);
+        statement.setInt(2, this.id);
+    
+        int rowsUpdated = statement.executeUpdate();
+        statement.close();
+        connection.close();
+    
+        if (rowsUpdated > 0) {
+            this.username = newUsername; // Update the current username in the object
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static Student addStudent(int studentid, String name, String password, String email) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;

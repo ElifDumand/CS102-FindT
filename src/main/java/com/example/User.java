@@ -1,7 +1,9 @@
 package com.example;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
-
 
 public abstract class User {
 
@@ -9,7 +11,7 @@ public abstract class User {
     protected String username;
     protected String email;
     protected String password;
-   
+
     protected String userType;
 
     private static User currentUser;
@@ -21,7 +23,7 @@ public abstract class User {
         this.username = username;
         this.email = email;
         this.password = password;
-        
+
     }
 
     // Getters and setters
@@ -73,24 +75,26 @@ public abstract class User {
         this.password = password;
     }
 
-    public static void setCurrentReceiver(User temp){
+    public static void setCurrentReceiver(User temp) {
         currentReceiver = temp;
     }
-    public static User getCurrentReceiver(){
+
+    public static User getCurrentReceiver() {
         return currentReceiver;
     }
 
     // Method to get the account type
     public abstract String getAccountType();
 
-    public static void logOut(){
+    public static void logOut() {
         setCurrentUser(null);
     }
 
     public static User logIn(String username, String password) throws SQLException {
-		return null;
+        return null;
 
-	}
+    }
+
     public static boolean isValidEmail(String email) {
         if (email.lastIndexOf('@') == -1 || email.lastIndexOf('.') == -1) {
             return false;
@@ -137,7 +141,7 @@ public abstract class User {
         return enterPassword.equals(confirmPassword);
     }
 
-     public void createTimeslot(String timeslotTime) throws SQLException {
+    public void createTimeslot(String timeslotTime) throws SQLException {
         if ("tutor".equals(userType)) {
             Timeslot.createTimeslot(this.id, this.id, timeslotTime);
         } else {
@@ -170,7 +174,6 @@ public abstract class User {
         }
     }
 
-
     public void assignCourse(int courseId) throws SQLException {
         if ("tutor".equals(userType)) {
             Course.assignCourseToTutor(this.id, courseId);
@@ -187,10 +190,8 @@ public abstract class User {
         }
     }
 
-    public static User getById(int senderId){
+    public static User getById(int senderId) {
         return null;
     }
-
-
 
 }

@@ -62,13 +62,23 @@ public class listOfChatsController implements Initializable{
                     e.printStackTrace();
                 }
             });
+
+            displayListOfChats();
     
-            List<Tutor> allTutors = new ArrayList<>();
-            try {
-                allTutors = Tutor.getAllTutors();
-            } catch (SQLException ex) {
-            }
-    
+         
+                }
+        }
+
+        private void displayListOfChats()
+        {
+            if(User.getCurrentUser().getAccountType().equalsIgnoreCase("Student"))
+            {
+                List<Tutor> allTutors = new ArrayList<>();
+                try {
+                    allTutors = Tutor.getAllTutors();
+                } catch (SQLException ex) {
+                }
+        
                     for (Tutor tutor : allTutors) {
                         BorderPane chatBox = new BorderPane();
                         chatBox.setStyle("-fx-background-color: #493175; -fx-padding: 5px; -fx-background-radius: 5px;");
@@ -77,10 +87,10 @@ public class listOfChatsController implements Initializable{
                         tutorInfo.setFont(new Font("Times New Roman", 16));
                         tutorInfo.setFill(Color.WHITE);
                         tutorInfo.setTextAlignment(TextAlignment.CENTER);
-    
+
                         Button chatButton = new Button("Send message");
                         chatButton.setFont(Font.font("Times New Roman", 12));
-    
+
                         chatButton.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent event) {
@@ -90,13 +100,55 @@ public class listOfChatsController implements Initializable{
                                 }
                             }
                         });
-    
+
                         chatBox.setLeft(tutorInfo);
                         chatBox.setRight(chatButton);
                         chatVBox.getChildren().add(chatBox);
                         chatVBox.setPrefHeight(chatVBox.getPrefHeight() + chatBox.getHeight());
                         chatVBox.setVisible(true);
                     }
+            }
+            else if(User.getCurrentUser().equals("tutor"))
+            {
+                List<Student> students = new ArrayList<>(); 
+                try {
+                    students = Message.getChatsForTutor(User.getCurrentUser().getId());
+                } catch (SQLException ex) {
                 }
-        }   
+        
+                    for (Student student : students) {
+                        BorderPane chatBox = new BorderPane();
+                        chatBox.setStyle("-fx-background-color: #493175; -fx-padding: 5px; -fx-background-radius: 5px;");
+                        chatBox.setPrefWidth(400);
+                        Text studentInfo = new Text(student.getUsername());
+                        studentInfo.setFont(new Font("Times New Roman", 16));
+                        studentInfo.setFill(Color.WHITE);
+                        studentInfo.setTextAlignment(TextAlignment.CENTER);
+
+                        Button chatButton = new Button("Send message");
+                        chatButton.setFont(Font.font("Times New Roman", 12));
+
+                        chatButton.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent event) {
+                                try {
+                                    App.setRoot("chatPage");
+                                } catch (IOException ex) {
+                                }
+                            }
+                        });
+
+                        chatBox.setLeft(studentInfo);
+                        chatBox.setRight(chatButton);
+                        chatVBox.getChildren().add(chatBox);
+                        chatVBox.setPrefHeight(chatVBox.getPrefHeight() + chatBox.getHeight());
+                        chatVBox.setVisible(true);
+                    }
+
+
+            }
+
+
+
+        }
 }

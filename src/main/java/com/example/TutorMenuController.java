@@ -236,13 +236,7 @@ public class TutorMenuController {
             }
         });
 
-        addButton.setOnAction(event -> {
-            try {
-                handleAddButton(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+
 
         List<Rectangle> rectangles = List.of(
             fri10, fri11, fri12, fri13, fri14, fri15, fri16, fri9,

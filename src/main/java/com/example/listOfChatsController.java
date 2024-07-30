@@ -115,7 +115,6 @@ public class listOfChatsController implements Initializable{
                     students = Message.getChatsForTutor(User.getCurrentUser().getId());
                 } catch (SQLException ex) {
                 }
-        
                     for (Student student : students) {
                         BorderPane chatBox = new BorderPane();
                         chatBox.setStyle("-fx-background-color: #493175; -fx-padding: 5px; -fx-background-radius: 5px;");
@@ -131,9 +130,12 @@ public class listOfChatsController implements Initializable{
                         chatButton.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent event) {
-                                try {
+                                try 
+                                {
                                     App.setRoot("chatPage");
-                                } catch (IOException ex) {
+                                } 
+                                catch (IOException ex) {
+                                    ex.printStackTrace();
                                 }
                             }
                         });
@@ -143,6 +145,7 @@ public class listOfChatsController implements Initializable{
                         chatVBox.getChildren().add(chatBox);
                         chatVBox.setPrefHeight(chatVBox.getPrefHeight() + chatBox.getHeight());
                         chatVBox.setVisible(true);
+                        chatBox.setVisible(true);
                     }
 
 

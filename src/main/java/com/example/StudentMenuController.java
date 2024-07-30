@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 
@@ -32,10 +33,34 @@ public class StudentMenuController implements Initializable{
     private Text courseName2;
 
     @FXML
+    private Text courseName3;
+
+    @FXML
+    private Text courseName4;
+
+    @FXML
+    private Text courseName5;
+
+    @FXML
+    private Text courseName6;
+
+    @FXML
     private Text lessonType1;
 
     @FXML
     private Text lessonType2;
+
+    @FXML
+    private Text lessonType3;
+
+    @FXML
+    private Text lessonType4;
+
+    @FXML
+    private Text lessonType5;
+
+    @FXML
+    private Text lessonType6;
 
     @FXML
     private Text mailText;
@@ -48,6 +73,18 @@ public class StudentMenuController implements Initializable{
 
     @FXML
     private Text price2;
+
+    @FXML
+    private Text price3;
+
+    @FXML
+    private Text price4;
+
+    @FXML
+    private Text price5;
+
+    @FXML
+    private Text price6;
 
     @FXML
     private Circle profileStudent;
@@ -74,22 +111,22 @@ public class StudentMenuController implements Initializable{
     private TextField searchBar;
 
     @FXML
-    private Text sendMessage1;
+    private Rectangle sendMessage1;
 
     @FXML
-    private Text sendMessage2;
+    private Rectangle sendMessage2;
 
     @FXML
-    private Text sendMessage3;
+    private Rectangle sendMessage3;
 
     @FXML
-    private Text sendMessage4;
+    private Rectangle sendMessage4;
 
     @FXML
-    private Text sendMessage5;
+    private Rectangle sendMessage5;
 
     @FXML
-    private Text sendMessage6;
+    private Rectangle sendMessage6;
 
     @FXML
     private Button settingsStudent;
@@ -117,6 +154,18 @@ public class StudentMenuController implements Initializable{
 
     @FXML
     private Text tutorName2;
+
+    @FXML
+    private Text tutorName3;
+
+    @FXML
+    private Text tutorName4;
+
+    @FXML
+    private Text tutorName5;
+
+    @FXML
+    private Text tutorName6;
 
     @FXML
     private Text usernameText;
@@ -189,9 +238,15 @@ public class StudentMenuController implements Initializable{
     
     public void recommendTutor(){
         List<Tutor> tutors = fetchTutorsFromDatabase();
+        Text[] allRecommendedTutorNames = {tutorName1, tutorName2, tutorName3, tutorName4, tutorName5, tutorName6};
+        Text[] allRecommendedCourseNames = {courseName1, courseName2, courseName3, courseName4, courseName5, courseName6};
+        Text[] allRecommendedLessonTypes = {lessonType1, lessonType2, lessonType3, lessonType4, lessonType5, lessonType6};
+        Text[] allRecommendedPrices = {price1, price2, price3, price4, price5, price6};
+        Rectangle[] allRecommendedButtons = {sendMessage1, sendMessage2, sendMessage3, sendMessage4, sendMessage5, sendMessage6};
+        
+
         
     }
-
 
 
     private  List<Tutor> fetchTutorsFromDatabase() {
@@ -208,7 +263,9 @@ public class StudentMenuController implements Initializable{
                             rs.getInt("tutorid"),
                             rs.getString("name"),
                             rs.getString("password"),
-                            rs.getString("email")
+                            rs.getString("email"),
+                            rs.getInt("price"),
+                            rs.getString("university")
                     );
                     tutors.add(tutor);
                 } catch (SQLException e) {

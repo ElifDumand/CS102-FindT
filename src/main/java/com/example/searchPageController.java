@@ -65,8 +65,6 @@ public class searchPageController {
         schoolComboBox.setItems(observableSchools);
 
 
-        
-
         priceComboBox.getItems().addAll(
 			10,
 			20, 
@@ -91,8 +89,8 @@ public class searchPageController {
             }
         });
 
-        priceComboBox.setValue(500);
-        schoolComboBox.setValue("Orta Doğu Teknik Üniversitesi");
+        priceComboBox.setValue(50);
+        schoolComboBox.setValue("METU");
     }
 
 

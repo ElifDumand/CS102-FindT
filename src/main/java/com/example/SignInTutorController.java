@@ -46,12 +46,14 @@ public class SignInTutorController {
     @FXML
     public void initialize()
     {
+        TutorBranch = new ComboBox<String>();
         TutorBranch.getItems().addAll("Maths",
          "Physics", 
          "Chemistry",
          "Biology");
 
          
+        universityComboBox = new ComboBox<String>();
         universityComboBox.getItems().addAll("Bilkent University", 
         "METU",
         "Uludağ University",
@@ -60,6 +62,7 @@ public class SignInTutorController {
         "Atatürk University");
 
 
+        price = new ComboBox<Integer>();
         price.getItems().addAll(
         10,
         20, 

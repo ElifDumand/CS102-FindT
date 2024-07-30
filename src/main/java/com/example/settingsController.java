@@ -73,6 +73,30 @@ public class settingsController {
             }
         });
 
+        usernameSubmitButton.setOnAction(event -> {
+            try {
+                changeUserName(event);
+            } 
+            catch (IOException e ) {
+                e.printStackTrace(); 
+            }
+            catch(SQLException e){
+                e.printStackTrace();
+            }
+        });
+
+        passwordSubmitButton.setOnAction(event -> {
+            try 
+            {
+                changePassword(event);
+            } 
+            catch (IOException e ) {
+                e.printStackTrace(); 
+            }
+            catch(SQLException e){
+                e.printStackTrace();
+            }
+        });
     }
 
     @FXML
@@ -100,6 +124,32 @@ public class settingsController {
     private void logOut(MouseEvent event) throws IOException
     {
         App.setRoot("LogInPage");
+    }
+
+    @FXML
+    private void changeUserName(ActionEvent event) throws IOException, SQLException
+    {
+        if(User.getCurrentUser().getAccountType().equalsIgnoreCase("student")){
+            Student currentUser = (Student)User.getCurrentUser();
+            currentUser.changeStudentUsername(newUsernameTextField.getText());
+        }
+        else{
+            Tutor currentUser = (Tutor)User.getCurrentUser();
+            currentUser.changeTutorUsername(newUsernameTextField.getText());
+        }
+    }
+
+    @FXML
+    private void changePassword(ActionEvent event) throws IOException, SQLException
+    {
+        if(User.getCurrentUser().getAccountType().equalsIgnoreCase("student")){
+            Student currentUser = (Student)User.getCurrentUser();
+            currentUser.changeStudentPassword(currentUser.getPassword(), newPasswordTextField.getText());
+        }
+        else{
+            Tutor currentUser = (Tutor)User.getCurrentUser();
+            currentUser.changeTutorPassword(currentUser.getPassword(), newPasswordTextField.getText());
+        }
     }
 }
 

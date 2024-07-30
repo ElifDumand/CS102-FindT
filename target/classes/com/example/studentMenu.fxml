@@ -99,27 +99,27 @@
                         <Font name="Times New Roman" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="100.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tutor Name">
+                  <Text fx:id="tutorName3" layoutX="100.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tutor Name">
                      <font>
                         <Font name="Times New Roman" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="100.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Course Name">
+                  <Text fx:id="courseName3" layoutX="100.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Course Name">
                      <font>
                         <Font name="Times New Roman" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="100.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lesson Type">
+                  <Text fx:id="lessonType3" layoutX="100.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lesson Type">
                      <font>
                         <Font name="Times New Roman" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="100.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
+                  <Text fx:id="price3" layoutX="100.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
                      <font>
                         <Font name="Times New Roman" size="13.0" />
                      </font>
                   </Text>
-                  <Text layoutX="100.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tutor Name">
+                  <Text fx:id="tutorName4" layoutX="100.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tutor Name">
                      <font>
                         <Font name="Times New Roman" size="13.0" />
                      </font>

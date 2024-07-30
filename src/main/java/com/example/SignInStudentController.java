@@ -1,23 +1,15 @@
 package com.example;
 import java.io.IOException;
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
-public class SignInStudentController implements Initializable{
+public class SignInStudentController {
     @FXML
     private Button BackToLogInStudent;
 
@@ -26,18 +18,6 @@ public class SignInStudentController implements Initializable{
 
     @FXML
     private ChoiceBox<Integer> StudentBirthyearChoiceBox;
-
-    @FXML
-    private Text StudentCreateProfile;
-
-    @FXML
-    private Circle StudentCreateProfileCL;
-
-    @FXML
-    private Circle StudentCreateProfileCR;
-
-    @FXML
-    private Rectangle StudentCreateProfileRect;
 
     @FXML
     private TextField StudentMail;
@@ -51,14 +31,13 @@ public class SignInStudentController implements Initializable{
     @FXML
     private Button createProfileButton;
     
-    private Stage stage;
-    private Scene scene;
-
-
 
     @FXML
     public void initialize()
     {
+        //ParentsAgeChoiceBox = new ChoiceBox<>();
+        //StudentBirthyearChoiceBox = new ChoiceBox<>();
+
         //This is for the parents age, I think 79 is a good upper limit
         Integer[] parentAge = new Integer[60];
         for(int i = 0; i < parentAge.length; i++)
@@ -117,11 +96,7 @@ public class SignInStudentController implements Initializable{
             }
     } 
     }
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'initialize'");
-    }
+
 
     @FXML
     private void handleStudentSignIn(MouseEvent event) throws IOException

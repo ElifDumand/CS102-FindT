@@ -35,6 +35,8 @@ public class SignInTutorController {
     @FXML
     private ComboBox<Integer> price;
 
+    @FXML private ComboBox<String> university;
+
     @FXML
     private Text priceText;
 
@@ -103,11 +105,14 @@ public class SignInTutorController {
         String username = TutorUsernameSignIn.getText();
         String password = TutorPassword.getText();
         String email = TutorMail.getText();
+        Integer priceVal = price.getValue();
+        String universityName = university.getValue();
+
 
         if (username != null && password != null && email != null) {
             try 
             {
-                Tutor newTutor = Tutor.signUp(username, password, email);
+                Tutor newTutor = Tutor.signUp(username, password, email, priceVal, universityName);
                 User.setCurrentUser(newTutor);
                 App.setRoot("LogInPage");
             } 

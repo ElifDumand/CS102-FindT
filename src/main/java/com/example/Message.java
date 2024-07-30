@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Message {
 
@@ -107,5 +108,25 @@ public class Message {
         connection.close();
 
         return messages;
+    }
+
+    public static List<Student> getChatsForTutor(int tutorId) throws SQLException {
+        List<Student> students = new ArrayList<>();
+        Connection connection = Main.connect();
+        String query = "SELECT DISTINCT senderid FROM messages WHERE receiverid = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setInt(1, tutorId);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            int studentId = resultSet.getInt("senderid");
+            Student student = Student.getById(studentId);
+            if (student != null) {
+                students.add(student);
+            }
+        }
+        resultSet.close();
+        statement.close();
+        connection.close();
+        return students;
     }
 }

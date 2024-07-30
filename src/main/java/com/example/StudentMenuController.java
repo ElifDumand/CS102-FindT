@@ -1,6 +1,13 @@
 package com.example;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -180,10 +187,54 @@ public class StudentMenuController implements Initializable{
         App.setRoot("searchPage");
     }
     
+    public void recommendTutor(){
+        List<Tutor> tutors = fetchTutorsFromDatabase();
+        
+    }
 
 
 
+    private  List<Tutor> fetchTutorsFromDatabase() {
+        List<Tutor> tutors = new ArrayList<>();
+        String query = "SELECT tutorid, name, password, email FROM tutor"; // Ensure columns are correct
 
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                try {
+                    Tutor tutor = new Tutor(
+                            rs.getInt("tutorid"),
+                            rs.getString("name"),
+                            rs.getString("password"),
+                            rs.getString("email")
+                    );
+                    tutors.add(tutor);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return tutors;
+    }
+
+    private Connection connect() {
+        // Database connection details
+        String url = "jdbc:mysql://localhost:3306/your_database_name"; // Update with your database name
+        String user = "your_username"; // Update with your database username
+        String password = "your_password"; // Update with your database password
+
+        try {
+            return DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
 
 

@@ -54,12 +54,12 @@ public class searchPageController {
     {
 
         ArrayList<String> schools = new ArrayList<String>();
-        schools.add("Bilkent Üniversitesi");
-        schools.add("Orta Doğu Teknik Üniversitesi");
-        schools.add("Uludağ Üniversitesi");
-        schools.add("Boğaziçi Üniversitesi");
-        schools.add("Gazi Üniversitesi");
-        schools.add("Atatürk Üniversitesi");
+        schools.add("Bilkent University");
+        schools.add("METU");
+        schools.add("Uludağ University");
+        schools.add("Boğaziçi University");
+        schools.add("Gazi University");
+        schools.add("Atatürk University");
 
         ObservableList<String> observableSchools = FXCollections.observableArrayList(schools);
         schoolComboBox.setItems(observableSchools);
@@ -68,17 +68,14 @@ public class searchPageController {
         
 
         priceComboBox.getItems().addAll(
-            300,
-            350,
-            400,
-            450,
-            500,
-            550,
-            600,
-            650,
-            700,
-            750
-        );
+			10,
+			20, 
+			30,
+			40,
+			50,
+			60,
+			70);
+        
 
 
         backButton.setOnAction(event -> {

@@ -4,13 +4,11 @@ import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class SignInTutorController {
     @FXML
@@ -18,9 +16,6 @@ public class SignInTutorController {
 
     @FXML
     private ComboBox<String> TutorBranch;
-
-    @FXML
-    private ComboBox<String> TutorExperience;
 
     @FXML
     private TextField TutorMail;
@@ -32,6 +27,9 @@ public class SignInTutorController {
     private TextField TutorUsernameSignIn;
 
     @FXML
+    private Text UniversityText;
+
+    @FXML
     private Button createProfileButton;
 
     @FXML
@@ -40,9 +38,8 @@ public class SignInTutorController {
     @FXML
     private Text priceText;
 
-    
-    private Stage stage;
-    private Scene scene;
+    @FXML
+    private ComboBox<String> universityComboBox;
 
     @FXML
     public void initialize()
@@ -53,29 +50,25 @@ public class SignInTutorController {
          "Biology");
 
          
-         TutorExperience.getItems().addAll("1", 
-        "2",
-        "3",
-        "4",
-        "5", 
-        "5+");
+        universityComboBox.getItems().addAll("Bilkent University", 
+        "METU",
+        "Uludağ University",
+        "Boğaziçi University",
+        "Gazi University", 
+        "Atatürk University");
+
 
         price.getItems().addAll(
-        200,
-        250, 
-        300,
-        350,
-        400,
-        450,
-        500,
-        550,
-        600,
-        650,
-        700,
-        750);
+        10,
+        20, 
+        30,
+        40,
+        50,
+        60,
+        70);
 
-        price.setValue(500);
-        TutorExperience.setValue("3");
+        price.setValue(50);
+        universityComboBox.setValue("METU");
         TutorBranch.setValue("Maths");
 
 

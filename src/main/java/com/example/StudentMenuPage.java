@@ -1,14 +1,7 @@
 package com.example;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,6 +10,12 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 
 public class StudentMenuPage {
 
@@ -52,7 +51,7 @@ public class StudentMenuPage {
         }
     }
 
-    private List<Tutor> fetchTutorsFromDatabase() {
+    public List<Tutor> fetchTutorsFromDatabase() {
         List<Tutor> tutors = new ArrayList<>();
         String query = "SELECT tutorid, name, password, email FROM tutor"; // Ensure columns are correct
 

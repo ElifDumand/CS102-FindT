@@ -54,7 +54,7 @@ public class StudentMenuPage {
 
     private List<Tutor> fetchTutorsFromDatabase() {
         List<Tutor> tutors = new ArrayList<>();
-        String query = "SELECT tutorid, name, password, email FROM tutor"; // Ensure columns are correct
+        String query = "SELECT tutorid, name, password, email, price, university FROM tutor"; // Ensure columns are correct
 
         try (Connection conn = connect();
              Statement stmt = conn.createStatement();
@@ -66,7 +66,9 @@ public class StudentMenuPage {
                             rs.getInt("tutorid"),
                             rs.getString("name"),
                             rs.getString("password"),
-                            rs.getString("email")
+                            rs.getString("email"),
+                            rs.getInt("price"),
+                            rs.getString("university")
                     );
                     tutors.add(tutor);
                 } catch (SQLException e) {

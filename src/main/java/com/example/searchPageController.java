@@ -128,7 +128,9 @@ public class searchPageController {
 				String name = rs.getString("name");
 				String password = rs.getString("password");
 				String email = rs.getString("email");
-				Tutor tutor = new Tutor(id, name, password, email);
+				int price = rs.getInt("price");
+				String uni = rs.getString("university");
+				Tutor tutor = new Tutor(id, name, password, email, price, uni);
 				resultTutors.add(tutor);
 			}
 		} catch (SQLException e) {
@@ -168,7 +170,9 @@ public class searchPageController {
                 String name = rs.getString("name");
                 String password = rs.getString("password");
                 String email = rs.getString("email");
-                Tutor tutor = new Tutor(id, name, password, email);
+				int price = rs.getInt("price");
+				String uni = rs.getString("university");
+                Tutor tutor = new Tutor(id, name, password, email, price, uni);
                 resultTutors.add(tutor);
             }
         } catch (SQLException e) {
@@ -205,7 +209,9 @@ public class searchPageController {
 				String name = rs.getString("name");
 				String password = rs.getString("password");
 				String email = rs.getString("email");
-				Tutor tutor = new Tutor(id, name, password, email);
+				int price = rs.getInt("price");
+				String uni = rs.getString("university");
+				Tutor tutor = new Tutor(id, name, password, email, price, uni);
 				resultTutors.add(tutor);
 			}
 		} catch (SQLException e) {
@@ -242,7 +248,10 @@ public class searchPageController {
 				String name = rs.getString("name");
 				String password = rs.getString("password");
 				String email = rs.getString("email");
-				Tutor tutor = new Tutor(id, name, password, email);
+				int price = rs.getInt("price");
+				String uni = rs.getString("university");
+
+				Tutor tutor = new Tutor(id, name, password, email, price, uni);
 				resultTutors.add(tutor);
 			}
 		} catch (SQLException e) {

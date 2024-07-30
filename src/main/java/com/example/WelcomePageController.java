@@ -35,27 +35,6 @@ public class WelcomePageController {
         }
     }
 
-    public void signUp(MouseEvent event) throws Exception {
-        String username = singUpUsername.getText();
-        String password = singUpPassword.getText();
-        String email = singUpEMail.getText();
-        String biography = "Profile/profile_default";
-        User user;
-        if (User.getCurrentUser().equals("Student")) {
-            user = Student.signUp(username, password, email);
-        } else {
-            user = Tutor.signUp(username, password, email);
-        }
-        if (user != null) {
-            User.setCurrentUser(user);
-            if (User.getCurrentUser().equals("Student")) {
-                App.setRoot("TutorMenu");
-            }
-            else{
-                App.setRoot("studentMenu");
-            }
-        }
-    }
 
     public void goToSingUpPage(MouseEvent event) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("singUpPage.fxml"));

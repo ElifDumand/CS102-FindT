@@ -10,12 +10,16 @@ import java.util.List;
 
 public class Tutor extends User {
     private List<Timeslot> schedule;
+    private String university;
+    private int price;
 
     static Tutor currentReceiver = null;
 
-    public Tutor(int id, String username, String password, String email) {
+    public Tutor(int id, String username, String password, String email, int price, String university) {
         super(id, username, password, email);
         this.schedule = new ArrayList<>();
+        this.university = university;
+        this.price = price;
     }
 
     @Override
@@ -31,7 +35,9 @@ public class Tutor extends User {
 			int tutorid = r.getInt("tutorid");
 
 			String email = r.getString("email");
-            Tutor newTutor = new Tutor(tutorid, name, password, email );
+            String university = r.getString("university");
+            int price = r.getInt("price");
+            Tutor newTutor = new Tutor(tutorid, name, password, email, price, university );
             User.setCurrentUser(newTutor);
 			return newTutor;
 		}
@@ -93,10 +99,12 @@ public class Tutor extends User {
                 String username = r.getString("name");
                 String password = r.getString("password");
                 String email = r.getString("email");
+                String university = r.getString("university");
+                int price = r.getInt("price");
 
                 stat.close();
                 connection.close();
-                return new Tutor(tutorid, username, password, email);
+                return new Tutor(tutorid, username, password, email, price, university);
             }
             stat.close();
             connection.close();
@@ -107,7 +115,7 @@ public class Tutor extends User {
         return null;
     }
 
-    public static Tutor signUp(String username, String password, String email) throws SQLException {
+    public static Tutor signUp(String username, String password, String email, int price, String university) throws SQLException {
         Connection connection = DriverManager.getConnection(Main.getMySqlUrl(), Main.getMySqlUsername(), Main.getMySqlPassword());
         Statement idStatement = connection.createStatement();
         ResultSet r = idStatement.executeQuery("SELECT tutorid FROM tutor ORDER BY tutorid DESC");
@@ -133,7 +141,7 @@ public class Tutor extends User {
             return null;
         }
 
-        return addTeacher(id, username, password, email);
+        return addTeacher(id, username, password, email, price, university);
     }
 
     public static boolean isUsernameUnique(String username, String table, String column) throws SQLException {
@@ -148,20 +156,22 @@ public class Tutor extends User {
         return true;
     }
 
-    public static Tutor addTeacher(int tutorid, String name, String password, String email) throws SQLException {
+    public static Tutor addTeacher(int tutorid, String name, String password, String email, int price, String university) throws SQLException {
         Connection connection = DriverManager.getConnection(Main.getMySqlUrl(), Main.getMySqlUsername(), Main.getMySqlPassword());
-        Tutor teacher = new Tutor(tutorid, name, password, email);
+        Tutor teacher = new Tutor(tutorid, name, password, email, price, university);
         String query = "INSERT INTO tutor (tutorid, name, password, email) VALUES (?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setInt(1, tutorid);
         statement.setString(2, name);
         statement.setString(3, password);
         statement.setString(4, email);
+        statement.setInt(5, price );
+        statement.setString(6, university);
 
         statement.executeUpdate();
         statement.close();
         connection.close();
-        return new Tutor(tutorid, name, password, email);
+        return new Tutor(tutorid, name, password, email, price, university);
     }
 
     public static List<Tutor> getAllTutors() throws SQLException {
@@ -175,7 +185,9 @@ public class Tutor extends User {
             String username = resultSet.getString("name");
             String password = resultSet.getString("password");
             String email = resultSet.getString("email");
-            tutors.add(new Tutor(id, username, password, email));
+            int price = resultSet.getInt("price");
+            String uni = resultSet.getString("university");
+            tutors.add(new Tutor(id, username, password, email, price, uni));
         }
         resultSet.close();
         statement.close();

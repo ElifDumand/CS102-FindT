@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBase;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
@@ -243,6 +244,43 @@ public class StudentMenuController implements Initializable{
         Text[] allRecommendedLessonTypes = {lessonType1, lessonType2, lessonType3, lessonType4, lessonType5, lessonType6};
         Text[] allRecommendedPrices = {price1, price2, price3, price4, price5, price6};
         Rectangle[] allRecommendedButtons = {sendMessage1, sendMessage2, sendMessage3, sendMessage4, sendMessage5, sendMessage6};
+
+        // initializing tutor names
+        for (int index = 0; index < tutors.size(); index++) {
+            allRecommendedTutorNames[index].setText(tutors.get(index).getUsername());
+        }
+
+        // initializing course names
+        // I can't find the necessary getter for this
+        for (int index = 0; index < tutors.size(); index++) {
+            allRecommendedCourseNames[index].setText(tutors.get(index).getUserType());
+        }
+
+        // initializing lesson types
+        for (int index = 0; index < tutors.size(); index++) {
+            allRecommendedLessonTypes[index].setText("up to student's choice");
+        }
+
+        // initializing price amounts
+        for (int index = 0; index < tutors.size(); index++) {
+            allRecommendedPrices[index].setText("$" + tutors.get(index).getPrice());
+        }
+
+        // initializing send message rectangles actions 
+        for (int index = 0; index < tutors.size(); index++) {
+            (allRecommendedButtons[index]).setOnAction(event -> {try {
+                App.setRoot("chatPage");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }});
+        }
+
+
+
+
+    
+
+    
         
 
         

@@ -62,14 +62,14 @@ public class LogInPageController {
             }
         });
 
-        studentSignInText.setOnMouseClicked(event -> {
-            try 
-            {
-                handleStudentSignInText(event);
-            } catch (IOException e) {
-                e.printStackTrace(); 
-            }
-        });
+        //studentSignInText.setOnMouseClicked(event -> {
+          //  try 
+           // {
+             //   handleStudentSignInText(event);
+            //} catch (IOException e) {
+              //  e.printStackTrace(); 
+            //}
+        //});
 
         tutorSignInText.setOnMouseClicked(event -> {
             try 

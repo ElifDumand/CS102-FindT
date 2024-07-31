@@ -14,11 +14,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBase;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 
@@ -37,15 +35,6 @@ public class StudentMenuController implements Initializable{
     private Text courseName3;
 
     @FXML
-    private Text courseName4;
-
-    @FXML
-    private Text courseName5;
-
-    @FXML
-    private Text courseName6;
-
-    @FXML
     private Text lessonType1;
 
     @FXML
@@ -53,15 +42,6 @@ public class StudentMenuController implements Initializable{
 
     @FXML
     private Text lessonType3;
-
-    @FXML
-    private Text lessonType4;
-
-    @FXML
-    private Text lessonType5;
-
-    @FXML
-    private Text lessonType6;
 
     @FXML
     private Text mailText;
@@ -77,15 +57,6 @@ public class StudentMenuController implements Initializable{
 
     @FXML
     private Text price3;
-
-    @FXML
-    private Text price4;
-
-    @FXML
-    private Text price5;
-
-    @FXML
-    private Text price6;
 
     @FXML
     private Circle profileStudent;
@@ -112,22 +83,22 @@ public class StudentMenuController implements Initializable{
     private TextField searchBar;
 
     @FXML
-    private Rectangle sendMessage1;
+    private Text sendMessage1;
 
     @FXML
-    private Rectangle sendMessage2;
+    private Text sendMessage2;
 
     @FXML
-    private Rectangle sendMessage3;
+    private Text sendMessage3;
 
     @FXML
-    private Rectangle sendMessage4;
+    private Text sendMessage4;
 
     @FXML
-    private Rectangle sendMessage5;
+    private Text sendMessage5;
 
     @FXML
-    private Rectangle sendMessage6;
+    private Text sendMessage6;
 
     @FXML
     private Button settingsStudent;
@@ -161,12 +132,6 @@ public class StudentMenuController implements Initializable{
 
     @FXML
     private Text tutorName4;
-
-    @FXML
-    private Text tutorName5;
-
-    @FXML
-    private Text tutorName6;
 
     @FXML
     private Text usernameText;
@@ -239,51 +204,8 @@ public class StudentMenuController implements Initializable{
     
     public void recommendTutor(){
         List<Tutor> tutors = fetchTutorsFromDatabase();
-        Text[] allRecommendedTutorNames = {tutorName1, tutorName2, tutorName3, tutorName4, tutorName5, tutorName6};
-        Text[] allRecommendedCourseNames = {courseName1, courseName2, courseName3, courseName4, courseName5, courseName6};
-        Text[] allRecommendedLessonTypes = {lessonType1, lessonType2, lessonType3, lessonType4, lessonType5, lessonType6};
-        Text[] allRecommendedPrices = {price1, price2, price3, price4, price5, price6};
-        Rectangle[] allRecommendedButtons = {sendMessage1, sendMessage2, sendMessage3, sendMessage4, sendMessage5, sendMessage6};
-
-        // initializing tutor names
-        for (int index = 0; index < tutors.size(); index++) {
-            allRecommendedTutorNames[index].setText(tutors.get(index).getUsername());
-        }
-
-        // initializing course names
-        // I can't find the necessary getter for this
-        for (int index = 0; index < tutors.size(); index++) {
-            allRecommendedCourseNames[index].setText(tutors.get(index).getUserType());
-        }
-
-        // initializing lesson types
-        for (int index = 0; index < tutors.size(); index++) {
-            allRecommendedLessonTypes[index].setText("up to student's choice");
-        }
-
-        // initializing price amounts
-        for (int index = 0; index < tutors.size(); index++) {
-            allRecommendedPrices[index].setText("$" + tutors.get(index).getPrice());
-        }
-
-        // initializing send message rectangles actions 
-        for (int index = 0; index < tutors.size(); index++) {
-            (allRecommendedButtons[index]).setOnAction(event -> {try {
-                App.setRoot("chatPage");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }});
-        }
-
-
-
-
-    
-
-    
         
-
-        
+        tutorName1.setText(tutors.get(0).getUsername());
     }
 
 
@@ -330,6 +252,7 @@ public class StudentMenuController implements Initializable{
             return null;
         }
     }
-}
+    }
+
 
 

@@ -37,7 +37,7 @@ public class StudentMenuPage {
         displayTutors();
     }
 
-    private Connection connect() {
+    private static Connection connect() {
         // Database connection details
         String url = "jdbc:mysql://localhost:3306/your_database_name"; // Update with your database name
         String user = "your_username"; // Update with your database username
@@ -51,7 +51,7 @@ public class StudentMenuPage {
         }
     }
 
-    public List<Tutor> fetchTutorsFromDatabase() {
+    public static List<Tutor> fetchTutorsFromDatabase() {
         List<Tutor> tutors = new ArrayList<>();
         String query = "SELECT tutorid, name, password, email, price, university FROM tutor"; // Ensure columns are correct
 
@@ -120,6 +120,13 @@ public class StudentMenuPage {
             alert.setHeaderText(null);
             alert.setContentText("No tutor selected. Please select a tutor to book.");
             alert.showAndWait();
+        }
+    }
+    public static void main(String[] args) {
+        List<Tutor> temp = fetchTutorsFromDatabase();
+        for (int idx = 0; idx < temp.size(); idx++) {
+            System.out.println(temp.get(idx).getUsername());
+            
         }
     }
 }

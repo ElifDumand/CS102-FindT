@@ -270,6 +270,33 @@ public class searchPageController {
 		subjectsListedVBox.getChildren().clear();
 		ArrayList<Tutor> targetPrice = searchTutorByPrice(priceComboBox.getValue() + "");
 		ArrayList<Tutor> targetUniversity = searchTutorByUniversity(schoolComboBox.getValue());
+		ArrayList<Tutor> targetSubject = searchTutorBySubject(searchSubjectBar.getText());
+				
+			for (Tutor tutor : targetSubject) {
+					BorderPane chatBox = new BorderPane();
+					chatBox.setStyle("-fx-background-color: #493175; -fx-padding: 5px; -fx-background-radius: 5px;");
+					chatBox.setPrefWidth(400);
+					Text tutorInfo = new Text(tutor.getUsername());
+					//tutorInfo.setStyle("-fx-background-color: #bf3412");
+					tutorInfo.setFont(new Font("Times New Roman", 16));
+					tutorInfo.setFill(Color.WHITE);
+					tutorInfo.setTextAlignment(TextAlignment.CENTER);
+
+					Button chatButton = new Button("Send message");
+					chatButton.setFont(Font.font("Times New Roman", 12));
+					chatButton.setStyle("-fx-background-color: #bf3412");
+
+					chatButton.setOnAction(new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent event) {
+							try {
+								App.setRoot("chatPage");
+								User.setCurrentReceiver(tutor);
+							} catch (IOException ex) {
+							}
+						}
+					});
+			}
 
 				for (Tutor tutor : targetPrice) {
 					BorderPane chatBox = new BorderPane();
@@ -288,6 +315,7 @@ public class searchPageController {
 						public void handle(ActionEvent event) {
                             try {
                                 App.setRoot("chatPage");
+								User.setCurrentReceiver(tutor);
                             } catch (IOException ex) {
                             }
 						}
@@ -316,7 +344,8 @@ public class searchPageController {
 						@Override
 						public void handle(ActionEvent event) {
                             try {
-                                App.setRoot("chatPage");
+                                App.setRoot("newChatPage");
+								User.setCurrentReceiver(tutor);
                             } catch (IOException ex) {
                             }
 						}

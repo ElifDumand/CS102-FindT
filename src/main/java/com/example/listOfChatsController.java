@@ -76,7 +76,9 @@ public class listOfChatsController implements Initializable{
                 List<Tutor> allTutors = new ArrayList<>();
                 try {
                     allTutors = Tutor.getAllTutors();
-                } catch (SQLException ex) {
+                } 
+                catch (SQLException ex) {
+                    ex.printStackTrace();
                 }
         
                     for (Tutor tutor : allTutors) {
@@ -96,6 +98,7 @@ public class listOfChatsController implements Initializable{
                             public void handle(ActionEvent event) {
                                 try {
                                     App.setRoot("chatPage");
+                                    User.setCurrentReceiver(tutor);
                                 } catch (IOException ex) {
                                 }
                             }
@@ -133,6 +136,7 @@ public class listOfChatsController implements Initializable{
                                 try 
                                 {
                                     App.setRoot("chatPage");
+                                    User.setCurrentReceiver(student);
                                 } 
                                 catch (IOException ex) {
                                     ex.printStackTrace();

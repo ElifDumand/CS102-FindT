@@ -12,14 +12,16 @@ public class Tutor extends User {
     private List<Timeslot> schedule;
     private String university;
     private int price;
+    private String subjectname;
 
     static Tutor currentReceiver = null;
 
-    public Tutor(int id, String username, String password, String email, int price, String university) {
+    public Tutor(int id, String username, String password, String email, int price, String university, String subjectname) {
         super(id, username, password, email);
         this.schedule = new ArrayList<>();
         this.university = university;
         this.price = price;
+        this.subjectname = subjectname;
     }
 
     @Override
@@ -37,7 +39,8 @@ public class Tutor extends User {
 			String email = r.getString("email");
             String university = r.getString("university");
             int price = r.getInt("price");
-            Tutor newTutor = new Tutor(tutorid, name, password, email, price, university );
+            String subject = r.getString("subjectname");
+            Tutor newTutor = new Tutor(tutorid, name, password, email, price, university, subject );
             User.setCurrentUser(newTutor);
 			return newTutor;
 		}
@@ -101,10 +104,11 @@ public class Tutor extends User {
                 String email = r.getString("email");
                 String university = r.getString("university");
                 int price = r.getInt("price");
+                String subject = r.getString("subjectname");
 
                 stat.close();
                 connection.close();
-                return new Tutor(tutorid, username, password, email, price, university);
+                return new Tutor(tutorid, username, password, email, price, university, subject);
             }
             stat.close();
             connection.close();
@@ -115,7 +119,7 @@ public class Tutor extends User {
         return null;
     }
 
-    public static Tutor signUp(String username, String password, String email, int price, String university) throws SQLException {
+    public static Tutor signUp(String username, String password, String email, int price, String university, String subject) throws SQLException {
         Connection connection = DriverManager.getConnection(Main.getMySqlUrl(), Main.getMySqlUsername(), Main.getMySqlPassword());
         Statement idStatement = connection.createStatement();
         ResultSet r = idStatement.executeQuery("SELECT tutorid FROM tutor ORDER BY tutorid DESC");
@@ -141,7 +145,7 @@ public class Tutor extends User {
             return null;
         }
 
-        return addTeacher(id, username, password, email, price, university);
+        return addTeacher(id, username, password, email, price, university, subject);
     }
 
     public static boolean isUsernameUnique(String username, String table, String column) throws SQLException {
@@ -156,10 +160,10 @@ public class Tutor extends User {
         return true;
     }
 
-    public static Tutor addTeacher(int tutorid, String name, String password, String email, int price, String university) throws SQLException {
+    public static Tutor addTeacher(int tutorid, String name, String password, String email, int price, String university, String subjectname) throws SQLException {
         Connection connection = DriverManager.getConnection(Main.getMySqlUrl(), Main.getMySqlUsername(), Main.getMySqlPassword());
-        Tutor teacher = new Tutor(tutorid, name, password, email, price, university);
-        String query = "INSERT INTO tutor (tutorid, name, password, email) VALUES (?, ?, ?, ?)";
+        Tutor teacher = new Tutor(tutorid, name, password, email, price, university, subjectname);
+        String query = "INSERT INTO tutor (tutorid, name, password, email, price, university, subjectname ) VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setInt(1, tutorid);
         statement.setString(2, name);
@@ -167,11 +171,12 @@ public class Tutor extends User {
         statement.setString(4, email);
         statement.setInt(5, price );
         statement.setString(6, university);
+        statement.setString(7, subjectname);
 
         statement.executeUpdate();
         statement.close();
         connection.close();
-        return new Tutor(tutorid, name, password, email, price, university);
+        return new Tutor(tutorid, name, password, email, price, university, subjectname);
     }
 
     public static List<Tutor> getAllTutors() throws SQLException {
@@ -187,7 +192,8 @@ public class Tutor extends User {
             String email = resultSet.getString("email");
             int price = resultSet.getInt("price");
             String uni = resultSet.getString("university");
-            tutors.add(new Tutor(id, username, password, email, price, uni));
+            String subjectname = resultSet.getString("subjectname");
+            tutors.add(new Tutor(id, username, password, email, price, uni, subjectname));
         }
         resultSet.close();
         statement.close();

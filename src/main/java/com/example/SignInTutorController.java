@@ -110,12 +110,13 @@ public class SignInTutorController {
         String email = TutorMail.getText();
         Integer priceVal = price.getValue();
         String universityName = university.getValue();
+        String subjectname = TutorBranch.getValue();
 
 
         if (username != null && password != null && email != null) {
             try 
             {
-                Tutor newTutor = Tutor.signUp(username, password, email, priceVal, universityName);
+                Tutor newTutor = Tutor.signUp(username, password, email, priceVal, universityName, subjectname);
                 User.setCurrentUser(newTutor);
                 App.setRoot("LogInPage");
             } 

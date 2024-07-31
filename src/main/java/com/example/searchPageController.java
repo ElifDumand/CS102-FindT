@@ -125,7 +125,8 @@ public class searchPageController {
 				String email = rs.getString("email");
 				int price = rs.getInt("price");
 				String uni = rs.getString("university");
-				Tutor tutor = new Tutor(id, name, password, email, price, uni);
+				String subjectname = rs.getString("subjectname");
+				Tutor tutor = new Tutor(id, name, password, email, price, uni, subjectname);
 				resultTutors.add(tutor);
 			}
 		} catch (SQLException e) {
@@ -145,47 +146,45 @@ public class searchPageController {
 		return resultTutors;
 	}
 
-    public ArrayList<Tutor> searchTutorBySubject(String searchTerm) throws SQLException {
-        ArrayList<Tutor> resultTutors = new ArrayList<Tutor>();
-        Connection connection = Main.connect();
-        PreparedStatement stat = null;
-        ResultSet rs = null;
-    
-        try {
-            String query = "SELECT t.tutorid, t.name, t.password, t.email " +
-                           "FROM tutor t " +
-                           "JOIN subject s ON t.subjectid = s.subjectid " +
-                           "WHERE s.subjectname LIKE ?";
-            stat = connection.prepareStatement(query);
-            stat.setString(1, "%" + searchTerm + "%");
-    
-            rs = stat.executeQuery();
-            while (rs.next()) {
-                int id = rs.getInt("tutorid");
-                String name = rs.getString("name");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
+	public ArrayList<Tutor> searchTutorBySubject(String searchTerm) throws SQLException {
+		ArrayList<Tutor> resultTutors = new ArrayList<Tutor>();
+		Connection connection = Main.connect();
+		PreparedStatement stat = null;
+		ResultSet rs = null;
+
+		try {
+			String query = "select * from tutor where subjectname like ?";
+			stat = connection.prepareStatement(query);
+			stat.setString(1, "%" + searchTerm + "%");
+
+			rs = stat.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("tutorid");
+				String name = rs.getString("name");
+				String password = rs.getString("password");
+				String email = rs.getString("email");
 				int price = rs.getInt("price");
 				String uni = rs.getString("university");
-                Tutor tutor = new Tutor(id, name, password, email, price, uni);
-                resultTutors.add(tutor);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return resultTutors;
-    }
+				String subjectname = rs.getString("subjectname");
+				Tutor tutor = new Tutor(id, name, password, email, price, uni, subjectname);
+				resultTutors.add(tutor);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (rs != null) {
+					stat.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return resultTutors;
+	}
 
     public ArrayList<Tutor> searchTutorByUniversity(String searchTerm) throws SQLException {
 		ArrayList<Tutor> resultTutors = new ArrayList<Tutor>();
@@ -206,7 +205,8 @@ public class searchPageController {
 				String email = rs.getString("email");
 				int price = rs.getInt("price");
 				String uni = rs.getString("university");
-				Tutor tutor = new Tutor(id, name, password, email, price, uni);
+				String subjectname = rs.getString("subjectname");
+				Tutor tutor = new Tutor(id, name, password, email, price, uni, subjectname);
 				resultTutors.add(tutor);
 			}
 		} catch (SQLException e) {
@@ -245,8 +245,9 @@ public class searchPageController {
 				String email = rs.getString("email");
 				int price = rs.getInt("price");
 				String uni = rs.getString("university");
+				String subjectname = rs.getString("subjectname");
 
-				Tutor tutor = new Tutor(id, name, password, email, price, uni);
+				Tutor tutor = new Tutor(id, name, password, email, price, uni, subjectname);
 				resultTutors.add(tutor);
 			}
 		} catch (SQLException e) {

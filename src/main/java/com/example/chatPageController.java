@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import org.w3c.dom.events.MouseEvent;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -57,10 +55,7 @@ public class chatPageController implements Initializable{
 
     
     
-    @FXML
-    private void handleSearchPageBack(MouseEvent event) throws IOException {
-        App.setRoot("listOfChats");
-    }
+
 
     public void renderMessage(Message message) throws SQLException {
         String name = "default";

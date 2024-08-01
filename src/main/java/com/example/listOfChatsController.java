@@ -66,7 +66,7 @@ public class listOfChatsController implements Initializable{
             displayListOfChats();
     
          
-                }
+        }
         }
 
         private void displayListOfChats()
@@ -97,7 +97,7 @@ public class listOfChatsController implements Initializable{
                             @Override
                             public void handle(ActionEvent event) {
                                 try {
-                                    App.setRoot("settings");
+                                    App.setRoot("chatPage");
                                     User.setCurrentReceiver(tutor);
                                 } catch (IOException ex) {
                                 }
@@ -117,6 +117,7 @@ public class listOfChatsController implements Initializable{
                 try {
                     students = Message.getChatsForTutor(User.getCurrentUser().getId());
                 } catch (SQLException ex) {
+                    System.out.println("a");
                 }
                     for (Student student : students) {
                         BorderPane chatBox = new BorderPane();

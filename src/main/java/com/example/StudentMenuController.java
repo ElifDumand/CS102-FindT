@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -17,10 +19,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 
 public class StudentMenuController implements Initializable{
+
 
     @FXML
     private Button chatStudent;
@@ -35,13 +39,13 @@ public class StudentMenuController implements Initializable{
     private Text courseName3;
 
     @FXML
-    private Text lessonType1;
+    private Text courseName4;
 
     @FXML
-    private Text lessonType2;
+    private Text courseName5;
 
     @FXML
-    private Text lessonType3;
+    private Text courseName6;
 
     @FXML
     private Text mailText;
@@ -57,6 +61,15 @@ public class StudentMenuController implements Initializable{
 
     @FXML
     private Text price3;
+
+    @FXML
+    private Text price4;
+
+    @FXML
+    private Text price5;
+
+    @FXML
+    private Text price6;
 
     @FXML
     private Circle profileStudent;
@@ -134,7 +147,33 @@ public class StudentMenuController implements Initializable{
     private Text tutorName4;
 
     @FXML
+    private Text tutorName5;
+
+    @FXML
+    private Text tutorName6;
+
+    @FXML
     private Text usernameText;
+
+    @FXML
+    private Rectangle rectangle1;
+
+    @FXML
+    private Rectangle rectangle2;
+
+    @FXML
+    private Rectangle rectangle3;
+
+    @FXML
+    private Rectangle rectangle4;
+
+    @FXML
+    private Rectangle rectangle5;
+
+    @FXML
+    private Rectangle rectangle6;
+
+    List<Tutor> recommend = fetchTutorsFromDatabase();
 
     @FXML
     @Override
@@ -175,6 +214,80 @@ public class StudentMenuController implements Initializable{
         User currentUser = User.getCurrentUser();
         mailText.setText(currentUser.getEmail());
         usernameText.setText(currentUser.getUsername());
+        Text[] tutorNames = {tutorName1, tutorName2, tutorName3, tutorName4, tutorName5, tutorName6};
+        Text[] courseNames = {courseName1, courseName2, courseName3, courseName4, courseName5, courseName6};
+        Text[] price = {price1, price2, price3, price4, price5, price6};
+        Text[] texts = {syllabus1, syllabus2, syllabus3, syllabus4, syllabus5, syllabus6};
+        Rectangle[] rectangles = {rectangle1, rectangle2, rectangle3, rectangle4, rectangle5, rectangle6};
+        Text[] messageTexts = {sendMessage1, sendMessage2, sendMessage3, sendMessage4, sendMessage5, sendMessage6};
+
+        for(Rectangle rectangle : rectangles)
+        {
+            rectangle.setOnMouseClicked(event -> {
+                try {
+                    handSendMessageRectangle(event);
+                } catch (IOException e) {
+                    e.printStackTrace(); 
+                }
+            });
+        }
+
+        for(Text message : messageTexts)
+        {
+            message.setOnMouseClicked(event -> {
+                try {
+                    handSendMessageRectangle(event);
+                } catch (IOException e) {
+                    e.printStackTrace(); 
+                }
+            });
+        }
+
+
+
+
+        int size = Math.min(6, recommend.size());
+
+        for (int idx = 0; idx < size; idx++) {
+            tutorNames[idx].setText(fetchTutorsFromDatabase().get(idx).getUsername());
+        }
+        for (int idx = 0; idx < size; idx++) {
+            courseNames[idx].setText(fetchTutorsFromDatabase().get(idx).getTutorSubject());
+        }
+        
+        for (int idx = 0; idx < size; idx++) {
+            price[idx].setText("$" + fetchTutorsFromDatabase().get(idx).getTutorPrice());
+        }
+
+        setSyllabus(texts);
+
+    }
+
+    private void setSyllabus(Text[] syllabusTexts) {
+        Map<String, String> syllabusMap = new HashMap<>();
+        syllabusMap.put("Maths", "Limits,\nDerivatives,\nIntegrals");
+        syllabusMap.put("Physics", "Kinematics, \nDynamics, \nEnergy");
+        syllabusMap.put("Chemistry", "Compounds, \nStoichiometry, \nBonds");
+        syllabusMap.put("Biology", "Genetics, \nEvolution, \nEcology");
+
+        for (int idx = 0; idx < syllabusTexts.length; idx++) {
+            Tutor tutor = recommend.get(idx);
+            String subject = tutor.getTutorSubject();
+            if (syllabusMap.containsKey(subject)) 
+            {
+                syllabusTexts[idx].setText(syllabusMap.get(subject));
+            } else 
+            {
+                syllabusTexts[idx].setText("No syllabus available");
+            }
+        }
+    }
+
+
+    @FXML
+    private void handSendMessageRectangle(MouseEvent event) throws IOException
+    {
+        App.setRoot("chatPage");
     }
 
     @FXML
@@ -211,7 +324,7 @@ public class StudentMenuController implements Initializable{
 
     private  List<Tutor> fetchTutorsFromDatabase() {
         List<Tutor> tutors = new ArrayList<>();
-        String query = "SELECT tutorid, name, password, email FROM tutor"; // Ensure columns are correct
+        String query = "SELECT tutorid, name, password, email, price, university, subjectname FROM tutor"; // Ensure columns are correct
 
         try (Connection conn = connect();
              Statement stmt = conn.createStatement();
@@ -241,10 +354,9 @@ public class StudentMenuController implements Initializable{
     }
 
     private Connection connect() {
-        // Database connection details
-        String url = "jdbc:mysql://localhost:3306/your_database_name"; // Update with your database name
-        String user = "your_username"; // Update with your database username
-        String password = "your_password"; // Update with your database password
+        String url = "jdbc:mysql://localhost:3306/findTdatabase"; 
+        String user = "root"; 
+        String password = "root1root";
 
         try {
             return DriverManager.getConnection(url, user, password);

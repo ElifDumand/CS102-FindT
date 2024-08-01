@@ -28,6 +28,7 @@ public class StudentMenuPage {
     @FXML
     private Button bookTutorButton;
 
+    @FXML
     public void initialize() {
         // Set action handlers for the buttons
         viewTutorsButton.setOnAction(event -> displayTutors());
@@ -53,9 +54,9 @@ public class StudentMenuPage {
 
     public static List<Tutor> fetchTutorsFromDatabase() {
         List<Tutor> tutors = new ArrayList<>();
-        String query = "SELECT tutorid, name, password, email, price, university FROM tutor"; // Ensure columns are correct
+        String query = "SELECT tutorid, name, password, email, price, university, subjectname FROM tutor"; // Ensure columns are correct
 
-        try (Connection conn = connect();
+        try (Connection conn = Main.connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
 

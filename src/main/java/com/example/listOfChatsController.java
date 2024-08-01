@@ -97,7 +97,7 @@ public class listOfChatsController implements Initializable{
                             @Override
                             public void handle(ActionEvent event) {
                                 try {
-                                    App.setRoot("chatPage");
+                                    App.setRoot("settings");
                                     User.setCurrentReceiver(tutor);
                                 } catch (IOException ex) {
                                 }
@@ -135,7 +135,7 @@ public class listOfChatsController implements Initializable{
                             public void handle(ActionEvent event) {
                                 try 
                                 {
-                                    App.setRoot("chatPage");
+                                    App.setRoot("settings");
                                     User.setCurrentReceiver(student);
                                 } 
                                 catch (IOException ex) {

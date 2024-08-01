@@ -225,7 +225,8 @@ public class StudentMenuController implements Initializable{
                             rs.getString("password"),
                             rs.getString("email"),
                             rs.getInt("price"),
-                            rs.getString("university")
+                            rs.getString("university"),
+                            rs.getString("subjectname")
                     );
                     tutors.add(tutor);
                 } catch (SQLException e) {

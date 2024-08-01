@@ -59,67 +59,60 @@ public class Message {
     }
 
     public static Message createMessage(String senderType, int senderId, String receiverType, int receiverId, String body) throws SQLException {
-        Connection connection = Main.connect();
-
         String query = "INSERT INTO messages (sender_type, senderid, receiver_type, receiverid, messagebody) VALUES (?, ?, ?, ?, ?)";
-        PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        statement.setString(1, senderType);
-        statement.setInt(2, senderId);
-        statement.setString(3, receiverType);
-        statement.setInt(4, receiverId);
-        statement.setString(5, body);
-        int count = statement.executeUpdate();
+        Message message = new Message(receiverId, senderType, senderId, receiverType, receiverId, body);
+        try (Connection connection = Main.connect();
+             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            
+            statement.setString(1, senderType);
+            statement.setInt(2, senderId);
+            statement.setString(3, receiverType);
+            statement.setInt(4, receiverId);
+            statement.setString(5, body);
+            
+            int count = statement.executeUpdate();
 
-        int messageId = -1;
-        if (count > 0) {
-            ResultSet rs = statement.getGeneratedKeys();
-            if (rs.next()) {
-                messageId = rs.getInt(1);
+            statement.close();
+            connection.close();
+            return message;
             }
-            rs.close();
-        }
 
-        statement.close();
-        connection.close();
-
-        return new Message(messageId, senderType, senderId, receiverType, receiverId, body);
     }
-
+    
     public static ArrayList<Message> getMessages(String receiverType, int receiverId) throws SQLException {
         ArrayList<Message> messages = new ArrayList<>();
-
-        Connection connection = Main.connect();
         String query = "SELECT * FROM messages WHERE receiver_type = ? AND receiverid = ?";
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, receiverType);
-        statement.setInt(2, receiverId);
-        ResultSet rs = statement.executeQuery();
-
-        while (rs.next()) {
-            int messageId = rs.getInt("messageid");
-            String senderType = rs.getString("sender_type");
-            int senderId = rs.getInt("senderid");
-            String body = rs.getString("messagebody");
-            messages.add(new Message(messageId, senderType, senderId, receiverType, receiverId, body));
+    
+        try (Connection connection = Main.connect();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+    
+            statement.setString(1, receiverType);
+            statement.setInt(2, receiverId);
+            
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    int messageId = rs.getInt("messageid");
+                    String senderType = rs.getString("sender_type");
+                    int senderId = rs.getInt("senderid");
+                    String body = rs.getString("messagebody");
+                    messages.add(new Message(messageId, senderType, senderId, receiverType, receiverId, body));
+                }
+            }
         }
-
-        rs.close();
-        statement.close();
-        connection.close();
-
         return messages;
     }
+    
 
-    public static List<Student> getChatsForTutor(int tutorId) throws SQLException {
+    public static List<Student> getChatsForTutor(int tutorid) throws SQLException {
         List<Student> students = new ArrayList<>();
         Connection connection = Main.connect();
         String query = "SELECT DISTINCT senderid FROM messages WHERE receiverid = ?";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1, tutorId);
+        statement.setInt(1, tutorid);
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-            int studentId = resultSet.getInt("senderid");
-            Student student = Student.getById(studentId);
+            int studentid = resultSet.getInt("senderid");
+            Student student = Student.getById(studentid);
             if (student != null) {
                 students.add(student);
             }
@@ -129,4 +122,11 @@ public class Message {
         connection.close();
         return students;
     }
+
+    public boolean isSentByCurrentUser() {
+		if (User.getCurrentUser().getId() == senderId) {
+			return true;
+		}
+		return false;
+	}
 }

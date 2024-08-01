@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 public class Student extends User {
 
-    public Student(int id, String username, String password, String email) {
-        super(id, username, password, email);
+    public Student(int id, String name, String password, String email) {
+        super(id, name, password, email);
     }
 
     @Override
@@ -28,13 +28,13 @@ public class Student extends User {
                 stat.setInt(1, studentid);
                 ResultSet r = stat.executeQuery();
                 if (r.next()) {
-                    String username = r.getString("username");
+                    String name = r.getString("name");
                     String password = r.getString("password");
                     String email = r.getString("email");
 
                     stat.close();
                     connection.close();
-                    return new Student(studentid, username, password, email);
+                    return new Student(studentid, name, password, email);
                 }
                 stat.close();
             } 
@@ -87,15 +87,15 @@ public class Student extends User {
 
     }
 
-    public static Student logIn(String username, String password) throws SQLException {
+    public static Student logIn(String name, String password) throws SQLException {
 
-		ResultSet r = getByUsername(username);
+		ResultSet r = getByUsername(name);
 		if (r.next() && r.getString("password").equals(password)) {
 
 			int id = r.getInt("studentid");
 
 			String email = r.getString("email");
-            Student newStudent = new Student(id, username, password, email);
+            Student newStudent = new Student(id, name, password, email);
             User.setCurrentUser(newStudent);
 			return newStudent;
 
@@ -107,12 +107,12 @@ public class Student extends User {
 
 	}
 
-    public static ResultSet getByUsername(String username) throws SQLException {
+    public static ResultSet getByUsername(String name) throws SQLException {
 
 		Connection connection = Main.connect();
 		String query = "select * from student where name = ?";
 		PreparedStatement stat = connection.prepareStatement(query);
-		stat.setString(1, username);
+		stat.setString(1, name);
 		ResultSet r = stat.executeQuery();
 
 		return r;

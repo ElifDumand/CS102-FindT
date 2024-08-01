@@ -25,12 +25,12 @@
             <Font name="Times New Roman" size="13.0" />
          </font>
       </Text>
-      <Text layoutX="21.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maill Address">
+      <Text layoutX="31.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maill Address">
          <font>
             <Font name="Times New Roman" size="13.0" />
          </font>
       </Text>
-      <Text layoutX="33.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+      <Text fx:id="passwordText" layoutX="33.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
          <font>
             <Font name="Times New Roman" size="13.0" />
          </font>
@@ -43,18 +43,18 @@
       <TextField fx:id="TutorUsernameSignIn" layoutX="118.0" layoutY="210.0" />
       <TextField fx:id="TutorPassword" layoutX="118.0" layoutY="289.0" />
       <TextField fx:id="TutorMail" layoutX="118.0" layoutY="250.0" />
-      <Text layoutX="326.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Branch">
+      <Text fx:id="branchText" layoutX="326.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Branch">
          <font>
             <Font name="Times New Roman" size="13.0" />
          </font>
       </Text>
-      <Text layoutX="327.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Years of Experience">
+      <Text fx:id="UniversityText" layoutX="327.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="University">
          <font>
             <Font name="Times New Roman" size="13.0" />
          </font>
       </Text>
       <ComboBox fx:id="TutorBranch" layoutX="447.0" layoutY="201.0" prefHeight="30.0" prefWidth="113.0" />
-      <ComboBox fx:id="TutorExperience" layoutX="447.0" layoutY="241.0" prefHeight="30.0" prefWidth="113.0" />
+      <ComboBox fx:id="universityComboBox" layoutX="447.0" layoutY="241.0" prefHeight="30.0" prefWidth="113.0" />
       <Ellipse fill="#ebdbff" layoutX="298.0" layoutY="179.0" radiusX="46.0" radiusY="29.0" stroke="#ebdbff" strokeType="INSIDE" />
       <Circle fill="#ebdbff" layoutX="298.0" layoutY="132.0" radius="18.5" stroke="#ebdbff" strokeType="INSIDE" />
       <Button fx:id="createProfileButton" layoutX="455.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#handleTutorSignIn" prefHeight="26.0" prefWidth="124.0" style="-fx-background-color: #493175; -fx-background-radius: 20;" text="Create Profile" textFill="#ebdbff" />

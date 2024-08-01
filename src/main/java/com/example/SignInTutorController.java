@@ -30,12 +30,16 @@ public class SignInTutorController {
     private Text UniversityText;
 
     @FXML
+    private Text branchText;
+
+    @FXML
     private Button createProfileButton;
 
     @FXML
-    private ComboBox<Integer> price;
+    private Text passwordText;
 
-    @FXML private ComboBox<String> university;
+    @FXML
+    private ComboBox<Integer> price;
 
     @FXML
     private Text priceText;
@@ -46,14 +50,14 @@ public class SignInTutorController {
     @FXML
     public void initialize()
     {
-        TutorBranch = new ComboBox<String>();
+        
         TutorBranch.getItems().addAll("Maths",
          "Physics", 
          "Chemistry",
          "Biology");
 
          
-        universityComboBox = new ComboBox<String>();
+        
         universityComboBox.getItems().addAll("Bilkent University", 
         "METU",
         "Uludağ University",
@@ -62,7 +66,7 @@ public class SignInTutorController {
         "Atatürk University");
 
 
-        price = new ComboBox<Integer>();
+        
         price.getItems().addAll(
         10,
         20, 
@@ -109,7 +113,7 @@ public class SignInTutorController {
         String password = TutorPassword.getText();
         String email = TutorMail.getText();
         Integer priceVal = price.getValue();
-        String universityName = university.getValue();
+        String universityName = universityComboBox.getValue();
         String subjectname = TutorBranch.getValue();
 
 

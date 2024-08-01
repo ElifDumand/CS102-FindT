@@ -24,6 +24,21 @@ public class Tutor extends User {
         this.subjectname = subjectname;
     }
 
+    public int getTutorPrice()
+    {
+        return this.price;
+    }
+
+    public String getTutorUniversity()
+    {
+        return this.university;
+    }
+
+    public String getTutorSubject()
+    {
+        return this.subjectname;
+    }
+
     @Override
     public String getAccountType() {
         return "tutor";

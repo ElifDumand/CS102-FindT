@@ -46,8 +46,6 @@ public class searchPageController {
     @FXML
     private VBox subjectsListedVBox;
 
-    private Stage stage;
-    private Scene scene; 
 
     @FXML
     public void initialize()
@@ -269,7 +267,7 @@ public class searchPageController {
 
     public void displayResults(MouseEvent event) throws SQLException {
 		subjectsListedVBox.getChildren().clear();
-		ArrayList<Tutor> targetPrice = searchTutorByPrice(priceComboBox.getValue() + "");
+		ArrayList<Tutor> targetPrice = searchTutorByPrice(priceComboBox.getValue().toString());
 		ArrayList<Tutor> targetUniversity = searchTutorByUniversity(schoolComboBox.getValue());
 		ArrayList<Tutor> targetSubject = searchTutorBySubject(searchSubjectBar.getText());
 				
@@ -333,7 +331,7 @@ public class searchPageController {
 					BorderPane chatBox = new BorderPane();
 					chatBox.setStyle("-fx-background-color: #493175; -fx-padding: 5px; -fx-background-radius: 5px;");
 					chatBox.setPrefWidth(400);
-					Text tutorInfo = new Text(tutor.getUsername());
+					Text tutorInfo = new Text(tutor.getUsername() + " (" + tutor.getTutorPrice() + "$)");
 					tutorInfo.setFont(new Font("Times New Roman", 16));
 					tutorInfo.setFill(Color.WHITE);
 					tutorInfo.setTextAlignment(TextAlignment.CENTER);

@@ -53,7 +53,7 @@ public class SignInStudentController {
         Integer[] parentAge = new Integer[60];
         for(int i = 0; i < parentAge.length; i++)
         {
-            parentAge[i] = i + 20;
+            parentAge[i] = i + 10;
         }
         ParentsAgeChoiceBox.getItems().addAll(parentAge);
 
@@ -99,7 +99,7 @@ public class SignInStudentController {
         String password = StudentPasswordSignIn.getText();
         String email = StudentMail.getText();
 
-        if (getParentsAgeChoiceBox().getValue() < 18 || getStudentBirthyearChoiceBox().getValue() >2007){
+        if (getParentsAgeChoiceBox().getValue() < 18 && getStudentBirthyearChoiceBox().getValue() < 16){
             welcomePage.showInvalidAgeError();
         }
         if (username != null && password != null && email != null ) {

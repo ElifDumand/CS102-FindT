@@ -176,7 +176,7 @@ public class chatPageController implements Initializable{
         } else {
             messageText.setFill(Color.BLACK);
             name.setFill(Color.BLACK);
-            messageBox.setStyle("-fx-background-color: #314975; -fx-padding: 5px; -fx-background-radius: 5px;");
+            messageBox.setStyle("-fx-background-color: #d4b9e1; -fx-padding: 5px; -fx-background-radius: 5px;");
             messageP.getChildren().add(messageBox);
             messageP.getChildren().add(name);
             messageP.setOrientation(Orientation.VERTICAL);

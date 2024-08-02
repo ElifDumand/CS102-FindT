@@ -289,8 +289,8 @@ public class searchPageController {
 						@Override
 						public void handle(ActionEvent event) {
 							try {
-								App.setRoot("chatPage");
 								User.setCurrentReceiver(tutor);
+								App.setRoot("chatPage");
 							} catch (IOException ex) {
 							}
 						}
@@ -313,8 +313,8 @@ public class searchPageController {
 						@Override
 						public void handle(ActionEvent event) {
                             try {
-                                App.setRoot("chatPage");
 								User.setCurrentReceiver(tutor);
+                                App.setRoot("chatPage");
                             } catch (IOException ex) {
                             }
 						}
@@ -343,8 +343,8 @@ public class searchPageController {
 						@Override
 						public void handle(ActionEvent event) {
                             try {
-                                App.setRoot("newChatPage");
 								User.setCurrentReceiver(tutor);
+                                App.setRoot("newChatPage");
                             } catch (IOException ex) {
                             }
 						}

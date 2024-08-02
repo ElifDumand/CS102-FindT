@@ -14,7 +14,7 @@ public class Message {
     private String senderType;
     private int senderId;
     private String receiverType;
-    private int receiverId;
+    private static int receiverId;
     private String body;
 
     public Message(int messageId, String senderType, int senderId, String receiverType, int receiverId, String body) {
@@ -42,7 +42,7 @@ public class Message {
         return receiverType;
     }
 
-    public int getReceiverId() {
+    public static int getReceiverId() {
         return receiverId;
     }
 
@@ -124,9 +124,12 @@ public class Message {
     }
 
     public boolean isSentByCurrentUser() {
-		if (User.getCurrentUser().getId() == senderId) {
+		if (User.getCurrentUser().getUsername().equals(User.getById(senderId).getUsername())) {
 			return true;
 		}
 		return false;
 	}
+
+   
+    
 }

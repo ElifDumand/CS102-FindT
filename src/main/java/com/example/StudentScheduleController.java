@@ -4,9 +4,9 @@ package com.example;
 import java.io.IOException;
 import java.util.List;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -189,7 +189,7 @@ public class StudentScheduleController {
     @FXML
     public void initialize()
     {
-        backButton.setOnAction(event -> {
+        backButton.setOnMouseClicked(event -> {
             try 
             {
                 handleBackButton(event);
@@ -217,7 +217,7 @@ public class StudentScheduleController {
     }
 
     @FXML
-    private void handleBackButton(ActionEvent event) throws IOException
+    private void handleBackButton(MouseEvent event) throws IOException
     {
         App.setRoot("studentMenu");
     }

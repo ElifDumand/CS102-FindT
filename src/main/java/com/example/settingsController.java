@@ -114,7 +114,8 @@ public class settingsController {
     @FXML
     private void handleLogOut(ActionEvent event) throws IOException, SQLException
     {
-        User currentUser = null;
+        User.setCurrentUser(null);
+        User.setCurrentReceiver(null);
         App.setRoot("LogInPage");
     }
 

@@ -22,6 +22,18 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class listOfChatsController implements Initializable{
+    public static void main(String[] args) {
+        List<Student> a = new ArrayList<>();
+        try {
+            a = Message.getChatsForTutor(1);
+        } catch (SQLException e) {
+            System.out.println("a");
+        }
+        for (int index = 0; index < a.size(); index++) {
+            System.out.println(a.get(index).getUsername()); 
+        }
+    }
+
     @FXML
     private Button backButton;
 
@@ -97,9 +109,11 @@ public class listOfChatsController implements Initializable{
                             @Override
                             public void handle(ActionEvent event) {
                                 try {
-                                    App.setRoot("chatPage");
                                     User.setCurrentReceiver(tutor);
+                                    App.setRoot("chatPage");
+                                    
                                 } catch (IOException ex) {
+                                    System.out.println("couldnt set current receiver");
                                 }
                             }
                         });
@@ -111,13 +125,13 @@ public class listOfChatsController implements Initializable{
                         chatVBox.setVisible(true);
                     }
             }
-            else if(User.getCurrentUser().equals("tutor"))
+            else
             {
                 List<Student> students = new ArrayList<>(); 
                 try {
                     students = Message.getChatsForTutor(User.getCurrentUser().getId());
-                } catch (SQLException ex) {
-                    System.out.println("a");
+                } catch (Exception ex) {
+                    System.out.println("b");
                 }
                     for (Student student : students) {
                         BorderPane chatBox = new BorderPane();
@@ -136,8 +150,8 @@ public class listOfChatsController implements Initializable{
                             public void handle(ActionEvent event) {
                                 try 
                                 {
-                                    App.setRoot("settings");
                                     User.setCurrentReceiver(student);
+                                    App.setRoot("chatPage");
                                 } 
                                 catch (IOException ex) {
                                     ex.printStackTrace();
@@ -155,8 +169,7 @@ public class listOfChatsController implements Initializable{
 
 
             }
-
-
-
         }
+        
+        
 }

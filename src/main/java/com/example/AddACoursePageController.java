@@ -50,8 +50,6 @@ public void initialize()
         App.setRoot("TutorMenu");
     }
 
-
-
 }
 
 

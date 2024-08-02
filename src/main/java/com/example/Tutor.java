@@ -109,7 +109,6 @@ public class Tutor extends User {
             try {
                 stat.setInt(1, tutorid);
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             ResultSet r = stat.executeQuery();
@@ -128,7 +127,6 @@ public class Tutor extends User {
             stat.close();
             connection.close();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return null;
@@ -235,7 +233,7 @@ public class Tutor extends User {
         connection.close();
 
         if (rowsUpdated > 0) {
-            this.password = newPassword; // Update the current password in the object
+            this.password = newPassword;
             return true;
         } 
         else {
@@ -264,7 +262,7 @@ public class Tutor extends User {
         connection.close();
     
         if (rowsUpdated > 0) {
-            this.username = newUsername; // Update the current username in the object
+            this.username = newUsername;
             return true;
         } else {
             return false;

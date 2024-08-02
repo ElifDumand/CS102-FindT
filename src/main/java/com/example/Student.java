@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 public class Student extends User {
@@ -85,6 +86,25 @@ public class Student extends User {
 
         return addStudent(id, username, password, email); 
 
+    }
+
+    public static List<Student> getAllStudents() throws SQLException {
+        List<Student> students = new ArrayList<>();
+        Connection connection = Main.connect();
+        String query = "SELECT * FROM tutor";
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            int id = resultSet.getInt("studentid");
+            String username = resultSet.getString("name");
+            String password = resultSet.getString("password");
+            String email = resultSet.getString("email");
+            students.add(new Student(id, username, password, email));
+        }
+        resultSet.close();
+        statement.close();
+        connection.close();
+        return students;
     }
 
     public static Student logIn(String name, String password) throws SQLException {
@@ -185,6 +205,8 @@ public class Student extends User {
             return false;
         }
     }
+
+    
 
     public static Student addStudent(int studentid, String name, String password, String email) throws SQLException {
         Connection connection = null;

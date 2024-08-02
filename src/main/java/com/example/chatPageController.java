@@ -58,14 +58,15 @@ public class chatPageController implements Initializable{
 
 
     public void renderMessage(Message message) throws SQLException {
-        String name = "default";
-        User user = User.getCurrentUser();
+        String name;
+        
         if (message.getSenderType().equalsIgnoreCase("student")) {
             name = Student.getById(message.getSenderId()).getUsername();
         } else {
             name = Tutor.getById(message.getSenderId()).getUsername();
         }
 
+        User user = User.getCurrentUser();
         int currentUserId = user.getId();
         if (message.isSentByCurrentUser(currentUserId)) {
             Pane messagePane = createMessagePane(name, message.getBody(), "right");
@@ -108,6 +109,12 @@ public class chatPageController implements Initializable{
 
     public void renderMessages() throws SQLException {
 
+        User currentReceiver = User.getCurrentReceiver();
+        if (currentReceiver == null) {
+            System.out.println("Error: Current receiver is not set!");
+            return;
+        }
+
         ArrayList<Message> messages = Message.getMessages(User.getCurrentUser().getAccountType(), User.getCurrentReceiver().getId());
         for (Message message : messages) {
             renderMessage(message);
@@ -125,7 +132,7 @@ public class chatPageController implements Initializable{
         }
     }
 
-    private Pane createMessagePane(String userName, String text, String alignment) throws SQLException {
+    private Pane createMessagePane(String userName, String text, String alignment) {
         // Create an HBox to hold the text
         HBox messageBox = new HBox();
         HBox nameBox = new HBox();
@@ -165,7 +172,7 @@ public class chatPageController implements Initializable{
             messageP.setAlignment(Pos.CENTER_RIGHT);
             messagePane.setAlignment(Pos.CENTER_RIGHT);
 
-            FlowPane.setMargin(messageBox, new javafx.geometry.Insets(0, 0, 0, 20)); //
+            FlowPane.setMargin(messageBox, new javafx.geometry.Insets(0, 0, 0, 20)); 
         } else {
             messageText.setFill(Color.BLACK);
             name.setFill(Color.BLACK);
@@ -180,18 +187,36 @@ public class chatPageController implements Initializable{
             FlowPane.setMargin(messageBox, new javafx.geometry.Insets(0, 20, 0, 0));
         }
         
-
         return messagePane;
     }
 
     public void sentMessageAction(ActionEvent event) throws SQLException{
-        
-        Message m = Message.createMessage(User.getCurrentUser().getAccountType(), User.getCurrentUser().getId(), User.getCurrentReceiver().getAccountType(), User.getCurrentReceiver().getId(), messageTextField.getText());
+        User currentReceiver = User.getCurrentReceiver();
+        if (currentReceiver == null) {
+            System.out.println("Error: Current receiver is not set!");
+            return;
+        }
+
+        String text = messageTextField.getText();
+        if (text == null || text.isEmpty()) {
+            System.out.println("Error: Message text is empty!");
+            return;
+        }
+
+        User currentUser = User.getCurrentUser();
+        if (currentUser == null) {
+            System.out.println("Error: Current user is not set!");
+            return;
+        }
+
+        Message message = Message.createMessage(currentUser.getAccountType(), currentUser.getId(),
+                currentReceiver.getAccountType(), currentReceiver.getId(), text);
+
         messageTextField.setText("");
-        renderMessage(m);
+        renderMessage(message);
     }
 
-    
+    @Override
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         backButton.setOnAction(event -> {
@@ -209,6 +234,25 @@ public class chatPageController implements Initializable{
                 System.out.println("a");
             }
         });
+
+
+        try {
+            renderMessages();
+        } catch (SQLException e) {
+            
+            System.out.println("hello");
+        }
+
+        User currentReceiver = User.getCurrentReceiver();
+        if (currentReceiver != null) {
+            tutorNameText.setText(currentReceiver.getUsername());
+        } else {
+            tutorNameText.setText("No receiver selected");
+        }
+
+        //String receiver = User.getCurrentReceiver().getUsername();
+        //tutorNameText.setText(receiver);
     }
+
 
 }

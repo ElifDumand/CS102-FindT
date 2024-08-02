@@ -1,7 +1,5 @@
 package com.example;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -43,8 +41,9 @@ public abstract class User {
         User.currentUser = currentUser;
     }
 
-    public int getId() {
-        return id;
+    public int getId()
+    {
+        return this.id;
     }
 
     public void setId(int id) {

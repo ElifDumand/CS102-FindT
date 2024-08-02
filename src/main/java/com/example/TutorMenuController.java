@@ -27,12 +27,6 @@ public class TutorMenuController {
     private Button chatButtonTutor;
 
     @FXML
-    private Text mailText;
-
-    @FXML
-    private Text usernameText;
-
-    @FXML
     private Rectangle fri10;
 
     @FXML
@@ -220,6 +214,11 @@ public class TutorMenuController {
     @FXML
     public void initialize()
     {
+
+        User currentUser = User.getCurrentUser();
+        userMail.setText(currentUser.getEmail());
+        userName.setText(currentUser.getUsername());
+
         chatButtonTutor.setOnAction(event -> {
             try {
                 handleChatButtonTutor(event);

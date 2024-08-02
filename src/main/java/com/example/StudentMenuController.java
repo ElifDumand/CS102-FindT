@@ -173,7 +173,7 @@ public class StudentMenuController implements Initializable{
     @FXML
     private Rectangle rectangle6;
 
-    List<Tutor> recommend = fetchTutorsFromDatabase();
+   //List<Tutor> recommend = fetchTutorsFromDatabase();
 
     @FXML
     @Override
@@ -221,49 +221,41 @@ public class StudentMenuController implements Initializable{
         Rectangle[] rectangles = {rectangle1, rectangle2, rectangle3, rectangle4, rectangle5, rectangle6};
         Text[] messageTexts = {sendMessage1, sendMessage2, sendMessage3, sendMessage4, sendMessage5, sendMessage6};
 
-        for(Rectangle rectangle : rectangles)
-        {
-            rectangle.setOnMouseClicked(event -> {
-                try {
-                    handSendMessageRectangle(event);
-                } catch (IOException e) {
-                    e.printStackTrace(); 
-                }
-            });
-        }
 
-        for(Text message : messageTexts)
-        {
-            message.setOnMouseClicked(event -> {
-                try {
-                    handSendMessageRectangle(event);
-                } catch (IOException e) {
-                    e.printStackTrace(); 
-                }
-            });
-        }
-
-
-
-
+        List<Tutor> recommend = fetchTutorsFromDatabase();
         int size = Math.min(6, recommend.size());
 
         for (int idx = 0; idx < size; idx++) {
-            tutorNames[idx].setText(fetchTutorsFromDatabase().get(idx).getUsername());
-        }
-        for (int idx = 0; idx < size; idx++) {
-            courseNames[idx].setText(fetchTutorsFromDatabase().get(idx).getTutorSubject());
+            int finalidx = idx;
+            tutorNames[idx].setText(recommend.get(idx).getUsername());
+            courseNames[idx].setText(recommend.get(idx).getTutorSubject());
+            price[idx].setText("$" + recommend.get(idx).getTutorPrice());
+            messageTexts[idx].setOnMouseClicked(event -> {
+                try {
+                    User.setCurrentReceiver(recommend.get(finalidx));
+                    handSendMessageRectangle(event);
+                    
+                } catch (IOException e) {
+                    e.printStackTrace(); 
+                }
+            });
+            rectangles[idx].setOnMouseClicked(event -> {
+                try {
+                    User.setCurrentReceiver(recommend.get(finalidx));
+                    handSendMessageRectangle(event);
+                    
+                } catch (IOException e) {
+                    e.printStackTrace(); 
+                }
+            });
         }
         
-        for (int idx = 0; idx < size; idx++) {
-            price[idx].setText("$" + fetchTutorsFromDatabase().get(idx).getTutorPrice());
-        }
-
         setSyllabus(texts);
 
     }
 
     private void setSyllabus(Text[] syllabusTexts) {
+        List<Tutor> recommend = fetchTutorsFromDatabase();
         Map<String, String> syllabusMap = new HashMap<>();
         syllabusMap.put("Maths", "Limits,\nDerivatives,\nIntegrals");
         syllabusMap.put("Physics", "Kinematics, \nDynamics, \nEnergy");

@@ -331,7 +331,7 @@ public class searchPageController {
 					BorderPane chatBox = new BorderPane();
 					chatBox.setStyle("-fx-background-color: #493175; -fx-padding: 5px; -fx-background-radius: 5px;");
 					chatBox.setPrefWidth(400);
-					Text tutorInfo = new Text(tutor.getUsername() + " (" + tutor.getTutorPrice() + "$)");
+					Text tutorInfo = new Text(tutor.getUsername());
 					tutorInfo.setFont(new Font("Times New Roman", 16));
 					tutorInfo.setFill(Color.WHITE);
 					tutorInfo.setTextAlignment(TextAlignment.CENTER);

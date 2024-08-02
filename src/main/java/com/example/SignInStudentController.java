@@ -46,12 +46,15 @@ public class SignInStudentController {
         }
         ParentsAgeChoiceBox.getItems().addAll(parentAge);
 
-        Integer[] studentBirthYear = new Integer[40];
-        for(int i = 0; i < studentBirthYear.length; i++)
+        Integer[] studentAge = new Integer[43];
+        for(int i = 0; i < studentAge.length; i++)
         {
-            studentBirthYear[i] = i + 1980;
+            studentAge[i] = i + 7;
         }
-        StudentBirthyearChoiceBox.getItems().addAll(studentBirthYear);
+        StudentBirthyearChoiceBox.getItems().addAll(studentAge);
+
+        StudentBirthyearChoiceBox.setValue(14);
+        ParentsAgeChoiceBox.setValue(35);
 
         BackToLogInStudent.setOnAction(event -> {try {
             handleBackButton(event);
@@ -68,6 +71,8 @@ public class SignInStudentController {
         catch (SQLException e ) {
             e.printStackTrace();
         }});
+
+
 
     }
     @FXML

@@ -79,28 +79,33 @@ public class Message {
 
     }
     
-    public static ArrayList<Message> getMessages(String receiverType, int receiverId) throws SQLException {
-        ArrayList<Message> messages = new ArrayList<>();
-        String query = "SELECT * FROM messages WHERE receiver_type = ? AND receiverid = ?";
-    
-        try (Connection connection = Main.connect();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-    
-            statement.setString(1, receiverType);
-            statement.setInt(2, receiverId);
-            
-            try (ResultSet rs = statement.executeQuery()) {
-                while (rs.next()) {
-                    int messageId = rs.getInt("messageid");
-                    String senderType = rs.getString("sender_type");
-                    int senderId = rs.getInt("senderid");
-                    String body = rs.getString("messagebody");
-                    messages.add(new Message(messageId, senderType, senderId, receiverType, receiverId, body));
-                }
-            }
-        }
-        return messages;
+  public static ArrayList<Message> getMessages(int userId1, int userId2) throws SQLException {
+
+    ArrayList<Message> messages = new ArrayList<>();
+
+    Connection connection = Main.connect();
+    Statement statement = connection.createStatement();
+    String query = String.format(
+        "SELECT * FROM messages WHERE " +
+        "(senderid = %d AND receiverid = %d) OR (senderid = %d AND receiverid = %d) " +
+        "ORDER BY messageid DESC", userId1, userId2, userId2, userId1
+    );
+    ResultSet rs = statement.executeQuery(query);
+
+    while (rs.next()) {
+        int messageId = rs.getInt("messageid");
+        int senderId = rs.getInt("senderid");
+        String senderType = rs.getString("sender_type");
+        int receiverId = rs.getInt("receiverid");
+        String receiverType = rs.getString("receiver_type");
+        String body = rs.getString("messagebody");
+        messages.add(new Message(messageId, senderType, senderId, receiverType, receiverId, body));
     }
+
+    rs.close();
+    connection.close();
+    return messages;
+}
     
 
     public static List<Student> getChatsForTutor(int tutorid) throws SQLException {

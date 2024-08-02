@@ -89,8 +89,8 @@ public class chatPageController implements Initializable{
         messageTextField.setText("");
     }
 
-    public void renderMessages(String receiverType, int receiverId) throws SQLException {
-        ArrayList<Message> messages = Message.getMessages(receiverType, receiverId);
+    public void renderMessages(int userId1, int userId2) throws SQLException {
+        ArrayList<Message> messages = Message.getMessages(userId1, userId2);
         for (Message message : messages) {
             renderMessage(message);
         }
@@ -115,7 +115,7 @@ public class chatPageController implements Initializable{
             return;
         }
 
-        ArrayList<Message> messages = Message.getMessages(User.getCurrentUser().getAccountType(), User.getCurrentReceiver().getId());
+        ArrayList<Message> messages = Message.getMessages(User.getCurrentUser().getId(), User.getCurrentReceiver().getId());
         for (Message message : messages) {
             renderMessage(message);
         }

@@ -70,4 +70,10 @@ public class welcomePage extends Application {
         alert.setContentText("New password is invalid.");
         alert.showAndWait();
     }
+    public static void showInvalidAgeError() {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert .setContentText("Age is not valid");
+        alert.showAndWait();
+    }
 }

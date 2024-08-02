@@ -31,7 +31,18 @@ public class SignInStudentController {
     @FXML
     private Button createProfileButton;
     
-
+    public ChoiceBox<Integer> getStudentBirthyearChoiceBox() {
+        return StudentBirthyearChoiceBox;
+    }
+    public void setStudentBirthyearChoiceBox(ChoiceBox<Integer> studentBirthyearChoiceBox) {
+        StudentBirthyearChoiceBox = studentBirthyearChoiceBox;
+    }
+    public ChoiceBox<Integer> getParentsAgeChoiceBox() {
+        return ParentsAgeChoiceBox;
+    }
+    public void setParentsAgeChoiceBox(ChoiceBox<Integer> parentsAgeChoiceBox) {
+        ParentsAgeChoiceBox = parentsAgeChoiceBox;
+    }
     @FXML
     public void initialize()
     {
@@ -88,7 +99,10 @@ public class SignInStudentController {
         String password = StudentPasswordSignIn.getText();
         String email = StudentMail.getText();
 
-        if (username != null && password != null && email != null) {
+        if (getParentsAgeChoiceBox().getValue() < 18 || getStudentBirthyearChoiceBox().getValue() >2007){
+            welcomePage.showInvalidAgeError();
+        }
+        if (username != null && password != null && email != null ) {
             try 
             {
                 Student newStudent = Student.signUp(username, password, email);
